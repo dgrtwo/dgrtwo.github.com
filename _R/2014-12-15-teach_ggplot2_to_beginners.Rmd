@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Don't teach built-in plotting to beginners, teach ggplot2"
+title: "Don't teach built-in plotting to beginners (teach ggplot2)"
 description: "If you're teaching built-in plotting in your statistics class, you're doing it wrong."
 category: r
 tags: [r, education, ggplot2]
