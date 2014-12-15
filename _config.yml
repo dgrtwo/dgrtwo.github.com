@@ -2,7 +2,7 @@
 
 title:            Variance Explained
 locale:           en_US
-url:              http://localhost:4000
+url:              http://varianceexplained.org/
 
 name: Variance Explained
 description: Thoughts on statistics, data science, computational biology, education, and R
