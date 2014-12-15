@@ -21,11 +21,10 @@ knit_folder <- function(infolder, outfolder, figsfolder) {
     for (infile in list.files(infolder, pattern="*.Rmd", full.names=TRUE)) {
         pattern = "\\d\\d\\d\\d\\-\\d\\d\\-\\d\\d\\-"
         print(infile)
-        folder = ifelse(grepl(pattern, infile), outfolder, "pages")
-        
-        outfile = paste0(folder, "/", sub(".Rmd$", ".md", basename(infile)))
+        # folder = ifelse(grepl(pattern, infile), outfolder, "pages")
+        outfile = paste0(outfolder, "/", sub(".Rmd$", ".md", basename(infile)))
         print(outfile)
-                
+        
         # knit only if the input file is the last one modified
         if (!file.exists(outfile) |
                 file.info(infile)$mtime > file.info(outfile)$mtime) {
