@@ -1,9 +1,12 @@
 # Site wide configuration
 
-title:            Site Title
+title:            Variance Explained
 locale:           en_US
 url:              http://localhost:4000
 
+name: Variance Explained
+description: Thoughts on statistics, data science, computational biology, education, and R
+# url: http://varianceexplained.com
 
 # Jekyll configuration
 
@@ -26,12 +29,12 @@ kramdown:
 
 # Site owner
 owner:
-  name: Your Name
-  avatar: bio-photo.jpg
-  bio: "Describe your self."
-  email: 
+  name: David Robinson
+  avatar: david_robinson_picture.jpg
+  bio: "Computational biologist, data delver. Works in R and Python."
+  email: dgrtwo@princeton.edu
   disqus-shortname: 
-  twitter: #username
+  twitter: drob
   facebook: #username
   google:
     plus: #username
@@ -40,9 +43,9 @@ owner:
     ad-client: 
     ad-slot: 
   bing-verify: 
-  github: #username
-  stackoverflow: #http://stackoverflow.com/users/123456/username
-  linkedin: #username
+  github: dgrtwo
+  stackoverflow: 712603
+  linkedin: 
   instagram: #username
   lastfm: #username
   tumblr: #username
