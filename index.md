@@ -1,6 +1,6 @@
 ---
 layout: home
-excerpt: "Robinson on R"
+excerpt: "Blog on R, statistics, and education"
 tags: [blog]
 ---
 
