@@ -39,3 +39,8 @@ Links
 <a href="http://stackoverflow.com/users/712603/david-robinson">
 <img src="http://stackoverflow.com/users/flair/712603.png" width="208" height="58" alt="profile for David Robinson at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for David Robinson at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
 </a>
+
+About This Site
+=========
+
+This site is powered by [Jekyll](http://jekyllrb.com/) using the [Minimal Mistakes](http://mademistakes.com/minimal-mistakes/) theme. All blog posts are released under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
