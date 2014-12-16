@@ -45,7 +45,7 @@ plot(diamonds$carat, diamonds$price, col = diamonds$color,
     pch = as.numeric(diamonds$cut))
 {% endhighlight %}
 
-![center](/figs/2014-12-15-teach_ggplot2_to_beginners/basicplot-1.png) 
+![center](/figs/2014-12-16-teach_ggplot2_to_beginners/basicplot-1.png) 
 
 ### ggplot2
 
@@ -55,7 +55,7 @@ ggplot(diamonds, aes(carat, price, col = color, shape = cut)) +
     geom_point()
 {% endhighlight %}
 
-![center](/figs/2014-12-15-teach_ggplot2_to_beginners/ggplot2-1.png) 
+![center](/figs/2014-12-16-teach_ggplot2_to_beginners/ggplot2-1.png) 
 
 Why does it matter how the plot looks? **Because you're not just teaching students *how* to program in R, you're teaching them that they *should.*** Learning to program takes effort and investment, and the more compelling the figures you can create very early in the course, the more easily you can convince them it is worth the effort.
 
