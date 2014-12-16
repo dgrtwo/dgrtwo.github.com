@@ -3,10 +3,10 @@
 title:            Variance Explained
 locale:           en_US
 url:              http://varianceexplained.org
+# url:              http://localhost:4000
 
 name: Variance Explained
 description: Thoughts on statistics, data science, computational biology, education, and R
-# url: http://varianceexplained.com
 
 # Jekyll configuration
 
@@ -33,7 +33,7 @@ owner:
   avatar: david_robinson_picture.jpg
   bio: "Computational biologist, data delver. Works in R and Python."
   email: dgrtwo@princeton.edu
-  disqus-shortname: 
+  disqus-shortname: varianceexplained
   twitter: drob
   facebook: #username
   google:
