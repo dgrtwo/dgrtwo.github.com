@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "How to interpret a p-value histogram"
+modified: 2014-12-17
 description: "What anyone doing multiple hypothesis testing should know"
 category: statistics
 tags: [statistics]
@@ -128,6 +129,8 @@ qplot(pvals$conservative, binwidth=.05, xlab="P-values")
 Do *not* look at this distribution and say, "Oh, I guess I don't have any significant hypotheses." If you had no significant hypotheses, your p-values would look something like (B) above. P-values are specifically designed so that they are uniform under the null hypothesis.
 
 A graph like this indicates *something is wrong with your test.* Perhaps your test assumes that the data fits some distribution that it doesn't fit. Perhaps it's designed for continuous data while your data is discrete, or perhaps it is designed for normally-distributed data and your data is severely non-normal. In any case, this is a great time to find a friendly statistician to help you.
+
+(**Update 12/17/14**: Rogier in the comments helpfully notes another possible explanation: your p-values may have *already* been corrected for multiple testing, for example using the Bonferroni correction. If so, you might want to get your hands on the original, uncorrected p-values so you can view the histogram yourself and confirm it's well behaved!)
 
 Scenario E: Sparse p-values ("Hold on...")
 ---------------------------------
