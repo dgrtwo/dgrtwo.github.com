@@ -413,10 +413,12 @@ $button-size: 1.5rem;
 .article-wrap {
 	// Dotted line underlines for links
 	p > a,
+    p > em > a,
 	li > a {
 		text-decoration: underline;
 	}
 }
+
 .toc {
 	display: none;
 	font-size: 95%;
