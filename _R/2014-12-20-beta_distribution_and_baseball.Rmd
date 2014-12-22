@@ -42,7 +42,9 @@ sim <- data.frame(a = c(81, 82, 81 + 100),
 ```
 
 ```{r plot1, dependson = "setup"}
-sim %>% filter(a == 81) %>% ggplot(aes(x, y, color = Parameters)) + geom_line()
+sim %>% filter(a == 81) %>%
+    ggplot(aes(x, y, color = Parameters)) + geom_line() +
+    ylab("Density of beta")
 ```
 
 I came up with these parameters for two reasons:
@@ -59,7 +61,9 @@ $$\mbox{Beta}(\alpha_0+\mbox{hits}, \beta_0+\mbox{misses})$$
 Where $$\alpha_0$$ and $$\beta_0$$ are the parameters we started with- that is, 81 and 219. Thus, in this case, $$\alpha$$  has increased by 1 (his one hit), while $$\beta$$ has not increased at all (no misses yet). That means our new distribution is $$\mbox{Beta}(81+1, 219)$$. Let's compare that to the original:
 
 ```{r plot2, dependson = "setup"}
-sim %>% filter(a < 100) %>% ggplot(aes(x, y, color = Parameters)) + geom_line()
+sim %>% filter(a < 100) %>%
+    ggplot(aes(x, y, color = Parameters)) + geom_line() +
+    ylab("Density of beta")
 ```
 
 Notice that it has barely changed at all- the change is indeed invisible to the naked eye! (That's because one hit doesn't really mean anything).
@@ -67,7 +71,8 @@ Notice that it has barely changed at all- the change is indeed invisible to the 
 However, the more the player hits over the course of the season, the more the curve will shift to accommodate the new evidence, and furthermore the more it will narrow based on the fact that we have more proof. Let's say halfway through the season he has been up to bat 300 times, hitting 100 out of those times. The new distribution would be $$\mbox{beta}(81+100, 219+200)$$:
 
 ```{r plot3, dependson = "setup"}
-sim %>% ggplot(aes(x, y, color = Parameters)) + geom_line()
+sim %>% ggplot(aes(x, y, color = Parameters)) + geom_line() +
+    ylab("Density of beta")
 ```
 
 Notice the curve is now both thinner and shifted to the right (higher batting average) than it used to be- we have a better sense of what the player's batting average is.

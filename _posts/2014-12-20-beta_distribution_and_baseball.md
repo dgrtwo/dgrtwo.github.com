@@ -11,7 +11,7 @@ comments: true
 
 *Note: I originally published a version of this post as an answer to [this Cross Validated question](http://stats.stackexchange.com/a/47782/8373).*
 
-Some distributions, like the normal, the binomial, and the uniform, are described in statistics education alongside their real world interpretations and applications, which means beginner statisticians usually gain a solid understanding of them. But I've found that the [beta distribution](http://en.wikipedia.org/wiki/Beta_distribution) is rarely explained in these intuitive terms- if its usefulness is addressed at all, it's often with dense terms like "conjugate prior"" and "order statistic." This is a shame, because the intuition behind the beta is pretty cool.
+Some distributions, like the normal, the binomial, and the uniform, are described in statistics education alongside their real world interpretations and applications, which means beginner statisticians usually gain a solid understanding of them. But I've found that the [beta distribution](http://en.wikipedia.org/wiki/Beta_distribution) is rarely explained in these intuitive terms- if its usefulness is addressed at all, it's often with dense terms like "conjugate prior and "order statistic." This is a shame, because the intuition behind the beta is pretty cool.
 
 In short, the beta distribution can be understood as representing a probability distribution *of probabilities*- that is, it represents all the possible values of a probability when we don't know what that probability is. Here is my favorite explanation of this:
 
