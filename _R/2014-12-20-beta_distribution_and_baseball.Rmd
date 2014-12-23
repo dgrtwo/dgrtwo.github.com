@@ -44,7 +44,7 @@ sim <- data.frame(a = c(81, 82, 81 + 100),
 ```{r plot1, dependson = "setup"}
 sim %>% filter(a == 81) %>%
     ggplot(aes(x, y, color = Parameters)) + geom_line() +
-    ylab("Density of beta")
+    xlim(0, .5) + ylab("Density of beta")
 ```
 
 I came up with these parameters for two reasons:
@@ -63,7 +63,7 @@ Where $$\alpha_0$$ and $$\beta_0$$ are the parameters we started with- that is, 
 ```{r plot2, dependson = "setup"}
 sim %>% filter(a < 100) %>%
     ggplot(aes(x, y, color = Parameters)) + geom_line() +
-    ylab("Density of beta")
+    xlim(0, .5) + ylab("Density of beta")
 ```
 
 Notice that it has barely changed at all- the change is indeed invisible to the naked eye! (That's because one hit doesn't really mean anything).
@@ -72,7 +72,7 @@ However, the more the player hits over the course of the season, the more the cu
 
 ```{r plot3, dependson = "setup"}
 sim %>% ggplot(aes(x, y, color = Parameters)) + geom_line() +
-    ylab("Density of beta")
+    xlim(0, .5) + ylab("Density of beta")
 ```
 
 Notice the curve is now both thinner and shifted to the right (higher batting average) than it used to be- we have a better sense of what the player's batting average is.
