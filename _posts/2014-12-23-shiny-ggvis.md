@@ -1,6 +1,5 @@
 ---
 title: "Can R and ggvis help solve Serial's murder?"
-author: "David Robinson"
 description: "Creating an interactive visualization of the podcast Serial's infamous 'call log,' using ggvis."
 layout: post
 category: r
