@@ -45,4 +45,4 @@ About This Site
 
 This site is powered by [Jekyll](http://jekyllrb.com/) using the [Minimal Mistakes](http://mademistakes.com/minimal-mistakes/) theme. All blog posts are released under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
 
-All my blog posts are compiled with knitr; you can find the post sources [here](https://github.com/dgrtwo/dgrtwo.github.com/tree/master/_R).
+All blog posts are compiled with [knitr](http://yihui.name/knitr/) [R markdown](http://rmarkdown.rstudio.com/) using [this script](https://github.com/dgrtwo/dgrtwo.github.com/blob/master/_scripts/knitpages.R). You can find the reproducible sources of each blog post [here](https://github.com/dgrtwo/dgrtwo.github.com/tree/master/_R).
