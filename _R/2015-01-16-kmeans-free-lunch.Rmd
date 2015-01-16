@@ -111,7 +111,7 @@ points1$hclust_assignments <- points1 %>% dplyr::select(x, y) %>%
     cutree(2) %>% factor()
 
 ggplot(points1, aes(x, y, color = hclust_assignments)) + geom_point() +
-    xlab("hclust assignments")
+    labs(color = "hclust assignments")
 ```
 
 Nailed it! This is because single-linkage hierarchical clustering makes the *right* assumptions for this dataset. (There's a whole *other* class of situations where it fails).
