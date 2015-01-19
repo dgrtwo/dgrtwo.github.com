@@ -3,7 +3,7 @@ layout: post
 title: "K-means clustering is not a free lunch"
 description: "A response to a Cross Validated question, exploring the assumptions underlying the k-means algorithm."
 category: r
-og_image: http://varianceexplained.org/figs/2015-01-16-kmeans-free-lunch/hclust-1.png
+og_image: http://varianceexplained.org/figs/2015-01-16-kmeans-free-lunch/plot_kmeans-1.png
 tags: [r, statistics, education, ggplot2]
 comments: true
 ---
