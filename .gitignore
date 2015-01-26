@@ -23,3 +23,7 @@ _R/*files
 _R/*.html
 
 _config_local.yml
+
+courses/WS1014
+courses/WS1015/notes/*cache
+courses/WS1015/notes/*files
