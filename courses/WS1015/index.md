@@ -36,6 +36,7 @@ While you're encouraged to attend every session, you may be able to skip a sessi
 Other Links
 ----------------
 
+* [Attendance](http://goo.gl/forms/CHR8BUfrZq): Please enter your netID, along with the "codeword" given, at the start of each session
 * [R Error Message Cheat Sheet](errors/): contains some common R error messages. If you get an error while running a line that you expect to work (perhaps because you saw it on the screen), check these examples before you go to the Google docs. (In particular, check your spelling and capitalization carefully).
 * [Resources for future learning](/RData/resources/) A page of additional resources for learning R
 
