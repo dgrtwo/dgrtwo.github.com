@@ -48,8 +48,8 @@ Relevant Code
 
 You can download it using the following line of code:
 
-    load(url("http://dgrtwo.github.io/files/undata-213.RData"))
+    load(url("http://varianceexplained.org/courses/WS1015/files/undata-213.RData"))
 
 And load the descriptions dataset with:
 
-    load(url("http://dgrtwo.github.io/files/descriptions-213.RData"))
+    load(url("http://varianceexplained.org/courses/WS1015/files/descriptions-213.RData"))
