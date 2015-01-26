@@ -21,6 +21,7 @@ Ended up a few lines behind? Want to check that your spelling of the last line w
 Important Links
 ---------------
 
+* [Piazza](http://piazza.com/princeton/other/wintersession1014): Use this (requires registration) to ask questions with our co-instructor, Dima Gorenshteyn, during the session
 * [Attendance](http://goo.gl/forms/ydbLyuoOyz): Please enter your netID, along with the "codeword" given, at the start of each session
 * [R Error Message Cheat Sheet](/courses/errors): contains some common R error messages. If you get an error while running a line that you expect to work (perhaps because you saw it on the screen), check these examples before you go to the Google docs. (In particular, check your spelling and capitalization carefully).
 * [My online course](/RData/) A free online course I developed that includes videos and code transcripts for the material covered in this workshop and more
