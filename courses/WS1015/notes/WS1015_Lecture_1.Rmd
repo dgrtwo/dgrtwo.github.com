@@ -1,0 +1,318 @@
+---
+title: "Lesson 1: Tidy Data Manipulation I"
+author: "David Robinson"
+date: "January 26, 2015"
+output: pdf_document
+---
+
+```{r echo = FALSE}
+library(knitr)
+opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+```
+
+### Setup and Installation
+
+First you need to install the dplyr package:
+
+```{r eval = FALSE}
+install.packages("dplyr")
+```
+
+Then load it:
+
+```{r}
+library(dplyr)
+```
+
+You can see some great, detailed introductions and tutorials in the *vignettes*:
+
+```{r, eval = FALSE}
+browseVignettes("dplyr")
+```
+
+Cleaning Your Data
+------------------
+
+### United Nations voting data
+
+The UN voting data comes from [this page](http://thedata.harvard.edu/dvn/dv/Voeten/faces/study/StudyPage.xhtml?studyId=38311&studyListingIndex=0_dee53f12c760141b21c251525332)- it is otherwise entirely unchanged. You can download it as:
+
+```{r load_data_url, eval = FALSE}
+load(url("http://varianceexplained.org/courses/WS1015/files/undata-213.RData"))
+```
+
+```{r load_data, echo = FALSE}
+load("../files//undata-213.RData")
+```
+
+This loads the variables from the RData file into your workspace. What variable is it? You can use `ls()` to find what variables you currently have loaded:
+
+```{r}
+ls()
+```
+
+*Whatever you do, do not try printing `x`!* It is too big for R to print, and this will crash it! You can, however, display some basic summaries of it:
+
+```{r}
+dim(x)
+```
+
+You can even view it like a spreadsheet (it won't show the whole thing):
+
+```{r, eval = FALSE}
+View(x)
+```
+
+The dplyr package provides a way to change x's behavior so that if we accidentally print it, it won't ruin our day. This is the `tbl_df` class:
+
+```{r tbl_df}
+x <- tbl_df(x)
+class(x)
+x
+```
+
+Notice that it cuts off after a certain number of columns, and also a certain number of rows. However, it otherwise works just like a data.frame:
+
+```{r}
+head(x$rcid)
+head(x$session)
+```
+
+### Looking at the data's structure
+
+Now, let's look at the code book, which describes each of these columns. It can be downloaded from [this page](http://thedata.harvard.edu/dvn/dv/Voeten/faces/study/StudyPage.xhtml?studyId=38311&studyListingIndex=0_dee53f12c760141b21c251525332). Some of the things it shows are:
+
+* rcid: Roll call vote ID: each of these identifies one vote
+* session: One United Nations session: a year
+* unres: a UN resolution (there might be multiple votes per resolution)
+* vote: Coded vote:
+    * 1 = Yes
+    * 2 = Abstain
+    * 3 = No
+    * 8 = Absent
+    * 9 = Not a member
+* uniqueName: the name of the country
+
+Everything else is lots and lots of other ways of describing countries. For us, these are not important. 
+
+We can find out a bit more about the columns using summary:
+
+```{r}
+summary(x)
+```
+
+We can see how the roll call ID differs from the UN resolutions (turns out there can be more than one vote per resolution) by using `length` and `unique`:
+
+```{r}
+length(unique(x$rcid))
+length(unique(x$unres))
+```
+
+### dplyr: selecting columns
+
+dplyr provides functions for manipulating our data. We mentioned before that there are some columns we dont care about. dplyr provides the `select` function to extract the columns we want:
+
+```{r}
+select(x, rcid, session, date)
+select(x, rcid, session, date, unres, vote, uniquename)
+```
+
+You can also select multiple consecutive columns using `:`:
+ 
+```{r}
+select(x, rcid:uniquename)
+select(x, rcid:vote, uniquename)
+select(x, rcid:vote, country = uniquename)
+```
+
+or can remove specific columns with `-`:
+
+```{r}
+select(x, -rcid, -date, -session, -ccode)
+```
+
+### The `%>%` operator:
+
+Notice that the first argument to `select` is our data. That is true of all dplyr's functions. If we want to perform multiple operations, this becomes a hassle, because we're nesting function calls within function calls. But dplyr provides another way to write it:
+
+```{r}
+x %>% select(rcid:vote, country = uniquename)
+```
+
+The `%>%` operator, which is typically pronounced "then", lets us pipe together multiple steps of an analysis. But it's nothing more than a simple conversion:
+
+```{r, eval = FALSE}
+a %>% f(b, c)
+# becomes
+f(a, b, c)
+```
+
+```{r, eval = FALSE}
+a %>% f(b) %>% g(c, d, e)
+# becomes
+g(f(a, b), c, d, e)
+```
+
+Many data analyses consist of these consecutive operations. This makes the use of `%>%` very natural. So from now on we'll write them like:
+
+```{r, eval = FALSE}
+x %>% select(rcid:vote, country = uniquename)
+```
+
+### Filter: removing rows based on a condition
+
+Let's say we don't care about the Abstain or Absent votes. We can filter them out using another dplyr function, `filter`:
+
+```{r}
+x %>% select(rcid:vote, country = uniquename) %>%
+    filter(vote < 8)
+```
+
+*Recall* that this is just the same as:
+
+```{r}
+filter(select(x, rcid:vote, country = uniquename), vote < 8)
+```
+
+But it is already more readable.
+
+### Mutate: changing columns or adding new ones
+
+Right now, votes are represented as 1 (Yes), 2 (Abstain), 3 (No). Let's turn them into a factor.
+
+```{r}
+votes <- c("Yes", "Abstain", "No")
+x %>% select(rcid:vote, country = uniquename) %>%
+    filter(vote < 8) %>%
+    mutate(vote = factor(votes[vote]))
+```
+
+Secondly, you might be bothered that the country name, and the UN resolution, have quotes around them. The `stringr` package provides a function, `str_replace`, to replace letters in a string with another letter.
+
+```{r, dependson = "tbl_df"}
+library(stringr)
+
+x %>% select(rcid:vote, country = uniquename) %>%
+    filter(vote < 8) %>%
+    mutate(vote = factor(votes[vote]),
+           country = str_replace(country, '"', ''))
+```
+
+
+### Dividing date into year/month/day with tidyr's separate
+
+```{r eval = FALSE}
+install.packages(tidyr)
+```
+
+Right now, year, month and day are combined in the same variable, which limits the operations we can perform with them. Let's try separating them, using dplyr's `separate` operation.
+
+```{r}
+library(tidyr)
+
+x %>% select(rcid:vote, country = uniquename) %>% filter(vote < 8) %>%
+    mutate(vote = factor(votes[vote]), country = gsub('"', '', country)) %>%
+    separate(date, c("year", "month", "day"))
+```
+
+Right now, `year`, `month` and `day` are all character vectors. We want them to be numbers. That's handled by the `convert` argument of `separate`. This time, let's save it into a data frame called `votes`:
+
+```{r}
+votes <- x %>% select(rcid:vote, country = uniquename) %>%
+    filter(vote < 8) %>%
+    mutate(vote = factor(votes[vote]), country = gsub('"', '', country)) %>%
+    separate(date, c("year", "month", "day"), convert = TRUE)
+```
+
+*This* will be the final version of our `votes` data- we've processed the columns and given them reasonable names. Now we can get to the actually interesting operations.
+
+Exploratory Data Analysis
+--------------------------
+
+Now that we have the data in the format we want, we can start actually exploring it to answer questions.
+
+### Grouping and Summarizing
+
+An essential operation in data science is the "split-apply-combine" pattern (described [here](TODO)). This breaks up your data into smaller subgroups, performs some analysis on them, and then recombines the results.
+
+This operation by itself doesn't do anything except record, inside the `votes` table, that we're grouping by that variable:
+
+```{r}
+votes %>% group_by(year)
+```
+
+But when we apply the `summarize` operation later, that operation takes that grouping variable into account, and performs summaries within each `year`:
+
+```{r votesumm_1}
+votesumm <- votes %>% group_by(year) %>%
+    summarize(numvotes = n())
+votesumm
+```
+
+Notice there is now one line per year (the original group), containing a new variable, `numvotes`, with the number of votes in that year.
+
+To see why this might be useful, try using `ggplot2` to make a graph of votes per year:
+
+```{r dependson = "votesumm_1"}
+library(ggplot2)
+ggplot(votesumm, aes(year, numvotes)) + geom_line()
+```
+
+You can see that summarizing within each group makes it easy to produce graphs like these. But that's a pretty simple plot. Let's collect more information per year, and plot that. For starters, we could see how the proportion of countries that vote "Yes" on a resolution (a sort of measure of "general agreement") changes from year to year.
+
+```{r votesumm_yes}
+votesumm <- votes %>% group_by(year) %>%
+    summarize(numvotes = n(), yes = mean(vote == "Yes"))
+
+ggplot(votesumm, aes(year, yes)) + geom_line()
+```
+
+Throw in a trend line with `geom_smooth`:
+
+```{r dependson = "votesumm_yes"}
+ggplot(votesumm, aes(year, yes)) + geom_line() + geom_smooth()
+```
+
+Now, that's about as interesting as we can get while grouping by year. Let's get more interesting and group within *years and countries*. Do this by adding a second variable to the `group_by` 
+
+```{r votesumm}
+votesumm <- votes %>% group_by(year, country) %>%
+    summarize(numvotes = n(), yes = mean(vote == "Yes"))
+```
+
+Notice that there is now one row for each *year-country pair*.
+
+What countries are there to work with? Some of them may have names we're not used to. Here's a trick to visualize them:
+
+```{r}
+sort(unique(votesumm$country))
+```
+
+Let's grab out a few that might interest us. (Note that the "U.S.S.R." turned into the "Russian Federation" starting in 1992).
+
+```{r}
+interesting_countries <- c("United States of America", "U.S.S.R.", "United Kingdom", "Russian Federation")
+interesting <- votesumm %>% filter(country %in% interesting_countries)
+```
+
+Now that we've filtered for these countries, we can plot their "% Yes" metric separately over time. Here's two ways (of many) you can do this- separating countries by color and by facets (sub-plots):
+
+```{r}
+ggplot(interesting, aes(year, yes, color = country)) + geom_point() +
+    geom_smooth()
+ggplot(interesting, aes(year, yes)) + geom_point() +
+    geom_smooth() +
+    facet_wrap(~ country)
+```
+
+We can already pick out and start interpreting trends based on these four plots, of how each countries level of agreement with the UN's resolutions changed over time.
+
+Next Time
+----------
+
+In the next lecture we'll continue diving into this data as an example of a tidy data analysis. We'll learn:
+
+* How to merge this data with a different dataset that describes the topic and importance of each resolution, and create graphs based on these topics
+* How to turn un-tidy data into tidy data using [tidyr](https://github.com/hadley/tidyr)
+* How to perform an analysis, such as a regression or spline, within each country using the [broom](https://github.com/dgrtwo/broom) package
+* How to cluster countries by similarity in voting patterns, and construct heatmaps and trees
