@@ -17,6 +17,7 @@ R Live Feed
 Ended up a few lines behind? Want to check that your spelling of the last line was correct? No problem: these pages contain the live contents of the files that are being written and executed on the screen. They're synced by Dropbox and may take a few seconds to get up to date.
  
 * [Lesson 1: Variables and Data Structures (Monday)](https://www.dropbox.com/s/iguarzrdlr4hvqm/WS1014_Lesson1.R?dl=1):
+* [Lesson 2: Visualizing Data Using ggplot2 (Wednesday)](https://www.dropbox.com/s/uildugxebs4p7l6/WS1014_Lesson2.txt?dl=0)
 
 Important Links
 ---------------
