@@ -19,6 +19,7 @@ R Live Feed
 Ended up a few lines behind? Want to check that your spelling of the last line was correct? No problem: these pages contain the live contents of the file that's being written and executed on the screen. They are synced by Dropbox and may take a few seconds to get up to date. They'll be left up after the class as a record of the code used.
 
 * [Lecture 1: Tidy Data Manipulation I (Monday)](https://www.dropbox.com/s/gjz5j61jpldktpy/WS1015_Lesson1.R?dl=1)
+* [Lecture 2: Tidy Data Manipulation II (Wednesday)](https://www.dropbox.com/s/p16kvtdfx8ob69y/WS1015_Lesson2.txt?dl=0)
 
 R Lecture Notes
 ---------------
