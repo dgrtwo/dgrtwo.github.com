@@ -44,3 +44,5 @@ Relevant Code
 You can download it using the following line of code:
 
     load(url("http://varianceexplained.org/courses/WS1015/files/undata-213.RData"))
+
+Note that the codebook with the description of the data can be found [here](http://thedata.harvard.edu/dvn/dv/Voeten/faces/study/StudyPage.xhtml?globalId=hdl:1902.1/12379).
