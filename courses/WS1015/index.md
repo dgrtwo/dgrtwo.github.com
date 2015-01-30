@@ -14,6 +14,11 @@ Please make sure to complete the following *before* coming to lecture:
 * **Install the latest version of R** (3.1.2), which can be done [here](http://lib.stat.cmu.edu/R/CRAN/). If you already have R installed, make sure your version is **at least 3.1.2**.
 * **Install RStudio**, which can be found [here](http://www.rstudio.com/). *Make sure you can open the application,* and have it ready at the start of the session.
 
+Course Evaluation
+----------------
+
+* [Course Evaluation](https://docs.google.com/forms/d/1aq9LmPZYnSymkpLOWXCJpA3C0b7cKnEHUPhArzQzXds/viewform?usp=send_form): Completely anonymous; takes 2-4 minutes. **Please take it!**
+
 R Live Feed
 ---------------
 Ended up a few lines behind? Want to check that your spelling of the last line was correct? No problem: these pages contain the live contents of the file that's being written and executed on the screen. They are synced by Dropbox and may take a few seconds to get up to date. They'll be left up after the class as a record of the code used.
