@@ -9,7 +9,7 @@ tags: [r, lesson]
 Welcome to Wintersession 1014, **Data Analysis and Visualization Using R**. The course takes place on **Mon/Wed/Fri 1/26-30, from 1:30-3 PM, in McCosh 10.** Please make sure to complete the following *before* coming to lecture:
 
 * Bring a **fully charged laptop**,
-* **Install the latest version of R** (3.1.2), which can be done [here](http://lib.stat.cmu.edu/R/CRAN/). If you already have R installed, make sure your version is the same one (3.1.2), and if it's not, upgrade!
+* **Install the latest version of R** (3.1.2), which can be done [here](http://lib.stat.cmu.edu/R/CRAN/). If you already have R installed, make sure your version is the newest one (3.1.2), and if it's not, upgrade!
 * **Install RStudio**, which can be found [here](http://www.rstudio.com/). *Make sure you can open the application,* and have it ready at the start of the session.
 
 Course Evaluation
@@ -23,6 +23,7 @@ Ended up a few lines behind? Want to check that your spelling of the last line w
  
 * [Lesson 1: Variables and Data Structures (Monday)](https://www.dropbox.com/s/iguarzrdlr4hvqm/WS1014_Lesson1.R?dl=1):
 * [Lesson 2: Visualizing Data Using ggplot2 (Wednesday)](https://www.dropbox.com/s/uildugxebs4p7l6/WS1014_Lesson2.txt?dl=0)
+* [Lesson 3: Exploratory Data Analysis Using dplyr](https://www.dropbox.com/s/qfc3hae5c1m38xb/WS1014_Lesson3.txt?dl=0)
 
 Important Links
 ---------------
