@@ -30,6 +30,7 @@ Ended up a few lines behind? Want to check that your spelling of the last line w
   * [code](https://www.dropbox.com/s/zfrm4rwy9msz64t/WS1015_Lesson4.Rmd?dl=0)
   * [html output](https://www.dropbox.com/s/90r0nydzo8ksn68/WS1015_Lesson4.html?dl=0)
   * [pdf output](https://www.dropbox.com/s/9xt6040ehrq2lpz/WS1015_Lesson4.pdf?dl=0)
+* [Lecture 5: Web scraping with rvest](https://www.dropbox.com/s/b3mzvrd78t8xl9a/WS1015_Lecture_5.txt?dl=0)
 
 R Lecture Notes
 ---------------
