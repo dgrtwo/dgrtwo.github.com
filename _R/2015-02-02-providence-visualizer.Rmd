@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "What kind of programmer are you? Stack Exchange can predict it, Shiny can graph it"
-excerpt: "A Shiny visualization for personalized data from Stack Exchange's machine learning system Providence"
+description: "A Shiny visualization for personalized data from Stack Exchange's machine learning system Providence"
 category: r
 tags: [r, visualization, statistics]
 comments: true
