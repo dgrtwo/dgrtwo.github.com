@@ -15,9 +15,7 @@ The only thing missing from this report is a way to visualize these predictions.
 
 Let's see, for instance, how Stack Exchange did at profiling me:
 
-<center>
 ![My developer profile](http://varianceexplained.org/images/my_providence.png)
-</center>
 
 It got the StatsOrMathBackground right, and I can see how my Python and Django activity means I fit the profile of a web developer. I'm not sure why my MajorDeveloperKinds was 2/3 "Web" and 1/3 "Mobile" (when between those three options I certainly fit "Other"" the most), but it's certainly food for thought.
 
