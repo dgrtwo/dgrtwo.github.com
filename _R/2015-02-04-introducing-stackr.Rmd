@@ -1,0 +1,89 @@
+---
+layout: post
+title: "Introducing stackr: An R package for querying the Stack Exchange API"
+description: "An example analysis of a Stack Overflow user (me) in R"
+category: r
+tags: [r, package]
+comments: true
+---
+
+```{r, echo = FALSE}
+library(knitr)
+opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+```
+
+There's no end of interesting data analyses that can be performed with Stack Overflow and the Stack Exchange network of Q&A sites. [Earlier this week](http://varianceexplained.org/r/providence-visualizer/) I posted a Shiny app that visualizes the personalized prediction data from their machine learning system, [Providence](http://kevinmontrose.com/2015/01/27/providence-machine-learning-at-stack-exchange/). I've also [looked at whether high-reputation users were decreasing their answering activity over time](http://meta.stackoverflow.com/questions/252756/), using data from the [Stack Exchange Data Explorer](http://data.stackexchange.com/).
+
+One issue is that each of these approaches requires working outside of R to obtain the data (in the case of the Data Explorer, it also requires knowledge of SQL). I've thus created the [stackr](https://github.com/dgrtwo/stackr) package, which can query the [Stack Exchange API](https://api.stackexchange.com/) to obtain information on questions, answers, users, tags, etc, and converts the output into an R data frame that can easily be manipulated, analyzed, and visualized. (Hadley Wickham's [httr](http://cran.r-project.org/web/packages/httr/index.html) package, along his [terrific guide for writing an API package](http://cran.r-project.org/web/packages/httr/vignettes/api-packages.html), helped a lot!) `stackr` provides the tools to perform analyses of a particular user, of recently asked questions, of a particular tag, or of other facets of the site.
+
+The package is straightforward to use. Every function starts with `stack_`: `stack_answers` to query answers, `stack_questions` for questions, `stack_users`, `stack_tags`, and so on. Each output is a data frame, where each row represents one object (an answer, question, user, etc). The package also provides features for sorting and filtering results in the API: almost all the features available in the API itself. Since the API has an upper limit of returning 100 results at a time, the package also handles pagination so you can get as many results as you need.
+
+## Example: answering activity
+
+Here I'll show an example of using the `stackr` package to analyze an individual user. We'll pick one at random: eeny, meeny, miny... [me](http://stackoverflow.com/users/712603/david-robinson). (OK, that might not have been random). Stack Overflow provides many summaries and analyses on that profile already, but the `stackr` package lets us bring the data seamlessly into R so we can analyze it however we want. Extracting all of my answers is done using the `stack_users` function with the extra argument `"answers"`. We'll take advantage of `stackr`'s pagination feature, and turn the result into a `tbl_df` from [dplyr](https://github.com/hadley/dplyr) so that it prints more reasonably:
+
+```{r stack_users_answers}
+library(stackr)
+library(dplyr)
+answers <- stack_users(712603, "answers", num_pages = 10, pagesize = 100)
+answers <- tbl_df(answers)
+answers
+```
+
+This lets me find out a lot about myself: for starters, that I've answered `r nrow(answers)` questions. What percentage of my answers were accepted by the asker?
+
+```{r dependson = "stack_users_answers"}
+mean(answers$is_accepted)
+```
+
+And what is the distribution of scores my answers have received?
+
+```{r plot_scores, dependson = "stack_users_answers"}
+library(ggplot2)
+ggplot(answers, aes(score)) + geom_histogram(binwidth = 1)
+```
+
+How has my answering activity changed over time? To find this out, I can use dplyr to count the number of answers per month and graph it:
+
+```{r plot_over_time, dependson = "stack_users_answers"}
+library(lubridate)
+
+answers %>% mutate(month = round_date(creation_date, "month")) %>%
+    count(month) %>%
+    ggplot(aes(month, n)) + geom_line()
+```
+
+Well, it looks like my activity has been decreasing over time ([though I already knew that](http://meta.stackoverflow.com/questions/252756/)). How about how my answering activity changes over the course of a day?
+
+```{r plot_over_day, dependson = "stack_users_answers"}
+answers %>% mutate(hour = hour(creation_date)) %>%
+    count(hour) %>%
+    ggplot(aes(hour, n)) + geom_line()
+```
+
+(Note that the times are in my own time zone, EST). Unsurprisingly, I answer more during the day than at night, but I've still done some answering even around 4-6 AM. You can also spot two conspicuous dips: one at 12 when I eat lunch, and one at 6 when I take the train home from work.
+
+(If that's not enough invasion of my privacy, you could look at my commenting activity with `stack_users(712603, "comments", ...)`, but it generally shows the same trends).
+
+### Top tags
+
+The API also makes it easy to extract the tags I've most answered, which is another handy way to extract and visualize information about my answering activity:
+
+```{r top_tags}
+top_tags <- stack_users(712603, "top-answer-tags", pagesize = 100)
+head(top_tags)
+
+top_tags %>% mutate(tag_name = reorder(tag_name, -answer_score)) %>%
+    head(20) %>%
+    ggplot(aes(tag_name, answer_score)) + geom_bar(stat = "identity") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+We could also view it using the [wordcloud](http://cran.r-project.org/web/packages/wordcloud/wordcloud.pdf) package:
+
+```{r stack_wordcloud, dependson = "top_tags"}
+library(wordcloud)
+wordcloud(top_tags$tag_name, top_tags$answer_count)
+```
+
+This is just scratching the surface of the information that the API can retrieve. Hopefully the `stackr` package will make possible other analyses, visualizations, and Shiny apps that help understand and interpret Stack Exchange data.
