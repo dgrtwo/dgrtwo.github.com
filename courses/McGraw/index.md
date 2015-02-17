@@ -1,12 +1,12 @@
 ---
 layout: page
-title: "Statistical Programming With R"
-description: "Statistical Programming With R Website"
+title: "Statistical Computing with R"
+description: "Statistical Computing with R Website"
 category: r
 tags: [r, lesson]
 ---
 
-Welcome to *Statistical Programming With R*.
+Welcome to *Statistical Computing with R*.
 
 Please make sure to complete the following *before* coming to lecture:
 
@@ -18,7 +18,7 @@ R Live Feed
 ----------------
 Ended up a few lines behind? Want to check that your spelling of the last line was correct? No problem: these pages contain the live contents of the files that are being written and executed on the screen. They're synced by Dropbox and may take a few seconds to get up to date.
  
-* [Lesson 1: Basic R and Visualization](https://www.dropbox.com/s/qehj8y1v0qlec5y/lesson1.txt?dl=0):
+* [Lesson 1: Basic R and Visualization](https://www.dropbox.com/s/qehj8y1v0qlec5y/lesson1.txt?dl=0) (Tuesday, February 17th)
 
 Important Links
 ---------------
