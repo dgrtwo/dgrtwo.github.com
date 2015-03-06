@@ -11,6 +11,8 @@ Almost everyone with an R package in CRAN wonders how often it's installed and u
 
 To make plotting a package's downloads even easier, I've used that API to create a [Shiny app](https://dgrtwo.shinyapps.io/cranview/)! Simply type in any package in CRAN, select the amount of time you want to graph over, and voila:
 
+<a href="https://dgrtwo.shinyapps.io/cranview/">
 ![Downloads of Shiny over time](http://varianceexplained.org/images/shiny_downloads.png)
+</a>
 
 [You can find the code for the app here](https://github.com/dgrtwo/cranview). Enjoy!
