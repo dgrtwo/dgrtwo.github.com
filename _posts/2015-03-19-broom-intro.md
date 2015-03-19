@@ -2,6 +2,7 @@
 layout: post
 title: "broom: a package for tidying statistical models into data frames"
 description: "Introducing a package that turns statistical objects from R into tidy data frames that can be used with packages like dplyr and ggplot2."
+time: "T15:00:00-00:00"
 category: r
 tags: [r, statistics, tidy, broom]
 comments: true
