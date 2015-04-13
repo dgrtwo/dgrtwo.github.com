@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Slides from my talk on the broom package"
-author: "David Robinson"
 description: "Slides and some highlights from my talk on the broom package at UP-STAT 2015."
 date: 2015-04-13 12:00:00 -0400
 output: html_document
