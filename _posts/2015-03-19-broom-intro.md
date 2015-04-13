@@ -4,6 +4,7 @@ title: "broom: a package for tidying statistical models into data frames"
 description: "Introducing a package that turns statistical objects from R into tidy data frames that can be used with packages like dplyr and ggplot2."
 date: 2015-03-19 15:00:00 -0400
 category: r
+og_image: http://varianceexplained.org/images/broom_slides/broom_slides.002.jpg
 tags: [r, statistics, tidy, broom]
 comments: true
 ---
