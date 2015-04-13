@@ -5,6 +5,7 @@ author: "David Robinson"
 description: "Slides and some highlights from my talk on the broom package at UP-STAT 2015."
 date: 2015-04-13 12:00:00 -0400
 output: html_document
+og_image: http://varianceexplained.org/images/broom_slides/broom_slides.002.jpg
 category: r
 tags: [r, statistics, tidy, broom]
 comments: true
