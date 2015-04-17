@@ -12,6 +12,8 @@ Software
 
 * [broom](http://github.com/dgrtwo/broom): an R package for converting messy model outputs to a tidy format, for use with tools such as [dplyr](http://github.com/hadley/dplyr) and [tidyr](http://github.com/hadley/tidyr).
 * [subSeq](http://github.com/StoreyLab/subSeq): Subsample reads from an RNA-Seq experiment to determine if it has sufficient depth.
+* [stackr](https://github.com/dgrtwo/stackr): R package for connecting to the Stack Exchange API.
+* [snippr](https://github.com/dgrtwo/snippr): R package for managing, sharing, and installing [RStudio code snippets](http://blog.rstudio.org/2015/04/13/rstudio-v0-99-preview-code-snippets/).
 * [ParsePy](https://github.com/dgrtwo/ParsePy): a Python API client for the [Parse](https://parse.com/) mobile backend.
 * [gleam](http://github.com/dgrtwo/gleam): Python package for building interactive online visualizations without web programming.
 * [OASIS](https://github.com/dgrtwo/OASIS): Python package for annotating insertion sequences in prokaryotic genomes.
