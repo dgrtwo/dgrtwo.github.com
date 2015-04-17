@@ -31,7 +31,11 @@ After many repetitions, I thought "there *must* be a better way." I discovered t
 
 I was inspired to share this confession by [today's XKCD comic](http://xkcd.com/1513/) about "Code Quality":
 
+<div style="margin-bottom: 20px;"/>
+
 ![XKCD: Code Quality](http://imgs.xkcd.com/comics/code_quality.png)
+
+<div style="margin-bottom: 20px;"/>
 
 The whole comic is rather mean-spirited- the experienced programmer doesn't provide any helpful advice, just hyperbolic analogies. But what strikes me most is how unrealistic that last line is: **"*Okay*, I'll read a style guide."** Would you react that way, if someone had been so rude to you? Isn't a more likely response "Well, that's the last time I show you my code," or even "Well, I guess I shouldn't be programming at all"?
 
