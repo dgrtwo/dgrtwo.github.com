@@ -1,0 +1,49 @@
+---
+layout: post
+title: "A Million Lines of Bad Code"
+description: "A confession, and a plea, about 'code-shaming'."
+date: 2015-04-17 3:00:00 -0400
+output: html_document
+category: programming
+tags: [programming]
+comments: true
+---
+
+This is the story of some bad code I wrote.
+
+Early in my undergraduate days, I was working on a Java program that had to read a 6 MB file (a bacterial genome in [FASTA format](http://en.wikipedia.org/wiki/FASTA_format)) into a string. I did this with a for loop that on each iteration concatenated on to a string. It looked something like:
+
+    BufferedReader reader = new BufferedReader( new FileReader (file));
+    String line = null;
+    String text = "";
+
+    while( ( line = reader.readLine() ) != null ) {
+        text = text + line;
+    }
+
+Building a string with a series of concatenations like this is *extremely* inefficient, meaning it took (no exaggeration) 40 minutes to read the file ([here are a few better ways to do it](http://stackoverflow.com/questions/326390/how-to-create-a-java-string-from-the-contents-of-a-file)). And this was a program that, once it had read the file, took maybe 10 seconds to run. For two days I actually worked that way: I'd make a change to the code, start the program running, and watch an entire episode of LOST while I waited. "Argh, made a mistake on line 12! Start again."
+
+After many repetitions, I thought "there *must* be a better way." I discovered that I could write a loop in Perl that would read the genome in less than one second. (I wasn't any better at Perl than I was at Java, I just got lucky). So I wrote a Perl script that read in the file, combined it, and printed it out as a single line. Then I had my Java program *call the Perl script* through the command line, capture the printed output, and save that as the string.
+
+**If I still had that program, I would post it on my wall to ensure I never shame someone about their "bad code."**
+
+### Code Shaming
+
+I was inspired to share this confession by [today's XKCD comic](http://xkcd.com/1513/) about "Code Quality":
+
+![XKCD: Code Quality](http://imgs.xkcd.com/comics/code_quality.png)
+
+The whole comic is rather mean-spirited- the experienced programmer doesn't provide any helpful advice, just hyperbolic analogies. But what strikes me most is how unrealistic that last line is: **"*Okay*, I'll read a style guide."** Would you react that way, if someone had been so rude to you? Isn't a more likely response "Well, that's the last time I show you my code," or even "Well, I guess I shouldn't be programming at all"?
+
+This is exactly how you end up with crises of [reproducible research in science](http://simplystatistics.org/tag/reproducible-research/). There are many reasons scientists publish papers without sharing their code (none of them defensible), but high on the list is embarrassment: "my code is too ugly to share." **Code shamers aren't helping!**
+
+### A Million Lines of Bad Code
+
+There's a [popular piece of writing advice](http://kidlit.com/2009/11/02/a-million-bad-words/) that has many variations, but usually goes something like: **"Everyone has a million bad words in them. Only once they've written those million words can they start writing well. So get writing!"**
+
+I was reminded of this by some insightful conversations on Twitter about the above XKCD:
+
+<blockquote class="twitter-tweet" lang="en"><p>The only way to write good code is to write tons of shitty code first. Feeling shame about bad code stops you from getting to good code</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/589068687669243905">April 17, 2015</a></blockquote>
+<script async src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+If you're an experienced programmer and you're tempted to code-shame someone, **try thinking back to your own million lines of bad code.** Imagine someone had mocked you then, the way I'd like to mock myself for my Perl/Java "solution". Would you have continued asking for help? Would you have ever gotten through your million lines?
