@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Yes, There is Such a Thing as a Stupid Question"
-description: "There are stupid questions, but they're not what you're thinking of."
+title: "Yes, There is Such a Thing as a Bad Question"
+description: "There are bad questions, but they're not what you're thinking of."
 date: 2015-06-08 3:00:00 -0400
 category: programming
 tags: [programming]
@@ -10,21 +10,21 @@ comments: true
 
 I spend a lot of time answering questions on the programming Q&A site [Stack Overflow](http://stackoverflow.com/). The site is fairly notorious for its strict rules on what kind of questions can be asked, with questions that don't meet these guidelines getting swiftly [closed](http://meta.stackexchange.com/questions/10582/what-is-a-closed-or-on-hold-question). (Incidentally, I would credit this policy for much of the site's success).
 
-This strict policy is not universally beloved (to say the least). A common refrain among disgruntled users is "How can you say my question was bad? Everyone knows **there are no stupid questions!**"
+This strict policy is not universally beloved (to say the least). A common refrain among disgruntled users is "How can you say my question was bad? Everyone knows **there are no bad questions!**"
 
-I have to disagree, not only with the criticism of the site, but with the aphorism in general. There *are* stupid questions- but they're not what you're thinking of.
+I have to disagree, not only with the criticism of the site, but with the aphorism in general. There *are* bad questions- but they're not what you're thinking of.
 
 ### A Good Question
 
-When people say "there are no stupid questions," what they're defending is typically something like:
+When people say "there are no bad questions," what they're defending is typically something like:
 
 > What is 2 + 2?
 
 That is, they're saying "no question is too easy." And this comes from a good educational impulse. If you say a question is "too easy," you're failing as a teacher, and you're mocking your student for the gaps in their knowledge rather than filling them in.
 
-*But this is not what I mean by "stupid questions."* Sure, "What is 2 + 2" shows a certain lack of research effort. But it's clear and direct: it's something I could answer, and it's something I could teach. I have no interest in calling an asker "stupid" for not knowing something. (See [A Million Lines of Bad Code](http://varianceexplained.org/programming/bad-code/) for more on this topic).
+*But this is not what I mean by "bad questions."* Sure, "What is 2 + 2" shows a certain lack of research effort. But it's clear and direct: it's something I could answer, and it's something I could teach. I have no interest in calling out an asker for not knowing something. (See [A Million Lines of Bad Code](http://varianceexplained.org/programming/bad-code/) for more on this topic).
 
-So what *are* stupid questions?
+So what *are* bad questions?
 
 ### Question is Wrong
 
@@ -74,4 +74,4 @@ But someone asking a question is also making an imposition- they're expecting so
 * They should make sure they're on-topic (and not asking a question inappropriate for the context)
 * They should actually be *asking a question* (and not taking advantage of the platform to rant, or show off)
 
-When askers don't put in this effort, what they end up with is a "stupid question." And once they recognize that, they can start making it a good one!
+When askers don't put in this effort, what they end up with is a "bad question." And once they recognize that, they can start making it a good one!
