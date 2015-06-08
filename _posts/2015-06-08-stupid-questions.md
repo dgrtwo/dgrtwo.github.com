@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Yes, There is Such a Thing as a Stupid Question"
-author: "David Robinson"
 description: "There are stupid questions, but they're not what you're thinking of."
 date: 2015-06-08 3:00:00 -0400
 category: programming
