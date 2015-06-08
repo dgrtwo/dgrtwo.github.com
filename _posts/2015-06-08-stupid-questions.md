@@ -46,6 +46,7 @@ This question is impossible to answer because it does not provide enough informa
 ### Off-Topic
 
 > "911, what is your emergency?"
+> 
 > "What is 2 + 2?"
 
 In this case, the question itself may not be bad. It is the context that makes it inappropriate. You shouldn't go up to the microphone at a public Q+A of a politician and ask how you should fix your car, or whether you should give up gluten. (Judging from some of the public Q+A's I've seen, this is not a universally shared opinion).
