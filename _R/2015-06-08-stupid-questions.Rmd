@@ -9,7 +9,7 @@ tags: [programming]
 comments: true
 ---
 
-I spend a lot of time answering questions on the programming Q&A site [Stack Overflow](http://stackoverflow.com/). The site is fairly notorious for its strict rules on what kind of questions can be asked, with questions that don't meet these guidelines getting swiftly closed. (Incidentally, I would credit this policy for much of the site's success).
+I spend a lot of time answering questions on the programming Q&A site [Stack Overflow](http://stackoverflow.com/). The site is fairly notorious for its strict rules on what kind of questions can be asked, with questions that don't meet these guidelines getting swiftly [closed](http://meta.stackexchange.com/questions/10582/what-is-a-closed-or-on-hold-question). (Incidentally, I would credit this policy for much of the site's success).
 
 This strict policy is not universally beloved (to say the least). A common refrain among disgruntled users is "How can you say my question was bad? Everyone knows **there are no stupid questions!**"
 
