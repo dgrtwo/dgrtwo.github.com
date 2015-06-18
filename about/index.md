@@ -5,7 +5,7 @@ tags: [about]
 comments: false
 ---
 
-I am a fifth-year PhD student in the [Storey Lab](http://www.genomine.org/) within the [Quantitative and Computational Biology](http://www.princeton.edu/qcbgrad/) program at Princeton University. My interests include bioinformatics (especially genomics), statistics, data analysis, education, and programming in R and Python.
+I am a Data Scientist at [Stack Exchange](http://stackexchange.com/) (the host of popular Q&A networks such as [Stack Overflow](http://stackoverflow.com/)). In May 2015 I received my PhD in [Quantitative and Computational Biology](http://www.princeton.edu/qcbgrad/) from Princeton University, where I worked with Professor [John Storey](http://www.genomine.org/). My interests include statistics, data analysis, genomics, education, and programming in R and Python.
 
 Software
 ============
@@ -48,3 +48,5 @@ About This Site
 This site is powered by [Jekyll](http://jekyllrb.com/) using the [Minimal Mistakes](http://mademistakes.com/minimal-mistakes/) theme. All blog posts are released under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
 
 All blog posts are compiled with [knitr](http://yihui.name/knitr/) [R markdown](http://rmarkdown.rstudio.com/) using [this script](https://github.com/dgrtwo/dgrtwo.github.com/blob/master/_scripts/knitpages.R). You can find the reproducible sources of each blog post [here](https://github.com/dgrtwo/dgrtwo.github.com/tree/master/_R).
+
+All opinions and views are my own and do not represent my employer ( [including](http://varianceexplained.org/r/are_users_quitting/) [posts](http://varianceexplained.org/r/providence-visualizer/) [about](http://varianceexplained.org/r/introducing-stackr/) Stack Overflow).

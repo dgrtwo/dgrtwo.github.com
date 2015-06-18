@@ -31,8 +31,8 @@ kramdown:
 owner:
   name: David Robinson
   avatar: david_robinson_picture.jpg
-  bio: "Computational biologist, data delver. Works in R and Python."
-  email: dgrtwo@princeton.edu
+  bio: "Data Scientist at Stack Exchange, works in R and Python."
+  email: drobinson@stackoverflow.com
   disqus-shortname: varianceexplained
   twitter: drob
   facebook: #username
