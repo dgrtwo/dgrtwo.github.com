@@ -30,8 +30,8 @@ kramdown:
 # Site owner
 owner:
   name: David Robinson
-  avatar: david_robinson_picture.jpg
-  bio: "Data Scientist at Stack Exchange, works in R and Python."
+  avatar: david_robinson_picture2.jpg
+  bio: "Data Scientist at Stack Overflow, works in R and Python."
   email: drobinson@stackoverflow.com
   disqus-shortname: varianceexplained
   twitter: drob
