@@ -34,19 +34,5 @@ knit_folder <- function(infolder, outfolder, figsfolder) {
 }
 
 knit_folder("_R", "_posts", "figs/")
-knit_folder("_R/drafts", "_drafts", "figs/drafts/")
+#knit_folder("_R/drafts", "_drafts", "figs/drafts/")
 
-for (infile in list.files("_R", pattern="*.Rmd", full.names=TRUE)) {
-    pattern = "\\d\\d\\d\\d\\-\\d\\d\\-\\d\\d\\-"
-    print(infile)
-    folder = ifelse(grepl(pattern, infile), "_posts", "pages")
-
-    outfile = paste0(folder, "/", sub(".Rmd$", ".md", basename(infile)))
-    print(outfile)
-
-    # knit only if the input file is the last one modified
-    if (!file.exists(outfile) |
-        file.info(infile)$mtime > file.info(outfile)$mtime) {
-        KnitPost(infile, outfile)
-    }
-}
