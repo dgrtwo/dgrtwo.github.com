@@ -238,7 +238,7 @@ We've made some enormous simplifications in this post. For one thing, we assumed
 
 Ideally, we'd want to estimate a different Beta prior for each decade. Similarly, we could estimate separate priors for each team, a separate prior for pitchers, and so on. One useful approach to this is [Bayesian hierarchical modeling](https://en.wikipedia.org/wiki/Bayesian_hierarchical_modeling) (as used in, for example, [this study of SAT scores across different schools](http://andrewgelman.com/2014/01/21/everything-need-know-bayesian-statistics-learned-eight-schools/)).
 
-Also, as alluded to above, we shouldn't be estimating the distribution of batting averages. Really, we should use all of our data to estimate the distribution, but give *more consideration* to the players with a higher number of at-bats. This can be done by fitting a beta-binomial distribution. For instance, we can use the [dbetabinom.ab](http://www.inside-r.org/packages/cran/VGAM/docs/Betabinom) function from VGAM, and the `mle` function:
+Also, as alluded to above, we shouldn't be estimating the distribution of batting averages using only the ones with more than 500 at-bats. Really, we should use all of our data to estimate the distribution, but give *more consideration* to the players with a higher number of at-bats. This can be done by fitting a beta-binomial distribution. For instance, we can use the [dbetabinom.ab](http://www.inside-r.org/packages/cran/VGAM/docs/Betabinom) function from VGAM, and the `mle` function:
 
 
 {% highlight r %}
