@@ -8,7 +8,7 @@ tags: [r, lesson]
 
 Welcome to the webpage for Machine Learning and Computational Journalism.
 
-[Live feed of the on-screen code is here](http://bit.ly/UNvotescode).
+[Live feed of the on-screen code is here](http://bit.ly/UNvotescode2).
 
 Links
 ----------------
