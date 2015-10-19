@@ -13,9 +13,11 @@ Welcome to the webpage for Machine Learning and Computational Journalism.
 Links
 ----------------
 
-* [R Error Message Cheat Sheet](/courses/errors/): contains some common R error messages. If you get an error while running a line that you expect to work (perhaps because you saw it on the screen), you can check these examples. (In particular, check your spelling and capitalization carefully).
-* [Data Wrangling Cheat Sheet](http://www.rstudio.com/wp-content/uploads/2015/01/data-wrangling-cheatsheet.pdf): this sheet is a great summary of dplyr and tidyr operations, two packages used today.
+* [R Error Message Cheat Sheet](/courses/errors): contains some common R error messages. If you get an error while running a line that you expect to work (perhaps because you saw it on the screen), you can check these examples. (In particular, check your spelling and capitalization carefully).
+* [Data Wrangling Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf): this sheet is a great summary of dplyr and tidyr operations, two packages used today.
 * [Resources for future learning](/RData/resources/) A page of additional resources for learning R
+* [Coursera Data Science Track](https://www.coursera.org/specializations/jhudatascience), mentioned in class as a way to learn more R and data science.
+* [Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/), a free textbook that gives an (R) example-driven introduction to deeper statistical concepts.
 
 Relevant Code
 ---------------
