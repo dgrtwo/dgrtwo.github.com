@@ -22,7 +22,7 @@ Here I'll show how to compute a *credible interval* using empirical Bayes. This 
 
 ### Setup
 
-I'll start with the same code from the last post, so that you can follow along with in R if you like. 
+I'll start with the same code from the last post, so that you can follow along in R if you like. 
 
 
 
