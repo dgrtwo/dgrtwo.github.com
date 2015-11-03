@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Understanding posterior error probability and false discovery rate (using baseball statistics)"
+title: "Understanding the Bayesian approach to false discovery rates (using baseball statistics)"
 description: "Taking an empirical Bayesian approach to false discovery rates, in order to assemble a 'Hall of Fame' of great batters."
 author: "David Robinson"
 date: "November 3, 2015"
