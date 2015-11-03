@@ -65,7 +65,7 @@ career_eb <- career %>%
            beta1 = AB - H + beta0)
 {% endhighlight %}
 
-### Hall of Fame
+### Posterior Error Probabilities
 
 
 
@@ -277,7 +277,7 @@ But note that the q-value was originally defined in terms of null hypothesis sig
 
 There are some notable differences between our approach here and typical FDR control. In particular, we aren't defining a null hypothesis (we aren't assuming any players have a batting average *equal* to .300), but are instead trying to avoid [what Andrew Gelman calls "Type S errors"](http://andrewgelman.com/2004/12/29/type_1_type_2_t/). Still, this is another great example of the [sometimes underappreciated technique](http://varianceexplained.org/r/bayesian-ab-testing/) of examining the frequentist properties of Bayesian approaches- and, conversely, understanding the Bayesian interpretations of frequentist goals.
 
-### What's Next: A/B Testing of Batters
+### What's Next: A/B testing of batters
 
 
 
