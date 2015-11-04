@@ -4,6 +4,7 @@ title: "What are the most polarizing programming languages?"
 description: "An analysis what technologies are liked and disliked on Stack Overflow Careers."
 date: 2015-11-04 1:00:00 -0400
 output: html_document
+og_image: http://varianceexplained.org/figs/2015-11-04-polarizing-technologies/unnamed-chunk-3-1.png
 category: r
 tags: [r, statistics, stackoverflow]
 comments: true
