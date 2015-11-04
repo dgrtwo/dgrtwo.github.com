@@ -170,9 +170,10 @@ OK, so these players are borderline. We would guess that their career batting av
 
 So let's say we chose to take the top 100 players for our Hall of Fame (thus, cut it off at `r by_PEP$name[100]`). What would we predict the false discovery rate to be? That is, what fraction of these 100 players would be falsely included?
 
-```{r top_players, dependson = ""}
+```{r top_players}
 top_players <- career_eb %>%
-    top_n(100, PEP)
+    arrange(PEP) %>%
+    head(100)
 ```
 
 Well, we know the PEP of each of these 100 players, which is the probability that that individual player is a false positive. And by the wonderful property of [linearity of expected value](https://en.wikipedia.org/wiki/Expected_value#Linearity), we can just add up these probabilities to get the expected value (the average) of the total number of false positives.

@@ -173,7 +173,8 @@ So let's say we chose to take the top 100 players for our Hall of Fame (thus, cu
 
 {% highlight r %}
 top_players <- career_eb %>%
-    top_n(100, PEP)
+    arrange(PEP) %>%
+    head(100)
 {% endhighlight %}
 
 Well, we know the PEP of each of these 100 players, which is the probability that that individual player is a false positive. And by the wonderful property of [linearity of expected value](https://en.wikipedia.org/wiki/Expected_value#Linearity), we can just add up these probabilities to get the expected value (the average) of the total number of false positives.
