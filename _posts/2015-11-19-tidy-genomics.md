@@ -235,7 +235,7 @@ cleaned_data %>%
   View()
 {% endhighlight %}
 
-![LEU1](https://www.dropbox.com/s/ihrmq5kpjy12a3q/Screenshot%202015-11-19%2017.53.31.png?dl=1)
+![LEU1](https://www.dropbox.com/s/8pqcz03t8fk8qwg/Screenshot%202015-11-20%2014.52.19.png?dl=1)
 
 We now have 36 data points (six conditions, six growth rates), and for each we have a limiting nutrient, a growth rate, and the resulting expresion. We're probably interested in how both the growth rate and the limiting nutrient affect the gene's expression.
 
