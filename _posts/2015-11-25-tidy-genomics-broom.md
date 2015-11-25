@@ -271,7 +271,7 @@ top_intercept <- centered_intercepts %>%
   top_n(20, centered_intercept)
 {% endhighlight %}
 
-Note that here I'm looking for cases where a single nutrient was greatly *overexpressed* in starvation (how would you look for *underexpressed* nutrients?). We can then pull these genes out of the original data with the useful `semi_join`, at which point we can graph it with our `plot_expression_data`:
+Note that here I'm looking for cases where a single nutrient was greatly *overexpressed* in starvation (to look for *underexpressed* nutrients, we could have used `-centered_intercept` instead). We can then pull these genes out of the original data with the useful `semi_join`, at which point we can graph it with our `plot_expression_data`:
 
 
 {% highlight r %}
