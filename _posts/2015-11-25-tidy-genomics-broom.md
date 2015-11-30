@@ -175,8 +175,7 @@ Notice that it has the same information as `coef(summary(mod))`: slope estimate,
 {% highlight r %}
 linear_models <- cleaned_data %>%
   group_by(name, systematic_name, nutrient) %>%
-  do(tidy(lm(expression ~ rate, .))) %>%
-  collect()
+  do(tidy(lm(expression ~ rate, .)))
 {% endhighlight %}
 
 (Note that this step might take a minute or two to run). What does the resulting data frame look like?
@@ -190,21 +189,20 @@ linear_models
 
 {% highlight text %}
 ## Source: local data frame [66,428 x 8]
-## Groups: name, systematic_name, nutrient [33215]
+## Groups: name, systematic_name, nutrient
 ## 
-##     name systematic_name  nutrient        term   estimate  std.error
-##    (chr)           (chr)     (chr)       (chr)      (dbl)      (dbl)
-## 1                  Q0017   Ammonia (Intercept)  0.3926667 0.29767373
-## 2                  Q0017   Ammonia        rate -1.2914286 1.52871116
-## 3                  Q0017   Glucose (Intercept) -0.3533333 0.05948856
-## 4                  Q0017   Glucose        rate  1.6000000 0.30550505
-## 5                  Q0017   Leucine (Intercept)  0.3873333 0.17284216
-## 6                  Q0017   Leucine        rate -0.5657143 0.88763540
-## 7                  Q0017 Phosphate (Intercept) -0.4493333 0.17093339
-## 8                  Q0017 Phosphate        rate  1.1200000 0.87783283
-## 9                  Q0017   Sulfate (Intercept)  1.9140000 0.62963920
-## 10                 Q0017   Sulfate        rate -7.1942857 3.23352843
-## ..   ...             ...       ...         ...        ...        ...
+##    name systematic_name  nutrient        term   estimate  std.error
+## 1                 Q0017   Ammonia (Intercept)  0.3926667 0.29767373
+## 2                 Q0017   Ammonia        rate -1.2914286 1.52871116
+## 3                 Q0017   Glucose (Intercept) -0.3533333 0.05948856
+## 4                 Q0017   Glucose        rate  1.6000000 0.30550505
+## 5                 Q0017   Leucine (Intercept)  0.3873333 0.17284216
+## 6                 Q0017   Leucine        rate -0.5657143 0.88763540
+## 7                 Q0017 Phosphate (Intercept) -0.4493333 0.17093339
+## 8                 Q0017 Phosphate        rate  1.1200000 0.87783283
+## 9                 Q0017   Sulfate (Intercept)  1.9140000 0.62963920
+## 10                Q0017   Sulfate        rate -7.1942857 3.23352843
+## ..  ...             ...       ...         ...        ...        ...
 ## Variables not shown: statistic (dbl), p.value (dbl)
 {% endhighlight %}
 
@@ -231,19 +229,18 @@ intercept_terms
 {% highlight text %}
 ## Source: local data frame [33,215 x 8]
 ## 
-##     name systematic_name  nutrient        term   estimate  std.error
-##    (chr)           (chr)     (chr)       (chr)      (dbl)      (dbl)
-## 1                  Q0017   Ammonia (Intercept)  0.3926667 0.29767373
-## 2                  Q0017   Glucose (Intercept) -0.3533333 0.05948856
-## 3                  Q0017   Leucine (Intercept)  0.3873333 0.17284216
-## 4                  Q0017 Phosphate (Intercept) -0.4493333 0.17093339
-## 5                  Q0017   Sulfate (Intercept)  1.9140000 0.62963920
-## 6                  Q0017    Uracil (Intercept)  1.1846667 0.61898114
-## 7                  Q0182   Ammonia (Intercept) -2.2780000 0.50822867
-## 8                  Q0182   Glucose (Intercept) -0.9933333 0.30057933
-## 9                  Q0182   Leucine (Intercept) -1.3186667 0.47330503
-## 10                 Q0182 Phosphate (Intercept) -1.3853333 0.16465413
-## ..   ...             ...       ...         ...        ...        ...
+##    name systematic_name  nutrient        term   estimate  std.error
+## 1                 Q0017   Ammonia (Intercept)  0.3926667 0.29767373
+## 2                 Q0017   Glucose (Intercept) -0.3533333 0.05948856
+## 3                 Q0017   Leucine (Intercept)  0.3873333 0.17284216
+## 4                 Q0017 Phosphate (Intercept) -0.4493333 0.17093339
+## 5                 Q0017   Sulfate (Intercept)  1.9140000 0.62963920
+## 6                 Q0017    Uracil (Intercept)  1.1846667 0.61898114
+## 7                 Q0182   Ammonia (Intercept) -2.2780000 0.50822867
+## 8                 Q0182   Glucose (Intercept) -0.9933333 0.30057933
+## 9                 Q0182   Leucine (Intercept) -1.3186667 0.47330503
+## 10                Q0182 Phosphate (Intercept) -1.3853333 0.16465413
+## ..  ...             ...       ...         ...        ...        ...
 ## Variables not shown: statistic (dbl), p.value (dbl)
 {% endhighlight %}
 
@@ -339,7 +336,6 @@ slope_terms %>%
 ## Source: local data frame [6 x 2]
 ## 
 ##    nutrient significant
-##       (chr)       (int)
 ## 1 Phosphate         909
 ## 2   Leucine         753
 ## 3   Glucose         706
