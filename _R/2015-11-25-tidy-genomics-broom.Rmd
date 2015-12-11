@@ -135,8 +135,7 @@ Notice that it has the same information as `coef(summary(mod))`: slope estimate,
 ```{r linear_models, dependson = "setup"}
 linear_models <- cleaned_data %>%
   group_by(name, systematic_name, nutrient) %>%
-  do(tidy(lm(expression ~ rate, .))) %>%
-  collect()
+  do(tidy(lm(expression ~ rate, .)))
 ```
 
 (Note that this step might take a minute or two to run). What does the resulting data frame look like?
