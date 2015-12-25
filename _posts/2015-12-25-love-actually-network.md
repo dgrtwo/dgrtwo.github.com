@@ -187,15 +187,6 @@ plot(g, edge.width = E(g)$weight)
 ![center](/figs/2015-12-25-love-actually-network/unnamed-chunk-2-1.png) 
 
 
-{% highlight r %}
-cooccur_m <- cooccur %>%
-    melt(varnames = c("Source", "Target"), value.name = "scenes") %>%
-    filter(scenes > 0)
-
-library(networkD3)
-
-simpleNetwork(cooccur_m)
-{% endhighlight %}
 
 A few patterns pop out of this visualization. We see that the majority of characters are tightly connected (often by the scenes at the school play, or by Karen (Emma Thompson), who is friends or family to many key characters). But we see Bill Nighy's plotline occurs almost entirely separate from everyone else, and that five other characters are linked to the main network by only a single thread (Sarah's conversation with Mark at the wedding).
 

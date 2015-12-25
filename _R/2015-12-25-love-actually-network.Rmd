@@ -129,7 +129,7 @@ g <- graph.adjacency(cooccur, weighted = TRUE, mode = "undirected", diag = FALSE
 plot(g, edge.width = E(g)$weight)
 ```
 
-```{r d3, dependson = "cooccur", eval = FALSE, cache = FALSE}
+```{r d3, dependson = "cooccur", eval = FALSE, cache = FALSE, echo = FALSE}
 cooccur_m <- cooccur %>%
     melt(varnames = c("Source", "Target"), value.name = "scenes") %>%
     filter(scenes > 0)
