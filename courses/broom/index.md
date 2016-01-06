@@ -8,8 +8,6 @@ tags: [r, lesson]
 
 Welcome to the webpage for the Princeton OPR seminar: **Introduction to R package: broom**.
 
-[Live feed of the on-screen code is here]().
-
 Setup
 ----------------
 
