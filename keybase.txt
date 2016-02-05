@@ -1,0 +1,54 @@
+==================================================================
+https://keybase.io/drobinson
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://varianceexplained.org
+  * I am drobinson (https://keybase.io/drobinson) on keybase.
+  * I have a public key ASC6pTqKsIWZxcD3wrZahm5jpyVbjsCM_Iv4gViuRVnjLAo
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "0120baa53a8ab08599c5c0f7c2b65a866e63a7255b8ec08cfc8bf88158ae4559e32c0a",
+            "host": "keybase.io",
+            "kid": "0120baa53a8ab08599c5c0f7c2b65a866e63a7255b8ec08cfc8bf88158ae4559e32c0a",
+            "uid": "03175b3c33f72d4e551e8bdc271dc319",
+            "username": "drobinson"
+        },
+        "service": {
+            "hostname": "varianceexplained.org",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "client": {
+        "name": "keybase.io go client",
+        "version": "1.0.9"
+    },
+    "ctime": 1454688452,
+    "expire_in": 504576000,
+    "merkle_root": {
+        "ctime": 1454688294,
+        "hash": "bc5ca191604c4978045ea15be295dc4d0325fef3e744d47af0fdbba656e44aae818bad536de21a3a98661862fc80d3260d23bfa625d03e3db6ebb53b138af682",
+        "seqno": 368180
+    },
+    "prev": "dde2dab4dc4b92ccfa84755f8f3542a1e03317403beda9340e431358094444d4",
+    "seqno": 8,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+g6Rib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEguqU6irCFmcXA98K2WoZuY6clW47AjPyL+IFYrkVZ4ywKp3BheWxvYWTFAvx7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwYmFhNTNhOGFiMDg1OTljNWMwZjdjMmI2NWE4NjZlNjNhNzI1NWI4ZWMwOGNmYzhiZjg4MTU4YWU0NTU5ZTMyYzBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwYmFhNTNhOGFiMDg1OTljNWMwZjdjMmI2NWE4NjZlNjNhNzI1NWI4ZWMwOGNmYzhiZjg4MTU4YWU0NTU5ZTMyYzBhIiwidWlkIjoiMDMxNzViM2MzM2Y3MmQ0ZTU1MWU4YmRjMjcxZGMzMTkiLCJ1c2VybmFtZSI6ImRyb2JpbnNvbiJ9LCJzZXJ2aWNlIjp7Imhvc3RuYW1lIjoidmFyaWFuY2VleHBsYWluZWQub3JnIiwicHJvdG9jb2wiOiJodHRwOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC45In0sImN0aW1lIjoxNDU0Njg4NDUyLCJleHBpcmVfaW4iOjUwNDU3NjAwMCwibWVya2xlX3Jvb3QiOnsiY3RpbWUiOjE0NTQ2ODgyOTQsImhhc2giOiJiYzVjYTE5MTYwNGM0OTc4MDQ1ZWExNWJlMjk1ZGM0ZDAzMjVmZWYzZTc0NGQ0N2FmMGZkYmJhNjU2ZTQ0YWFlODE4YmFkNTM2ZGUyMWEzYTk4NjYxODYyZmM4MGQzMjYwZDIzYmZhNjI1ZDAzZTNkYjZlYmI1M2IxMzhhZjY4MiIsInNlcW5vIjozNjgxODB9LCJwcmV2IjoiZGRlMmRhYjRkYzRiOTJjY2ZhODQ3NTVmOGYzNTQyYTFlMDMzMTc0MDNiZWRhOTM0MGU0MzEzNTgwOTQ0NDRkNCIsInNlcW5vIjo4LCJ0YWciOiJzaWduYXR1cmUifaNzaWfEQMVaFh0U3aJfyuAnc4WI8eHxxI2HpxJL/GFMZqh5sejMI+84+CJMsyszsMeSbJU7biDqJDnwl95nPsRud8AspQqoc2lnX3R5cGUgo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/drobinson
+
+==================================================================
