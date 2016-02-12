@@ -134,20 +134,20 @@ This is *not* an isolated case. I use faceting in a substantial portion of my pl
 
 ### Is ggplot2 too pretty and easy to use?
 
-Jeff shows an example of a ggplot2 graph, and argues:
+Jeff shows an example of a ggplot2 graph, and argues (emphasis mine):
 
-> What often happens with students in a first serious data analysis class is they think that plot is done. But it isn't even close... a very common move by a person who knows a little R/data analysis would be to leave that graph as it is and submit it directly. I know this from lots of experience.
+> What often happens with students in a first serious data analysis class is they think that plot is done. But it isn't even close. Here are a few things you would need to do to make this plot production ready: (1) make the axes bigger, (2) make the labels bigger, (3) make the labels be full names (latitude and longitude, ideally with units when variables need them), (4) make the legend title be number of stations reporting.... a very common move by a person who knows a little R/data analysis would be to leave that graph as it is and submit it directly....
 
-> The one nice thing about teaching base R here is that the base version for this plot is either (a) a ton of work or (b) ugly. In either case, it makes the student think very hard about what they need to do to make the plot better, rather than just assuming it is ok.
+> **The one nice thing about teaching base R here is that the base version for this plot is either (a) a ton of work or (b) ugly.** In either case, it makes the student think very hard about what they need to do to make the plot better, rather than just assuming it is ok.
 
 Here Jeff explicitly argues that ugliness and difficulty-of-use are features, not bugs. 
 
-I really didn't set out to mock Jeff, but in this case it was a bit hard to resist.
+I really didn't set out to make fun of Jeff, but in this case it was a bit hard to resist.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Short version of why <a href="https://twitter.com/jtleek">@jtleek</a> uses base plotting instead of ggplot2:<a href="https://t.co/gUQvhEsjWv">https://t.co/gUQvhEsjWv</a> <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> <a href="https://t.co/cDVbIpe1sS">pic.twitter.com/cDVbIpe1sS</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/697858212779806721">February 11, 2016</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-But here I'll address the substance. For one thing, I don't think the example he presents is a particularly convincing one: as [Ben Moore](http://simplystatistics.org/2016/02/11/why-i-dont-use-ggplot2/#comment-2508952644) notes, issues (1) and (2) are entirely the consequence of Jeff plotting the figure at a large size then scaling it down, and issue (3) is solvable with `+ labs(x = "Latitude", y = "Longitude", color = "# of stations")`. But I understand it as a theoretical possibility. If your defaults are too good, you might not be inspired to improve them.
+But here I'll address the substance. For one thing, I don't think the example he presents is a particularly convincing one: as [Ben Moore](http://simplystatistics.org/2016/02/11/why-i-dont-use-ggplot2/#comment-2508952644) notes, issues (1) and (2) are entirely the consequence of Jeff plotting the figure at a large size then scaling it down, and issues (3) and (4) are solvable with `+ labs(x = "Latitude", y = "Longitude", color = "# of stations")`. But I understand it as a theoretical possibility. If your defaults are too good, you might not be inspired to improve them.
 
 But Jeff is presenting a false dichotomy between **"Get a pretty good plot in ggplot2, submit it immediately,"** and **"Get an ugly plot in base R, spend time to make it into a great plot"**. Here are other possibilities I'd argue are far more relevant:
 
