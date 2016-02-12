@@ -53,7 +53,7 @@ But in any case, when making quick, exploratory graphs, I find using base R *abs
 
 The fact that graphs are "quick-and-dirty" doesn't mean that these features stop being useful. In the next section I show a plot I made as part of an exploratory analysis that needs all three.
 
-I'm not sure that base R plotters even realize how great an advantage the above tools are, simply because they are such a pain to use. If adding a legend takes effort, you may think it's natural in exploratory plotting to keep looking back to the code to check which color means what. If faceting is challenging, you might lean towards use other aesthetics such as shape (making a plot more crowded), or to look only at one facet at a time. This loses out on potential conclusions you could make in your exploratory analysis.
+I'm not sure that base R plotters even realize how powerful and important legends, faceting and grouping are in exploratory analysis, simply because they're so painful that they never become a habit. If adding a legend takes effort, you may think it's natural in exploratory plotting to keep looking back to the code to check which color means what. If faceting is challenging, you might lean towards use other aesthetics such as shape (making a plot more crowded), or to look only at one facet at a time. This loses out on potential conclusions you could make in your exploratory analysis.
 
 To paraphrase Wayne Gretzky, **"you miss 100% of the plots you don't make."**
 
@@ -122,7 +122,7 @@ That's something like 5x as much code, and the bulk comes at the pain points I d
 
 But counting lines of code is not the point. The point is that when you're building a base plot, you're thinking about:
 
-* **programming logic**: There's two nested loops and an if statement. I worry about things like whether missing data makes a regression not work, and how to get that legend to take up the bottom row.
+* **programming logic**: There's two nested loops and an if statement, dealing with issues like subsets of subsets of your data, and checking that each regression had enough points to fit a line.
 * **graphics devices**: If you don't reset the margins first with `par`, the plots aren't going to fit. You have to initialize a new empty plot just to add the legend in its own space, not to mention that mess of a `layout` function. (Does anyone know a better way?)
 
 As a result, here's a few things you're **not** thinking about:
