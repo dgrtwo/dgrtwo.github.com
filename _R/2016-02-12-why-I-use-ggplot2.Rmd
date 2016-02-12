@@ -213,7 +213,7 @@ Once you have the latter description, the idea of writing loops, if statements, 
 
 Jeff makes the claim, in this post and elsewhere, that ggplot2 is restrictive: that there is some superset of graphs that cannot be expressed in ggplot2 but can in base plotting. I'm skeptical of this, simply because I've been looking for such a graph in several years of professional ggplot2 use and it's pretty rare to run into one.[^twoaxes] I have, however, found a rather extraordinary range of things you *can* express in them. For instance, consider this gganimation:
 
-![kernel density estimation](http://varianceexplained.org/images/grammargraphics.jpg)
+![kernel density estimation](http://varianceexplained.org/images/density.jpg)
 
 This animation has a lot going on. But it fits naturally into a ggplot2 + [gganimate](https://github.com/dgrtwo/gganimate) call ([check out the code](http://varianceexplained.org/files/bandwidth.html)!). Jeff credits ggplot2 for its animation package (thanks Jeff!) but doesn't consider why it's so easy to extend ggplot2 with animation (just a `frame = ` argument), while an equally concise version in base plotting (adding a `frame` argument to `plot`, `boxplot`, `points`, etc) would be basically impossible.[^animation] It's because once you think of a graph as mapping data to aesthetics, rather than a set of separate tools applied in sequence, adding an additional aesthetic- that of time- is straightforward.
 
