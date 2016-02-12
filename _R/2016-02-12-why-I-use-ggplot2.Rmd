@@ -134,7 +134,7 @@ This is *not* an isolated case. I use faceting in a substantial portion of my pl
 
 ### Is ggplot2 too pretty and easy to use?
 
-Jeff shows an example of a ggplot2 graph, and argues (emphasis mine):
+Jeff shows an example of a ggplot2 graph, and argues:
 
 > What often happens with students in a first serious data analysis class is they think that plot is done. But it isn't even close. Here are a few things you would need to do to make this plot production ready: (1) make the axes bigger, (2) make the labels bigger, (3) make the labels be full names (latitude and longitude, ideally with units when variables need them), (4) make the legend title be number of stations reporting.... a very common move by a person who knows a little R/data analysis would be to leave that graph as it is and submit it directly....
 
@@ -227,5 +227,5 @@ So what do you say?
 [^matplot]: A base R user may bring up the `matplot` function, which is sort of a special case for such plots, but that function causes more problems than it solves. Among other issues, its input format, a matrix with one column per group, is inconsistent with almost all other plotting functions in base *or* ggplot2. And as soon as you want to add (say) a smoothing curve, you're going to start fiddling with loops and `apply`s or just reshaping your data into a tidy form anyway.
 [^twoaxes]: Except two y axes on the same plot! That is absolutely impossible in ggplot2. [But I agree with Hadley](http://stackoverflow.com/a/3101876/712603) that they're a bad idea anyway.
 [^theme]: I am a bit puzzled by Jeff's accusation that "without [the ggthemes package] for some specific plot, it would require more coding." Well, yes, that's why it's nice that the package exists!
-[^default]: You could have replaced the first two lines with `qplot(rate, expression, color = nutrient, data = top_data, geom = "point")`, but that encodes exactly the same information while saving just a few characters. One other way it could have been appreciably more compact: if the defaults for `method, `se`, and `scales` had been closer to our choices. Of these, I think there's a case to be made that `geom_smooth`'s `se` argument should have been false by default. `ggplot2` is far from perfect!
+[^defaults]: You could have replaced the first two lines with `qplot(rate, expression, color = nutrient, data = top_data, geom = "point")`, but that encodes exactly the same information while saving just a few characters. One other way it could have been appreciably more compact: if the defaults for `method, `se`, and `scales` had been closer to our choices. Of these, I think there's a case to be made that `geom_smooth`'s `se` argument should have been false by default. `ggplot2` is far from perfect!
 [^animation]: In fact, the [animation package](http://yihui.name/animation/) by Yihui Xie works equally well with either base plotting or ggplot2, and gganimate uses the package to create its own animations. But there's a reason Jeff appreciates gganimate's approach: you're getting rid of an extra step of programming loops and logic, just as ggplot2 does with faceting, grouped lines, and so on.
