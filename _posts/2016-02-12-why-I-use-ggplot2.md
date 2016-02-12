@@ -177,7 +177,7 @@ In fact, going back to Excel isn't the worst case: the worst case is that they s
 
 ### Why I use ggplot2
 
-I originally titled this post "Why I don't use base R plotting." But I realized that, appearances to the contrary, I don't actually want to talk about what's bad about base plotting, I want to talk about what's so great about ggplot2. (To say the least, ggplot2 does not need my defense, but I'd still like to share. This isn't a diatribe, it's an autobiography).
+I originally titled this post "Why I don't use base R plotting." But I realized that, appearances to the contrary, I don't actually want to talk about what's bad about base plotting, I want to talk about what's so great about ggplot2. (To say the least, ggplot2 does not need my defense, but I'd still like to share. This isn't a polemic, it's a gospel).
 
 To Jeff, the difference between base R and ggplot2 is just a difference between one bag of tricks and another:
 
@@ -203,8 +203,8 @@ Could you imagine a shorter version of this code for making the by-gene plot? (N
 
 The difference comes down to this:
 
-* Base plotting is about what **you *do***. You set up your `layout()`, then you go to the first gene. You add the points for that gene along with a title. Then you fit and plot a best-fit-line for the first nutrient, then the second nutrient, and so on. Then you go on to the next plot. After 20 of those, you end with a legend.
-* ggplot2 plotting is about what **your graph *is***. The graph has `rate` mapped to the x-axis, `expression` mapped to the y, and `nutrient` mapped to the color. The graph displays both points and best-fit lines for each gene. And it's faceted into one-plot-per-gene, with a gene described by its systematic ID and common name.
+* Base plotting is **imperative**, it's about what **you *do***. You set up your `layout()`, then you go to the first gene. You add the points for that gene along with a title. Then you fit and plot a best-fit-line for the first nutrient, then the second nutrient, and so on. Then you go on to the next plot. After 20 of those, you end with a legend.
+* ggplot2 plotting is **declarative**, it's about what **your graph *is***. The graph has `rate` mapped to the x-axis, `expression` mapped to the y, and `nutrient` mapped to the color. The graph displays both points and best-fit lines for each gene. And it's faceted into one-plot-per-gene, with a gene described by its systematic ID and common name.
 
 Once you have the latter description, the idea of writing loops, if statements, grid statements, and so on is superfluous. It's not giving you more control over the graph, it's giving you busywork.
 
