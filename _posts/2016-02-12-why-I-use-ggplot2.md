@@ -3,6 +3,7 @@ layout: post
 title: "Why I use ggplot2"
 description: "A response to Jeff Leek about base plotting and the Grammar of Graphics."
 category: r
+date: 2016-02-12 12:20:00 -0500
 tags: [r, education, ggplot2]
 comments: true
 ---
@@ -166,7 +167,7 @@ But Jeff is presenting a false dichotomy between **"Get a pretty good plot in gg
 
 There's one particular danger I'd argue is an order of magnitude more common and more dangerous than all the others.
 
-* **Someone discovers that making a basic plot in R is a ton of work, gives up, goes back to Excel.** It's pleasant to imagine that people start an R course thinking "Whatever it takes, I will make publication-quality figures in R." Then, any challenge along the way is merely a "learning experience" for them: they'll *appreciate* that legend, because they worked for it!
+* **Someone discovers that making a basic plot in R is a ton of work, gives up, goes back to Excel.** It's pleasant to imagine that people start an R course thinking "Whatever it takes, I will make publication-quality figures in R." Then, any challenge along the way is a valuable learning experience for them: they'll spend the time to get their legend perfect, and at the end they'll *appreciate* that legend, because by golly they worked for it!
 
     But the truth is we have limited educational bandwidth to spend. If making a good plot takes a lot of effort, people will leave the course with a negative impression of R, and they won't bother learning more. I made this point in my original ["teach ggplot2 to beginners" post](http://varianceexplained.org/r/teach_ggplot2_to_beginners/):
 
