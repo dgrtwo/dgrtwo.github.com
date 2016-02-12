@@ -210,7 +210,7 @@ Once you have the latter description, the idea of writing loops, if statements, 
 
 ### Conclusion: Challenge me
 
-Jeff makes the claim, in this post and elsewhere, that ggplot2 is restrictive: that there is some superset of graphs that cannot be expressed. I'm skeptical of this, simply because I've been looking for such a graph in several years of professional ggplot2 use and it's pretty rare to run into one.[^twoaxes] I have, however, found a rather extraordinary range of things you *can* express in them. For instance, consider this gganimation:
+Jeff makes the claim, in this post and elsewhere, that ggplot2 is restrictive: that there is some superset of graphs that cannot be expressed in ggplot2 but can in base plotting. I'm skeptical of this, simply because I've been looking for such a graph in several years of professional ggplot2 use and it's pretty rare to run into one.[^twoaxes] I have, however, found a rather extraordinary range of things you *can* express in them. For instance, consider this gganimation:
 
 ![kernel density estimation](http://varianceexplained.org/images/grammargraphics.jpg)
 
