@@ -173,7 +173,7 @@ In fact, going back to Excel isn't the worst case: the worst case is that they s
 
 ### Why I use ggplot2
 
-I originally titled this post "Why I don't use base R plotting." But I realized that, appearances to the contrary, I don't actually want to talk about what's bad about base plotting, I want to talk about what's so great about ggplot2. (To say the least, ggplot2 does not need my defense, but I'd still like to share. This isn't a diatribe, it's an memoir).
+I originally titled this post "Why I don't use base R plotting." But I realized that, appearances to the contrary, I don't actually want to talk about what's bad about base plotting, I want to talk about what's so great about ggplot2. (To say the least, ggplot2 does not need my defense, but I'd still like to share. This isn't a diatribe, it's an autobiography).
 
 To Jeff, the difference between base R and ggplot2 is just a difference between one bag of tricks and another:
 
