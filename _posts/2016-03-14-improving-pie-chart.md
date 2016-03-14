@@ -12,7 +12,7 @@ comments: true
 
 Yesterday a family member forwarded me a Wall Street Journal interview titled [What Data Scientists Do All Day At Work](http://www.wsj.com/articles/what-data-scientists-do-all-day-at-work-1457921541). The title intrigued me immediately, partly because I find myself explaining that same topic somewhat regularly.
 
-I wasn't disappointed in the interview: General Electric's Dr. Narasimham gave insightful and well-communicated answers, and I both recognized familiar opinions and learned new perspectives. But I *was* disappointed that in an article about data scientists (!) they would include a chart this terrible:
+I wasn't disappointed in the interview: General Electric's Dr. Narasimhan gave insightful and well-communicated answers, and I both recognized familiar opinions and learned new perspectives. But I *was* disappointed that in an article about data scientists (!) they would include a chart this terrible:
 
 ![WSJ Pie Chart](http://varianceexplained.org/images/TE-AB468_DATAch_9U_20160310153012.jpg)
 
