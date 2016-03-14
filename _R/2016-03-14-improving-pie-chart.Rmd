@@ -76,7 +76,7 @@ This graph is not yet polished, but notice that it's already easier to tell how 
 
 This was one of a few alternatives I considered when I first imagined creating the plot. When you've made a lot of plots, you'll learn to guess in advance which you will be worth trying, but often it's worth visualizing a few just to check.
 
-We have three attributes in our data: Hours, Task, and Percentage. We chose to use **x**, **y**, and **facet** to communicate those respectively, but we could have chosen other arrangements. For example, we could have made a line plot:
+We have three attributes in our data: Hours, Task, and Percentage. We chose to use **x**, **y**, and **facet** to communicate those respectively, but we could have chosen other arrangements. For example, we could have had Task represented by **color**, and represented it with a line plot:
 
 ```{r}
 ggplot(d, aes(Hours, Percentage, color = Task, group = Task)) +
