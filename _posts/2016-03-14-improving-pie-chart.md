@@ -3,7 +3,7 @@ layout: post
 title: "How to replace a pie chart"
 description: "An example of replacing a pie chart with a bar chart that communicates more information."
 category: r
-date: 2016-03-14 13:30:00 -0500
+date: 2016-03-14 13:30:00 -0400
 tags: [r, education, ggplot2]
 comments: true
 ---
