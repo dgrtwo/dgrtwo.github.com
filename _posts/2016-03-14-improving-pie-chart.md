@@ -134,7 +134,7 @@ ggplot(d, aes(Hours, Percentage)) +
   geom_bar(stat = "identity") +
   facet_wrap(~Task) +
   geom_text(aes(label = paste0(Percentage, "%"), y = Percentage),
-            vjust = 1.2, size = 5, color = "white")
+            vjust = 1.4, size = 5, color = "white")
 {% endhighlight %}
 
 ![center](/figs/2016-03-14-improving-pie-chart/unnamed-chunk-7-1.png)
@@ -151,7 +151,7 @@ d %>%
   geom_bar(stat = "identity") +
   facet_wrap(~Task) +
   geom_text(aes(label = paste0(Percentage, "%"), y = Percentage),
-            vjust = 1.2, size = 5, color = "white") +
+            vjust = 1.4, size = 5, color = "white") +
   theme(axis.text.x = element_text(angle = 90,  hjust = 1)) +
   xlab("Hours spent per week")
 {% endhighlight %}
@@ -174,7 +174,7 @@ d %>%
   geom_bar(stat = "identity") +
   facet_wrap(~Task) +
   geom_text(aes(label = paste0(Percentage, "%"), y = Percentage),
-            vjust = 1.2, size = 5, color = "white") +
+            vjust = 1.4, size = 5, color = "white") +
   theme_tufte() +
   theme(axis.text.x = element_text(angle = 90,  hjust = 1))
 {% endhighlight %}
@@ -193,7 +193,7 @@ d %>%
   geom_bar(stat = "identity") +
   facet_wrap(~Task) +
   geom_text(aes(label = paste0(Percentage, "%"), y = Percentage),
-            vjust = 1.2, size = 5, color = "white") +
+            vjust = 1.4, size = 5, color = "white") +
   theme_tufte() +
   theme(axis.text.x = element_text(angle = 90,  hjust = 1),
         axis.ticks = element_blank(),
@@ -209,7 +209,7 @@ So take a look at the two versions:
 
 ![center](/figs/2016-03-14-improving-pie-chart/before_after-1.png)
 
-Which communicates more to you?
+Which communicates more to you? And can you think of a plot that communicates this data even more clearly?
 
 ### Postscript: How would I do this in base R plotting?
 

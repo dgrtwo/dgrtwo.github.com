@@ -116,7 +116,7 @@ ggplot(d, aes(Hours, Percentage)) +
   geom_bar(stat = "identity") +
   facet_wrap(~Task) +
   geom_text(aes(label = paste0(Percentage, "%"), y = Percentage),
-            vjust = 1.2, size = 5, color = "white")
+            vjust = 1.4, size = 5, color = "white")
 ```
 
 The ordering of task facets is arbitrary (alphabetical in this plot). I like to give them an order that makes them easier to browse- something along the lines of. A simple proxy for this is to order by "% who spend < 1 hour a week."[^proxy]
@@ -130,7 +130,7 @@ d %>%
   geom_bar(stat = "identity") +
   facet_wrap(~Task) +
   geom_text(aes(label = paste0(Percentage, "%"), y = Percentage),
-            vjust = 1.2, size = 5, color = "white") +
+            vjust = 1.4, size = 5, color = "white") +
   theme(axis.text.x = element_text(angle = 90,  hjust = 1)) +
   xlab("Hours spent per week")
 ```
@@ -150,7 +150,7 @@ d %>%
   geom_bar(stat = "identity") +
   facet_wrap(~Task) +
   geom_text(aes(label = paste0(Percentage, "%"), y = Percentage),
-            vjust = 1.2, size = 5, color = "white") +
+            vjust = 1.4, size = 5, color = "white") +
   theme_tufte() +
   theme(axis.text.x = element_text(angle = 90,  hjust = 1))
 ```
@@ -166,7 +166,7 @@ d %>%
   geom_bar(stat = "identity") +
   facet_wrap(~Task) +
   geom_text(aes(label = paste0(Percentage, "%"), y = Percentage),
-            vjust = 1.2, size = 5, color = "white") +
+            vjust = 1.4, size = 5, color = "white") +
   theme_tufte() +
   theme(axis.text.x = element_text(angle = 90,  hjust = 1),
         axis.ticks = element_blank(),
@@ -190,7 +190,7 @@ after <- rasterGrob(readPNG("../figs/2016-03-14-improving-pie-chart/after-1.png"
 grid.arrange(before, after, nrow = 1)
 ```
 
-Which communicates more to you?
+Which communicates more to you? And can you think of a plot that communicates this data even more clearly?
 
 ### Postscript: How would I do this in base R plotting?
 
