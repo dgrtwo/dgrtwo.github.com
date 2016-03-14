@@ -205,15 +205,13 @@ d %>%
 
 (See [here](http://imgur.com/gallery/WntrM6p) for an animated version of this "Less is more" philosophy).
 
-### Conclusion
-
 So take a look at the two versions:
 
 ![center](/figs/2016-03-14-improving-pie-chart/before_after-1.png)
 
 Which communicates more to you?
 
-### How would I do this in base R plotting?
+### Postscript: How would I do this in base R plotting?
 
 [I wouldn't.](http://varianceexplained.org/r/why-I-use-ggplot2/)
 
