@@ -1,19 +1,11 @@
 ---
-layout: post
 title: "How to replace a pie chart"
-description: "An example of replacing a pie chart with a bar chart that communicates more information."
-category: r
-date: 2016-03-14 13:30:00 -0400
-tags: [r, education, ggplot2]
-comments: true
+author: "David Robinson"
+date: "March 14, 2016"
+output: html_document
 ---
 
-```{r echo = FALSE, cache = FALSE}
-knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
 
-library(ggplot2)
-theme_set(theme_bw())
-```
 
 Yesterday a family member forwarded me a Wall Street Journal interview titled [What Data Scientists Do All Day At Work](http://www.wsj.com/articles/what-data-scientists-do-all-day-at-work-1457921541). The title intrigued me immediately, partly because I find myself explaining that same topic somewhat regularly.
 
@@ -31,7 +23,8 @@ The problem with a lot of pie-chart bashing (and most "chart-shaming," in fact) 
 
 I start by transcribing the data directly from the plot into R. `readr::read_csv` is useful for constructing a table on the fly:
 
-```{r setup_data}
+
+{% highlight r %}
 library(readr)
 
 d <- read_csv("Task,< 1 a week,1-4 a week,1-3 a day,>4 a day
@@ -45,13 +38,22 @@ Extract/transform/load,43,32,20,5")
 # reorganize
 library(tidyr)
 d <- gather(d, Hours, Percentage, -Task)
-```
+{% endhighlight %}
 
 This constructs our data in the form:[^tidydata]
 
-```{r echo = FALSE}
-knitr::kable(head(d, 9))
-```
+
+|Task                            |Hours      | Percentage|
+|:-------------------------------|:----------|----------:|
+|Basic exploratory data analysis |< 1 a week |         11|
+|Data cleaning                   |< 1 a week |         19|
+|Machine learning/statistics     |< 1 a week |         34|
+|Creating visualizations         |< 1 a week |         23|
+|Presenting analysis             |< 1 a week |         27|
+|Extract/transform/load          |< 1 a week |         43|
+|Basic exploratory data analysis |1-4 a week |         32|
+|Data cleaning                   |1-4 a week |         42|
+|Machine learning/statistics     |1-4 a week |         29|
 
 ### Bar plot
 
@@ -59,14 +61,17 @@ knitr::kable(head(d, 9))
 
 This doesn't apply to all plots, but it does to this one.
 
-```{r}
+
+{% highlight r %}
 library(ggplot2)
 theme_set(theme_bw())
 
 ggplot(d, aes(Hours, Percentage)) +
   geom_bar(stat = "identity") +
   facet_wrap(~Task)
-```
+{% endhighlight %}
+
+![center](/figs/2015-03-14-improving-pie-chart/unnamed-chunk-3-1.png)
 
 Note that much like the original pie chart, we "faceted" (divided into sub-plots) based on the Task.
 
@@ -78,20 +83,26 @@ This was one of a few alternatives I considered when I first imagined creating t
 
 We have three attributes in our data: Hours, Task, and Percentage. We chose to use **x**, **y**, and **facet** to communicate those respectively, but we could have chosen other arrangements. For example, we could have made a line plot:
 
-```{r}
+
+{% highlight r %}
 ggplot(d, aes(Hours, Percentage, color = Task, group = Task)) +
   geom_line()
-```
+{% endhighlight %}
+
+![center](/figs/2015-03-14-improving-pie-chart/unnamed-chunk-4-1.png)
 
 This has some advantages over the above bar chart. For starters, it makes it trivially easy to compare two tasks. (For example, we learn that "Creating visualizations" and "Data cleaning" take about the same distribution of time). I also like how obvious it makes it that "Basic exploratory data analysis" takes up more time than the others. But the graph makes it harder to focus just one one task, you have to look back and forth from the legend, and there's almost no way we could annotate it with text like the original plot was.
 
 Here's another combination we could try:
 
-```{r}
+
+{% highlight r %}
 ggplot(d, aes(Hours, Task, fill = Percentage)) +
   geom_tile(show.legend = FALSE) +
   geom_text(aes(label = paste0(Percentage, "%")), color = "white")
-```
+{% endhighlight %}
+
+![center](/figs/2015-03-14-improving-pie-chart/unnamed-chunk-5-1.png)
 
 This approach is more of a "table". This communicates a bit less than the bar and line plots since it gives up the y/size aesthetic for communicating Percentage. But notice that it's still about as easy to interpret as the pie chart, simply because it is able to communicate the "left-to-right" ordering of "less time to more time".
 
@@ -101,27 +112,34 @@ How can our bar plot be improved?
 
 The first problem that jumps out is that the x-axis overlaps so the labels are nearly unreadable. This can be fixed with [this solution](http://stackoverflow.com/questions/1330989/rotating-and-spacing-axis-labels-in-ggplot2).
 
-```{r}
+
+{% highlight r %}
 ggplot(d, aes(Hours, Percentage)) +
   geom_bar(stat = "identity") +
   facet_wrap(~Task) +
   theme(axis.text.x = element_text(angle = 90,  hjust = 1))
-```
+{% endhighlight %}
+
+![center](/figs/2015-03-14-improving-pie-chart/unnamed-chunk-6-1.png)
 
 
 Next, note that the original pie chart showed the percentages as text right on the graph. This was *necessary* in the pie chart simply because it's so difficult to guess a percentage out of a pie chart- we could afford to lose it here, when the y-axis communicates the same information. But it can still be useful when you want to pick out a specific number to report ("Visualization is important: 7% of data scientists spend >4 hours a day on it!") So I add a `geom_text` layer.
 
-```{r}
+
+{% highlight r %}
 ggplot(d, aes(Hours, Percentage)) +
   geom_bar(stat = "identity") +
   facet_wrap(~Task) +
   geom_text(aes(label = paste0(Percentage, "%"), y = Percentage),
             vjust = 1.2, size = 5, color = "white")
-```
+{% endhighlight %}
+
+![center](/figs/2015-03-14-improving-pie-chart/unnamed-chunk-7-1.png)
 
 The ordering of task facets is arbitrary (alphabetical in this plot). I like to give them an order that makes them easier to browse- something along the lines of. A simple proxy for this is to order by "% who spend < 1 hour a week."[^proxy]
 
-```{r}
+
+{% highlight r %}
 library(dplyr)
 
 d %>%
@@ -133,15 +151,18 @@ d %>%
             vjust = 1.2, size = 5, color = "white") +
   theme(axis.text.x = element_text(angle = 90,  hjust = 1)) +
   xlab("Hours spent per week")
-```
+{% endhighlight %}
+
+![center](/figs/2015-03-14-improving-pie-chart/unnamed-chunk-8-1.png)
 
 ### Graph design
 
-From here, the last step would be to adjust the colors, fonts, and other "design" choices.
+From here, the last step would be to adjust the colors, fonts, and other choices of "design".
 
 I don't have terribly strong opinions about these choices (I'm pretty happy with ggplot2's `theme_bw()`). But some prefer Edward Tufte's approach of maximizing the "Data/Ink Ratio"- that is, dropping borders, grids, and axis lines. This can be achieved with [theme_tufte](http://www.inside-r.org/packages/cran/ggthemes/docs/theme_tufte):
 
-```{r}
+
+{% highlight r %}
 library(ggthemes)
 
 d %>%
@@ -153,11 +174,14 @@ d %>%
             vjust = 1.2, size = 5, color = "white") +
   theme_tufte() +
   theme(axis.text.x = element_text(angle = 90,  hjust = 1))
-```
+{% endhighlight %}
+
+![center](/figs/2015-03-14-improving-pie-chart/unnamed-chunk-9-1.png)
 
 Some people take this philosophy even further, and drop the y-axis altogether (since we do already have those percentages annotated on the bars).
 
-```{r after}
+
+{% highlight r %}
 library(ggthemes)
 
 d %>%
@@ -172,7 +196,9 @@ d %>%
         axis.ticks = element_blank(),
         axis.text.y = element_blank()) +
   ylab("")
-```
+{% endhighlight %}
+
+![center](/figs/2015-03-14-improving-pie-chart/unnamed-chunk-10-1.png)
 
 (See [here](http://imgur.com/gallery/WntrM6p) for an animated version of this "Less is more" philosophy).
 
@@ -180,19 +206,9 @@ d %>%
 
 So take a look at the two versions:
 
-```{r before_after, echo = FALSE, fig.width = 16, fig.height = 8}
-library(jpeg)
-library(png)
-library(grid)
-library(gridExtra)
 
-before <- rasterGrob(readJPEG("../images/TE-AB468_DATAch_9U_20160310153012.jpg"))
-after <- rasterGrob(readPNG("../figs/2016-03-14-improving-pie-chart/after-1.png"))
 
-grid.arrange(before, after, nrow = 1)
-```
-
-Which communicates more to you?
+Which would you pick?
 
 ### How would I do this in base R plotting?
 
