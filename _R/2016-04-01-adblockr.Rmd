@@ -36,7 +36,6 @@ The adblockr package offers the `freely` adverb, which converts the `multiply_by
 library(adblockr)
 
 multiply_by_two <- freely(multiply_by_two)
-
 multiply_by_two(5)
 ```
 
