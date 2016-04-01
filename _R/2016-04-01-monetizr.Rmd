@@ -15,8 +15,6 @@ But there's one thing that my colleagues and I *haven't* gotten from R open sour
 
 To this end, I am introducing the [monetizr](http://github.com/dgrtwo/monetizr) package, which lets you monetize a package through advertisements.
 
-### Advertise functions in a package
-
 Suppose you've created a function:
 
 ```{r multiply_by_two}
