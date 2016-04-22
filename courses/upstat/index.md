@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Tidy data analysis in R with dplyr, ggplot2, and broom "
+title: "Tidy data analysis in R with dplyr, ggplot2, and broom"
 description: "Tidy data tutorial for UP-STAT 2016."
 category: r
 tags: [r, lesson]
@@ -23,7 +23,7 @@ You'll need to install several R packages, which you can do in R with:
 Links
 ----------------
 
-* [Live Code Feed](https://www.dropbox.com/s/r5iqym4jo4ie4e5/upstat-code.R?dl=0)
+* [Live Code Feed](https://www.dropbox.com/s/14wyykcgpd3cvrs/upstat-code.txt?dl=0)
 * [R Error Message Cheat Sheet](/courses/errors): contains some common R error messages. If you get an error while running a line that you expect to work (perhaps because you saw it on the screen), you can check these examples. (In particular, check your spelling and capitalization carefully).
 * [Data Wrangling Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf): this sheet is a great summary of dplyr and tidyr operations, two packages used today.
 
