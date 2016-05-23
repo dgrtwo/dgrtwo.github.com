@@ -337,7 +337,7 @@ all_intervals <- bind_rows(
 ggplot(all_intervals, aes(x = estimate, y = name, color = type)) +
   geom_point() +
   geom_errorbarh(aes(xmin = conf.low, xmax = conf.high)) +
-  xlab("Piazza - player") +
+  xlab("Piazza average - player average") +
   ylab("Player")
 ```
 
