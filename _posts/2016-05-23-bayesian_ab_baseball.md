@@ -275,9 +275,11 @@ The disadvantage is that for low $$\alpha$$ or low $$\beta$$, the normal approxi
 
 In classical (frequentist) statistics, you may have seen this kind of "compare two proportions" problem before, perhaps laid out as a "contingency table":
 
-$$\bordermatrix{ & Hits & Misses \cr
-      \mbox{Aaron} & 3771 & 8593 \cr
-      \mbox{Piazza} & 2127 & 4784 }$$
+
+|Player    | Hits| Misses|
+|:---------|----:|------:|
+|aaronha01 | 3771|   8593|
+|piazzmi01 | 2127|   4784|
 
 One of the most common classical ways to approach these contingency table problems is with Pearson's chi-squared test, implemented in R as `prop.test`:
 
@@ -343,7 +345,7 @@ It's not particularly exciting for this Piazza/Aaron comparison (notice it's ver
 
 
 
-![center](/figs/2016-05-23-bayesian_ab_baseball/unnamed-chunk-11-1.png)
+![center](/figs/2016-05-23-bayesian_ab_baseball/unnamed-chunk-12-1.png)
 
 Notice the same pattern we saw in the [credible intervals post](http://varianceexplained.org/r/credible_intervals_baseball). When we don't have a lot of information about a player, their credible interval ends up smaller than their confidence interval, because we're able to use the prior to adjust our expectations (Jim Steels may be a worse batter than Mike Piazza, but we know he's probably not *that* much worse). When we do have a lot of information, the credible intervals and confidence intervals converge almost perfectly.[^derivation]
 

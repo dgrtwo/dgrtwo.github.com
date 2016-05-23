@@ -272,9 +272,11 @@ The disadvantage is that for low $$\alpha$$ or low $$\beta$$, the normal approxi
 
 In classical (frequentist) statistics, you may have seen this kind of "compare two proportions" problem before, perhaps laid out as a "contingency table":
 
-$$\bordermatrix{ & Hits & Misses \cr
-      \mbox{Aaron} & 3771 & 8593 \cr
-      \mbox{Piazza} & 2127 & 4784 }$$
+```{r dependson = "two_players", echo = FALSE}
+two_players %>%
+  transmute(Player = playerID, Hits = H, Misses = AB - H) %>%
+  knitr::kable()
+```
 
 One of the most common classical ways to approach these contingency table problems is with Pearson's chi-squared test, implemented in R as `prop.test`:
 
