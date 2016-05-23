@@ -347,7 +347,7 @@ It's not particularly exciting for this Piazza/Aaron comparison (notice it's ver
 
 ![center](/figs/2016-05-23-bayesian_ab_baseball/unnamed-chunk-12-1.png)
 
-Notice the same pattern we saw in the [credible intervals post](http://varianceexplained.org/r/credible_intervals_baseball). When we don't have a lot of information about a player, their credible interval ends up smaller than their confidence interval, because we're able to use the prior to adjust our expectations (Jim Steels may be a worse batter than Mike Piazza, but we know he's probably not *that* much worse). When we do have a lot of information, the credible intervals and confidence intervals converge almost perfectly.[^derivation]
+Notice the same pattern we saw in the [credible intervals post](http://varianceexplained.org/r/credible_intervals_baseball). When we don't have a lot of information about a player, their credible interval ends up smaller than their confidence interval, because we're able to use the prior to adjust our expectations (Dad Lytle's batting average may be lower than Mike Piazza's, but we're confident it's not .25 lower). When we do have a lot of information, the credible intervals and confidence intervals converge almost perfectly.[^derivation]
 
 Thus, we can think of empirical Bayes A/B credible intervals as being a way to "shrink" frequentist confidence intervals, by sharing power across players.
 
