@@ -18,7 +18,7 @@ comments: true
 * [Understanding the beta distribution (using baseball statistics)](http://varianceexplained.org/statistics/beta_distribution_and_baseball/)
 * [Understanding empirical Bayes estimation (using baseball statistics)](http://varianceexplained.org/r/empirical_bayes_baseball/)
 * [Understanding credible intervals (using baseball statistics)](http://varianceexplained.org/r/credible_intervals_baseball/)
-* [Understanding the Bayesian approach to false discovery rates (using baseball statistics)](http://varianceexplained.org/statistics/beta_distribution_and_baseball/)
+* [Understanding the Bayesian approach to false discovery rates (using baseball statistics)](http://varianceexplained.org/r/bayesian_fdr_baseball/)
 
 Who is a better batter: [Mike Piazza](https://en.wikipedia.org/wiki/Mike_Piazza) or [Hank Aaron](https://en.wikipedia.org/wiki/Hank_Aaron)?
 
