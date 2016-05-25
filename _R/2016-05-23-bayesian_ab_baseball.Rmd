@@ -274,7 +274,7 @@ In classical (frequentist) statistics, you may have seen this kind of "compare t
 
 ```{r dependson = "two_players", echo = FALSE}
 two_players %>%
-  transmute(Player = playerID, Hits = H, Misses = AB - H) %>%
+  transmute(Player = name, Hits = H, Misses = AB - H) %>%
   knitr::kable()
 ```
 
