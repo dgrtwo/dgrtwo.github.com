@@ -22,7 +22,7 @@ I did a lot in my PhD that I am proud of, and I did a lot more that was forgetta
 
 ### One year at Stack Overflow
 
-Last week marks my one-year anniversary of working at Stack Overflow as a Data Scientist.
+Last Thursday (June 16th) marks my one-year anniversary of working at Stack Overflow as a Data Scientist.
 
 I'd finished my PhD about a month before I joined, and my move to a tech company was a pretty big change for me. As of only a few months earlier, I'd been planning to stay in academic research, particularly in the field of computational biology. I'd started applying for postdoctoral fellowships, and hadn't even considered applying to "industry" jobs.
 

@@ -22,7 +22,7 @@ I did a lot in my PhD that I am proud of, and I did a lot more that was forgetta
 
 ### One year at Stack Overflow
 
-Last week marks my one-year anniversary of working at Stack Overflow as a Data Scientist.
+Last Thursday (June 16th) marks my one-year anniversary of working at Stack Overflow as a Data Scientist.
 
 I'd finished my PhD about a month before I joined, and my move to a tech company was a pretty big change for me. As of only a few months earlier, I'd been planning to stay in academic research, particularly in the field of computational biology. I'd started applying for postdoctoral fellowships, and hadn't even considered applying to "industry" jobs.
 
@@ -143,9 +143,6 @@ Some time after I was hired, I learned a bit more of the story behind Jason's tw
 ![](https://www.dropbox.com/s/q0d0rih1qusmccg/Screenshot%202016-06-16%2011.52.43.png?dl=1)
 
 I feel really lucky to have the job I have now, and seeing that made me feel even luckier. The circumstances of my hiring were probably too much of a freak accident to extract any advice from. But if I were to try to give advice to people still in graduate school, here's what I'd come up with: **public work is not a waste of time.** 
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Now time for our next panel: Grad Student Unhappiness: The Great Mystery <a href="https://t.co/YhUVXEpF6h">https://t.co/YhUVXEpF6h</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/668523283927736321">November 22, 2015</a></blockquote>
-<script async src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 When I was in graduate school I cared most about getting papers published; in my understanding that was the mark of a successful degree, and the only thing that would matter for my career. I ended up publishing roughly the median number for a PhD in my field (you can find them [here](http://varianceexplained.org/about/)). I'm glad I did so, but honestly it would be hard to point to a way my life would be different if I had published fewer or even none of them. But I do know for sure my life would be different if I hadn't posted about the beta distribution, and even more different if I hadn't started answering on Stack Overflow at all.
 
