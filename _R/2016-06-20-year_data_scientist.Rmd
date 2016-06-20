@@ -54,17 +54,17 @@ I'm not an academic scientist any more, but that doesn't mean I'm not interested
 
 For starters, by looking at how tags are used together, we can find natural clusters of technologies[^clustercode]:
 
-![](https://www.dropbox.com/s/zhm48bdlt63fo0i/download.png?dl=1)
+![](http://varianceexplained.org/images/network1.png)
 
 This lets us automatically categorize frameworks and packages into the higher-level languages and clusters they belong to, all without manual annotation.
 
 But it really shows us only how tags co-appear on specific programming questions, not how they're used in the same projects (for example, C# and SQL Server may not always appear on the same questions, but they're often used as part of the same technology stack). For that, I might look at another source of data, Stack Overflow Careers profiles, and see which technologies tend to be used by the same developers:
 
-![](https://www.dropbox.com/s/18854vvhv7gxa8x/DavidRobinsonMetis%20copy2.001.jpeg?dl=1)
+![](http://varianceexplained.org/images/network2.jpeg)
 
-I like how this divides the tags not just by strict categories, but by "technology ecosystems." This kind of understanding isn't limited to programming technologies. The Stack Exchange network contains a vast range of Q&A sites. By looking at which communities tend to have the same active members, we can similarly create a network of how our sites our interrelated:
+I like how this divides the tags not just by strict categories, but by "technology ecosystems." This kind of understanding isn't limited to programming technologies. The Stack Exchange network contains a vast range of Q&A sites. By looking at which communities tend to have the same active members, we can similarly create a network of how our sites are interrelated:
 
-![](https://www.dropbox.com/s/b4zim39erfrwp3n/d07f35e8-e484-11e5-968e-4e8350c44d3e.png?dl=1)
+![](http://varianceexplained.org/images/network3.png)
 
 (Not everything I do is networks, just some of the examples that are more interesting at a glance).
 
