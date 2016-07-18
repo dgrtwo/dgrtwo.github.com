@@ -10,7 +10,7 @@ comments: true
 
 
 
-At Stack Overflow we've always been committed to sharing data: all content contributed to the site is [CC-BY-SA](https://creativecommons.org/licenses/by-sa/3.0/) licensed, and we release regular ["dumps"](https://archive.org/details/stackexchange) of our entire history of questions and answers.
+At Stack Overflow we've always been committed to sharing data: all content contributed to the site is [CC-BY-SA](https://creativecommons.org/licenses/by-sa/3.0/) licensed, and we release regular ["data dumps"](https://archive.org/details/stackexchange) of our entire history of questions and answers.
 
 I'm excited to announce a new resource specially aimed at data scientists, analysts and other researchers, which we're calling the [StackLite dataset](https://github.com/dgrtwo/StackLite).
 
