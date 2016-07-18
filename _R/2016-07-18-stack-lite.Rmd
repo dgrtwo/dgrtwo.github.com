@@ -1,0 +1,133 @@
+---
+layout: post
+title: "Releasing the StackLite dataset of Stack Overflow questions and tags"
+description: "Sharing a new resource for analyzing Stack Overflow questions"
+date: 2016-07-18 15:00:00 -0400
+category: r
+tags: [r, statistics, work, education]
+comments: true
+---
+
+```{r echo = FALSE}
+library(knitr)
+opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+
+library(ggplot2)
+theme_set(theme_bw())
+```
+
+At Stack Overflow we've always been committed to sharing data: all content contributed to the site is [CC-BY-SA](https://creativecommons.org/licenses/by-sa/3.0/) licensed, and we release regular ["dumps"](https://archive.org/details/stackexchange) of our entire history of questions and answers.
+
+I'm excited to announce a new resource specially aimed at data scientists, analysts and other researchers, which we're calling the [StackLite dataset](https://github.com/dgrtwo/StackLite).
+
+## What's in the StackLite dataset?
+
+For each Stack Overflow question asked since the beginning of the site, the dataset includes:
+
+* Question ID
+* Creation date
+* Closed date, if applicable
+* Deletion date, if applicable
+* Score
+* Owner user ID (except for deleted questions)
+* Number of answers
+* Tags
+
+This is ideal for performing analyses such as:
+
+* The increase or decrease in questions in each tag over time
+* Correlations among tags on questions
+* Which tags tend to get higher or lower scores
+* Which tags tend to be asked on weekends vs weekdays
+* Rates of question closure or deletion over time
+* The speed at which questions are closed or deleted
+
+### Examples in R
+
+The dataset is provided as csv.gz files, which means you can use almost any language or statistical tool to process it. But here I'll share some examples of a simple analysis in R.
+
+The question data and the question-tag pairings are stored separately. You can read in the dataset (once you've cloned or downloaded it [from GitHub](https://github.com/dgrtwo/StackLite)) with:
+
+```{r load_data, echo = FALSE}
+library(readr)
+library(dplyr)
+
+# (giving the actual path on my own computer in this case)
+
+questions <- read_csv("~/Repositories/stacklite/questions.csv.gz", progress = FALSE)
+question_tags <- read_csv("~/Repositories/stacklite/question_tags.csv.gz", progress = FALSE)
+```
+
+```{r eval = FALSE}
+library(readr)
+library(dplyr)
+
+questions <- read_csv("stacklite/questions.csv.gz")
+question_tags <- read_csv("stacklite/question_tags.csv.gz")
+```
+
+The `questions` file has one row for each question:
+
+```{r dependson = "load_data"}
+questions
+```
+
+While the `question_tags` file has one row for each question-tag pair:
+
+```{r dependson = "load_data"}
+question_tags
+```
+
+As one example, you could find the most popular tags:
+
+```{r question_tags_count, dependson = "load_data"}
+question_tags %>%
+  count(Tag, sort = TRUE)
+```
+
+Or plot the number of questions asked per week:
+
+```{r questions_per_day, dependson = "load_data"}
+library(ggplot2)
+library(lubridate)
+
+questions %>%
+  count(Week = round_date(CreationDate, "week")) %>%
+  ggplot(aes(Week, n)) +
+  geom_line()
+```
+
+Many of the most interesting issues you can examine involve tags, which describe the programming language or technology used in a question. You could compare the growth or decline of particular tags over time:
+
+```{r tags_per_year, dependson = "load_data"}
+library(lubridate)
+
+tags <- c("c#", "javascript", "python", "r")
+
+q_per_year <- questions %>%
+  count(Year = year(CreationDate)) %>%
+  rename(YearTotal = n)
+
+tags_per_year <- question_tags %>%
+  filter(Tag %in% tags) %>%
+  inner_join(questions) %>%
+  count(Year = year(CreationDate), Tag) %>%
+  inner_join(q_per_year)
+
+ggplot(tags_per_year, aes(Year, n / YearTotal, color = Tag)) +
+  geom_line() +
+  scale_y_continuous(labels = scales::percent_format()) +
+  ylab("% of Stack Overflow questions with this tag")
+```
+
+### How this compares to other Stack Overflow resources
+
+Almost all of this data is already public within the [Stack Exchange Data Dump](https://archive.org/details/stackexchange). But the official data dump requires a lot of computational overhead to download and process (the Posts fit in a 27 GB XML file), even if the question you want to ask is very simple. The StackLite dataset, in contrast, is designed to be easy to read in and start analyzing. (For example, I was really impressed with Joshua Kunst's [analysis of tags over time](http://jkunst.com/r/what-do-we-ask-in-stackoverflow/), and want to make it straightforward for others to write posts like that).
+
+Similarly, this data can be examined within the [Stack Exchange Data Explorer](https://data.stackexchange.com/) (SEDE), but it requires working with separate queries that each return at most 50,000 rows. The StackLite dataset offers analysts the chance to work with the data locally using their tool of choice.
+
+### Enjoy!
+
+I'm hoping other analysts find this dataset interesting, and use it to perform meaningful and open research. (Be sure to comment below if you do!)
+
+I'm especially happy to have this dataset public and easily accessible, since it gives me the chance to blog more analyses of Stack Overflow questions and tags while keeping my work reproducible and extendable by others. Keep an eye out for such posts in the future!
