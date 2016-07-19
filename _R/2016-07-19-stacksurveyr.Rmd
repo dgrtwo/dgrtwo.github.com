@@ -1,0 +1,134 @@
+---
+layout: post
+title: "stacksurveyr: An R package with the 2016 Developer Survey Results"
+description: "Sharing the answers of 56,000 developers in a R package easily suited for analysis"
+date: 2016-07-19 1:00:00 -0400
+category: r
+tags: [r, statistics, work]
+comments: true
+---
+
+```{r echo = FALSE}
+library(knitr)
+opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+
+library(ggplot2)
+theme_set(theme_bw())
+```
+
+This year, more than fifty thousand programmers answered the [Stack Overflow 2016 Developer Survey](http://stackoverflow.com/research/developer-survey-2016), in the largest survey of professional developers in history.
+
+Last week Stack Overflow released the full (anonymized) results of the survey at [stackoverflow.com/research](http://stackoverflow.com/research). To make analysis in R even easier, today I'm also releasing the [https://github.com/dgrtwo/stacksurveyr](stacksurveyr) package, which contains:
+
+* The full survey results as a processed data frame (`stack_survey`)
+* A data frame with the survey's schema, including the original text of each question (`stack_schema`)
+* A function that works easily with multiple-response questions (`stack_multi`)
+
+This makes it easier than ever to explore this rich dataset and answer questions about the world's developers.
+
+### Examples: Basic exploration
+
+I'll give a few examples of survey analyses using the [dplyr](https://github.com/hadley/dplyr) package. For instance, you could discover the most common occupations of survey respondents:
+
+```{r}
+library(stacksurveyr)
+library(dplyr)
+
+stack_survey %>%
+  count(occupation, sort = TRUE)
+```
+
+We can also use `group_by` and `summarize` to find the highest paid (on average) occupations:
+
+```{r salary_by_occupation}
+salary_by_occupation <- stack_survey %>%
+  filter(occupation != "other") %>%
+  group_by(occupation) %>%
+  summarize(average_salary = mean(salary_midpoint, na.rm = TRUE)) %>%
+  arrange(desc(average_salary))
+
+salary_by_occupation
+```
+
+This can be visualized in a bar plot:
+
+```{r salary_by_occupation_plot, dependson = "salary_by_occupation", fig.width = 8, fig.height = 6}
+library(ggplot2)
+library(scales)
+
+salary_by_occupation %>%
+  mutate(occupation = reorder(occupation, average_salary)) %>%
+  ggplot(aes(occupation, average_salary)) +
+  geom_bar(stat = "identity") +
+  ylab("Average salary (USD)") +
+  scale_y_continuous(labels = dollar_format()) +
+  coord_flip()
+```
+
+### Examples: Multi-response answers
+
+`r sum(stack_schema$type == "multi")` of the questions allow multiple responses, as can be noted in the `stack_schema` variable:
+
+```{r}
+stack_schema %>%
+  filter(type == "multi")
+```
+
+In these cases, the responses are given delimited by `; `. Often, these columns are easier to work with and analyze when they are "unnested" into one user-answer pair per row. The package provides the `stack_multi` function as a shortcut for that unnesting. For example, consider the `tech_do` column (""Which of the following languages or technologies have you done extensive development with in the last year?"):  
+
+```{r}
+stack_multi("tech_do")
+```
+
+Using this data, we could find the most common answers:
+
+```{r}
+stack_multi("tech_do") %>%
+  count(tech = answer, sort = TRUE)
+```
+
+We can join this with the `stack_survey` dataset using the `respondent_id` column. For example, we could look at the most common development technologies used by data scientists:
+
+```{r}
+stack_survey %>%
+  filter(occupation == "Data scientist") %>%
+  inner_join(stack_multi("tech_do"), by = "respondent_id") %>%
+  count(answer, sort = TRUE)
+```
+
+Or we could find out the average age and salary of people using each technology, and compare them:
+
+```{r}
+stack_survey %>%
+  inner_join(stack_multi("tech_do")) %>%
+  group_by(answer) %>%
+  summarize_each(funs(mean(., na.rm = TRUE)), age_midpoint, salary_midpoint) %>%
+  ggplot(aes(age_midpoint, salary_midpoint)) +
+  geom_point() +
+  geom_text(aes(label = answer), vjust = 1, hjust = 1) +
+  xlab("Average age of people using this technology") +
+  ylab("Average salary (USD)") +
+  scale_y_continuous(labels = dollar_format())
+```
+
+If we want to be a bit more adventurous, we can use the (in-development) [widyr](https://github.com/dgrtwo/widyr) package to find correlations among technologies, and the [ggraph](https://github.com/thomasp85/ggraph) package to display them as a network of related technologies:
+
+```{r fig.width = 8, fig.height = 8}
+library(widyr)
+library(ggraph)
+library(igraph)
+
+set.seed(2016)
+
+stack_multi("tech_do") %>%
+  pairwise_cor(answer, respondent_id) %>%
+  filter(correlation > .15) %>%
+  graph_from_data_frame() %>%
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(edge_alpha = correlation, edge_width = correlation)) +
+  geom_node_point(color = "lightblue", size = 7) +
+  geom_node_text(aes(label = name), repel = TRUE) +
+  theme_void()
+```
+
+Try the data out for yourself!
