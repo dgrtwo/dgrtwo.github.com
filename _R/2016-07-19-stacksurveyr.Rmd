@@ -18,7 +18,7 @@ theme_set(theme_bw())
 
 This year, more than fifty thousand programmers answered the [Stack Overflow 2016 Developer Survey](http://stackoverflow.com/research/developer-survey-2016), in the largest survey of professional developers in history.
 
-Last week Stack Overflow released the full (anonymized) results of the survey at [stackoverflow.com/research](http://stackoverflow.com/research). To make analysis in R even easier, today I'm also releasing the [https://github.com/dgrtwo/stacksurveyr](stacksurveyr) package, which contains:
+Last week Stack Overflow released the full (anonymized) results of the survey at [stackoverflow.com/research](http://stackoverflow.com/research). To make analysis in R even easier, today I'm also releasing the [stacksurveyr](https://github.com/dgrtwo/stacksurveyr) package, which contains:
 
 * The full survey results as a processed data frame (`stack_survey`)
 * A data frame with the survey's schema, including the original text of each question (`stack_schema`)
