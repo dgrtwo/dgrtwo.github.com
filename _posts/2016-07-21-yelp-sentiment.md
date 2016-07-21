@@ -372,20 +372,20 @@ words_afinn
 
 
 {% highlight text %}
-## # A tibble: 725 x 6
+## # A tibble: 505 x 6
 ##            word businesses reviews  uses average_stars afinn_score
 ##           <chr>      <int>   <int> <int>         <dbl>       <int>
 ## 1       ability        374     402   410      3.465174           2
 ## 2        accept        557     720   772      2.929167           1
 ## 3      accepted        293     321   332      2.968847           1
-## 4     accepting        108     108   115      2.703704           1
-## 5      accident        369     447   501      3.536913          -2
-## 6  accidentally        279     305   307      3.252459          -2
-## 7        active        177     215   238      3.744186           1
-## 8      adequate        420     502   527      3.203187           1
-## 9         admit        942    1316  1348      3.620821          -1
-## 10     admitted        196     248   271      2.157258          -1
-## # ... with 715 more rows
+## 4      accident        369     447   501      3.536913          -2
+## 5  accidentally        279     305   307      3.252459          -2
+## 6        active        177     215   238      3.744186           1
+## 7      adequate        420     502   527      3.203187           1
+## 8         admit        942    1316  1348      3.620821          -1
+## 9      admitted        196     248   271      2.157258          -1
+## 10     adorable        305     416   431      4.281250           3
+## # ... with 495 more rows
 {% endhighlight %}
 
 

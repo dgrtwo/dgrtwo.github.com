@@ -11,7 +11,7 @@ comments: true
 
 ```{r echo = FALSE}
 library(knitr)
-opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE, fig.width = 10, fig.height = 10)
 ```
 
 This year [Julia Silge](http://juliasilge.com/) and I released the [tidytext](https://github.com/juliasilge/tidytext) package for text mining using tidy tools such as [dplyr](https://cran.r-project.org/package=dplyr), [tidyr](https://cran.r-project.org/package=tidyr), [ggplot2](https://cran.r-project.org/package=ggplot2) and [broom](https://cran.r-project.org/package=broom). One of the canonical examples of tidy text mining this package makes possible is [sentiment analysis](https://en.wikipedia.org/wiki/Sentiment_analysis). 
