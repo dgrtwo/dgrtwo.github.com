@@ -3,6 +3,7 @@ layout: post
 title: "Does sentiment analysis work? A tidy analysis of Yelp reviews"
 description: "How well does sentiment analysis work at predicting customer satisfaction? We examine a Yelp dataset using the tidytext package"
 output: html_document
+date: 2016-07-21 2:00:00 -0400
 category: r
 tags: [r, statistics, tidytext]
 comments: true
