@@ -1,0 +1,236 @@
+---
+layout: post
+title: "Does sentiment analysis work? A tidy analysis of Yelp reviews"
+description: "How well does sentiment analysis work at predicting customer satisfaction? We examine a Yelp dataset using the tidytext package"
+output: html_document
+category: r
+tags: [r, statistics, tidytext]
+comments: true
+---
+
+```{r echo = FALSE}
+library(knitr)
+opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+```
+
+This year [Julia Silge](http://juliasilge.com/) and I released the [tidytext](https://github.com/juliasilge/tidytext) package for text mining using tidy tools such as [dplyr](https://cran.r-project.org/package=dplyr), [tidyr](https://cran.r-project.org/package=tidyr), [ggplot2](https://cran.r-project.org/package=ggplot2) and [broom](https://cran.r-project.org/package=broom). One of the canonical examples of tidy text mining this package makes possible is [sentiment analysis](https://en.wikipedia.org/wiki/Sentiment_analysis). 
+
+Sentiment analysis is often used by companies to quantify general social media opinion (for example, using tweets about several brands to compare customer satisfaction). One of the simplest and most common sentiment analysis methods is to classify words as "positive" or "negative", then to average the values of each word to categorize the entire document. (See [this vignette](https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html) and [Julia's post](http://juliasilge.com/blog/Life-Changing-Magic/) for examples of a tidy application of sentiment analysis). But does this method actually *work*? Can you predict the positivity or negativity of someone's writing by counting words?
+
+To answer this, let's try sentiment analysis on a text dataset where we know the "right answer"- one where each customer also quantified their opinion. In particular, we'll use the [Yelp Dataset](https://www.yelp.com/dataset_challenge): a wonderful collection of millions of restaurant reviews, each accompanied by a 1-5 star rating. We'll try out a specific sentiment analysis method, and see the extent to which we can predict a customer's rating based on their written opinion. In the process we'll get a sense of the strengths and weaknesses of sentiment analysis, and explore another example of tidy text mining with tidytext, dplyr, and ggplot2.
+
+### Setup
+
+I've downloaded the `yelp_dataset_challenge_academic_dataset` folder from [here](https://www.yelp.com/dataset_challenge).[^termsofuse] First I read and process them into a data frame:
+
+```{r review_lines, echo = FALSE}
+library(readr)
+library(dplyr)
+
+# we're reading only 200,000 in this example
+# you can try it with the full dataset too, it's just a little slower to process!
+infile <- "~/Downloads/yelp_dataset_challenge_academic_dataset/yelp_academic_dataset_review.json"
+review_lines <- read_lines(infile, n_max = 200000, progress = FALSE)
+```
+
+```{r reviews, dependson = "review_lines"}
+library(stringr)
+library(jsonlite)
+
+# Each line is a JSON object- the fastest way to process is to combine into a
+# single JSON string and use fromJSON and flatten
+reviews_combined <- str_c("[", str_c(review_lines, collapse = ", "), "]")
+
+reviews <- fromJSON(reviews_combined) %>%
+  flatten() %>%
+  tbl_df()
+```
+
+We now have a data frame with one row per review:
+
+```{r dependson = "reviews"}
+reviews
+```
+
+Notice the `stars` column with the star rating the user gave, as well as the text column (too large to display) with the actual text of the review. For now, we'll focus on whether we can predict the star rating based on the text.
+
+### Tidy sentiment analysis
+
+Right now, there is one row for each review. To analyze in the [tidy text](http://github.com/juliasilge/tidytext) framework, we need to use the `unnest_tokens` function and turn this into one-row-per-term-per-document:
+
+```{r review_words, dependson = "reviews"}
+library(tidytext)
+
+review_words <- reviews %>%
+  select(review_id, business_id, stars, text) %>%
+  unnest_tokens(word, text) %>%
+  filter(!word %in% stop_words$word,
+         str_detect(word, "^[a-z']+$"))
+
+review_words
+```
+
+Notice that there is now one-row-per-term-per-document: the tidy text form. In this cleaning process we've also removed "stopwords" (such as "I", "the", "and", etc), and removing things things that are formatting (e.g. "----") rather than a word.
+
+Now let's perform sentiment analysis on each review. We'll use the [AFINN](http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010) lexicon, which provides a positivity score for each word, from -5 (most negative) to 5 (most positive). This, along with several other lexicons, are stored in the `sentiments` table that comes with tidytext. (I've tried some other lexicons on this dataset and the results are pretty similar.)
+
+```{r AFINN}
+AFINN <- sentiments %>%
+  filter(lexicon == "AFINN") %>%
+  select(word, afinn_score = score)
+
+AFINN
+```
+
+Now as described [in Julia's post](http://juliasilge.com/blog/Life-Changing-Magic/), our sentiment analysis is just an inner-join operation followed by a summary:
+
+```{r}
+reviews_sentiment <- review_words %>%
+  inner_join(AFINN, by = "word") %>%
+  group_by(review_id, stars) %>%
+  summarize(sentiment = mean(afinn_score))
+
+reviews_sentiment
+```
+
+We now have an average sentiment alongside the star ratings. If we're right and sentiment analysis can predict a review's opinion towards a restaurant, we should expect the sentiment score to correlate with the star rating.
+
+Did it work?
+
+```{r cache = FALSE}
+library(ggplot2)
+theme_set(theme_bw())
+```
+
+```{r}
+ggplot(reviews_sentiment, aes(stars, sentiment, group = stars)) +
+  geom_boxplot() +
+  ylab("Average sentiment score")
+```
+
+Well, it's a very good start! Our sentiment scores are certainly correlated with positivity ratings. But we do see that there's a large amount of prediction error- some 5-star reviews have a highly negative sentiment score, and vice versa.
+
+### Which words are positive or negative?
+
+Our algorithm works at the word level, so if we want to improve our approach we should start there. Which words are suggestive of positive reviews, and which are negative?
+
+To examine this, let's create a per-word summary, and see which words tend to appear in positive or negative reviews. This takes more grouping and summarizing:
+
+```{r words_filtered, dependson = "review_words"}
+review_words_counted <- review_words %>%
+  count(review_id, business_id, stars, word) %>%
+  ungroup()
+
+review_words_counted
+```
+
+```{r word_summaries}
+word_summaries <- review_words_counted %>%
+  group_by(word) %>%
+  summarize(businesses = n_distinct(business_id),
+            reviews = n(),
+            uses = sum(n),
+            average_stars = mean(stars)) %>%
+  ungroup()
+
+word_summaries
+```
+
+We can start by looking only at words that appear in at least 200 (out of `r nrow(reviews)`) reviews. This makes sense both because rare words will have a noisier measurement (a few good or bad reviews could shift the balance), and because they're less likely to be useful in classifying future reviews or text. I also filter for ones that appear in at least 10 businesses (others are likely to be specific to a particular restaurant).
+
+```{r word_summaries_filtered, dependson = word_summaries}
+word_summaries_filtered <- word_summaries %>%
+  filter(reviews >= 200, businesses >= 10)
+
+word_summaries_filtered
+```
+
+What were the most positive and negative words?
+
+```{r dependson = "word_summaries_filtered"}
+word_summaries_filtered %>%
+  arrange(desc(average_stars))
+```
+
+Looks plausible to me! What about negative?
+
+```{r dependson = "word_summaries_filtered"}
+word_summaries_filtered %>%
+  arrange(average_stars)
+```
+
+Also makes a lot of sense. We can also plot positivity by frequency:
+
+```{r word_summaries_filtered_plot, dependson = "word_summaries_filtered"}
+ggplot(word_summaries_filtered, aes(reviews, average_stars)) +
+  geom_point() +
+  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1, hjust = 1) +
+  scale_x_log10() +
+  geom_hline(yintercept = mean(reviews$stars), color = "red", lty = 2) +
+  xlab("# of reviews") +
+  ylab("Average Stars")
+```
+
+Note that some of the most common words (e.g. "food") are pretty neutral. There are some common words that are pretty positive (e.g. "amazing", "awesome") and others that are pretty negative ("bad", "told").
+
+### Comparing to sentiment analysis
+
+When we perform sentiment analysis, we're typically comparing to a pre-existing lexicon, one that may have been developed for a particular purpose. That means that on our new dataset (Yelp reviews), some words may have different implications.
+
+We can combine and compare the two datasets with `inner_join`.
+
+```{r words_afinn, dependson = "AFINN"}
+words_afinn <- word_summaries_filtered %>%
+  inner_join(AFINN)
+
+words_afinn
+
+ggplot(words_afinn, aes(afinn_score, average_stars, group = afinn_score)) +
+  geom_boxplot() +
+  xlab("AFINN score of word") +
+  ylab("Average stars of reviews with this word")
+```
+
+Just like in our per-review predictions, there's a very clear trend. AFINN sentiment analysis works, at least a little bit!
+
+But we may want to see some of those details. Which positive/negative words were most successful in predicting a positive/negative review, and which broke the trend?
+
+```{r words_afinn_plot, dependson = "words_afinn", fig.width = 10, fig.height = 10, echo = FALSE}
+words_afinn %>%
+  arrange(desc(reviews)) %>%
+  ggplot(aes(afinn_score, average_stars)) +
+  geom_point(aes(size = reviews)) +
+  geom_text(aes(label = word), vjust = 1, hjust = 1, check_overlap = TRUE) +
+  geom_smooth(method = "lm", se = FALSE) +
+  xlab("AFINN Sentiment Score") +
+  ylab("Average Yelp Stars") +
+  expand_limits(x = -6)
+```
+
+For example, we can see that most profanity has an AFINN score of -4, and that while some words, like "wtf", successfully predict a negative review, others, like "damn", are often positive (e.g. "the roast beef was **damn** good!"). Some of the words that AFINN most underestimated included "die" ("the pork chops are to **die** for!"), and one of the words it most overestimated was "joke" ("the service is a complete **joke**!").
+
+One other way we could look at misclassifications is to add AFINN sentiments to our frequency vs average stars plot:
+
+```{r word_summaries_filtered_plot_AFINN, dependson = "word_summaries_filtered", echo = FALSE}
+word_summaries_filtered %>%
+  inner_join(AFINN, by = "word") %>%
+  ggplot(aes(reviews, average_stars, color = afinn_score)) +
+  geom_point() +
+  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1, hjust = 1) +
+  scale_x_log10() +
+  geom_hline(yintercept = mean(reviews$stars), color = "red", lty = 2) +
+  scale_color_gradient2(low = "red", high = "blue", midpoint = 0, mid = "gray") +
+  labs(x = "# of reviews",
+       y = "Average Stars",
+       color = "AFINN")
+```
+
+One thing I like about the tidy text mining framework is that it lets us explore the successes and failures of our model at this granular level, using tools (ggplot2, dplyr) that we're already familiar with.
+
+### Next time: Machine learning
+
+In this post I've focused on basic exploration of the Yelp review dataset, and an evaluation of one sentiment analysis method for predicting review positivity. (Our conclusion: it's good, but far from perfect!) But what if we want to create our own prediction method based on these reviews?
+
+In my next post on this topic, I'll show how to train LASSO regression (with the [glmnet](https://cran.r-project.org/web/packages/glmnet/index.html) package) on this dataset to create a predictive model. This will serve as an introduction to machine learning methods in text classification. It will also let us create our own new "lexicon" of positive and negative words, one that may be more appropriate to our context of restaurant reviews.
+
+[^termsofuse]: I encourage you to download this dataset and follow along- but note that if you do, you are bound by their [Terms of Use](https://www.yelp.com/html/pdf/Dataset_Challenge_Academic_Dataset_Agreement.pdf).
