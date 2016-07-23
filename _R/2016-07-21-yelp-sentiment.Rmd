@@ -24,7 +24,7 @@ To answer this, let's try sentiment analysis on a text dataset where we know the
 
 I've downloaded the `yelp_dataset_challenge_academic_dataset` folder from [here](https://www.yelp.com/dataset_challenge).[^termsofuse] First I read and process them into a data frame:
 
-```{r review_lines, echo = FALSE}
+```{r review_lines, results = "hide"}
 library(readr)
 library(dplyr)
 

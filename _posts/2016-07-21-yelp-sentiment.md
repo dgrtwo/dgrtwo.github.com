@@ -22,6 +22,15 @@ To answer this, let's try sentiment analysis on a text dataset where we know the
 I've downloaded the `yelp_dataset_challenge_academic_dataset` folder from [here](https://www.yelp.com/dataset_challenge).[^termsofuse] First I read and process them into a data frame:
 
 
+{% highlight r %}
+library(readr)
+library(dplyr)
+
+# we're reading only 200,000 in this example
+# you can try it with the full dataset too, it's just a little slower to process!
+infile <- "~/Downloads/yelp_dataset_challenge_academic_dataset/yelp_academic_dataset_review.json"
+review_lines <- read_lines(infile, n_max = 200000, progress = FALSE)
+{% endhighlight %}
 
 
 {% highlight r %}
