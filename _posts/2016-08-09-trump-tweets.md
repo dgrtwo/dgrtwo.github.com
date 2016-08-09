@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Text analysis of Trump's tweets confirms he writes only the Android half"
+title: "Text analysis of Trump's tweets confirms he writes only the (angrier) Android half"
 description: "Text and sentiment analysis on Trump's tweets confirms that the tweets posted from the iPhone appear to come from his campaign, while his tweets from Android are the 'off-the-cuff' observations he's known for."
 date: 2016-08-09 12:00:00 -0400
 category: r
