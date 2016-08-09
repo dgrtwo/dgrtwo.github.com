@@ -53,7 +53,6 @@ trump_tweets_df <- tbl_df(map_df(trump_tweets, as.data.frame))
 load(url("http://varianceexplained.org/files/trump_tweets_df.rda"))
 {% endhighlight %}
 
-
 We clean this data a bit, extracting the source application. (We're looking only at the iPhone and Android tweets- a much smaller number are from the web client or iPad).
 
 
@@ -192,11 +191,6 @@ android_iphone_ratios <- tweet_words %>%
 {% endhighlight %}
 
 Which are the words most likely to be from Android and most likely from iPhone?
-
-
-{% highlight text %}
-## Error in unique.default(x): hash table is full
-{% endhighlight %}
 
 ![center](/figs/2016-08-09-trump-tweets/android_iphone_ratios_plot-1.svg)
 

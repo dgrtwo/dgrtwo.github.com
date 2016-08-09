@@ -196,6 +196,7 @@ Which are the words most likely to be from Android and most likely from iPhone?
 android_iphone_ratios %>%
   group_by(logratio > 0) %>%
   top_n(15, abs(logratio)) %>%
+  ungroup() %>%
   mutate(word = reorder(word, logratio)) %>%
   ggplot(aes(word, logratio, fill = logratio < 0)) +
   geom_bar(stat = "identity") +
