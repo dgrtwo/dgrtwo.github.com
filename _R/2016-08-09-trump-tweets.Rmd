@@ -143,7 +143,7 @@ While Android (Trump himself) tends to write picture-less tweets like:
 
 ### Comparison of words
 
-Now that we're sure there's a difference between these two accounts, what can we say about the difference between the *content*. We'll use the [tidytext](https://cran.r-project.org/web/packages/tidytext) package that [Julia Silge](http://juliasilge.com/) and I developed.
+Now that we're sure there's a difference between these two accounts, what can we say about the difference in the *content*? We'll use the [tidytext](https://cran.r-project.org/web/packages/tidytext) package that [Julia Silge](http://juliasilge.com/) and I developed.
 
 We start by dividing into individual words using the `unnest_tokens` function (see [this vignette](https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html) for more), and removing some common "stopwords"[^regex]:
 
@@ -328,5 +328,5 @@ A lot has been written about Trump's mental state. But I'd really rather get ins
 
 [^fullcode]: To keep the post concise I don't show all of the code, especially code that generates figures. But you can find the full code [here](https://github.com/dgrtwo/dgrtwo.github.com/blob/master/_R/2016-08-09-trump-tweets.Rmd).
 [^regex]: We had to use a custom regular expression for Twitter, since typical tokenizers would split the # off of hashtags and @ off of usernames. We also removed links and ampersands (`&amp;`) from the text.
-[^plusone]: The "plus ones," called [Laplace smoothing](https://en.wikipedia.org/wiki/Additive_smoothing) are to avoid dividing by zero and to put [more trust in common word](http://varianceexplained.org/r/empirical_bayes_baseball/)
+[^plusone]: The "plus ones," called [Laplace smoothing](https://en.wikipedia.org/wiki/Additive_smoothing) are to avoid dividing by zero and to put [more trust in common words](http://varianceexplained.org/r/empirical_bayes_baseball/).
 
