@@ -33,6 +33,7 @@ First we'll retrieve the content of Donald Trump's timeline using the `userTimel
 
 ```{r}
 library(dplyr)
+library(purrr)
 library(twitteR)
 ```
 

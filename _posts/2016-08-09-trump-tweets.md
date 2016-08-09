@@ -28,6 +28,7 @@ First we'll retrieve the content of Donald Trump's timeline using the `userTimel
 
 {% highlight r %}
 library(dplyr)
+library(purrr)
 library(twitteR)
 {% endhighlight %}
 
@@ -52,6 +53,7 @@ trump_tweets_df <- tbl_df(map_df(trump_tweets, as.data.frame))
 load(url("http://varianceexplained.org/files/trump_tweets_df.rda"))
 {% endhighlight %}
 
+
 We clean this data a bit, extracting the source application. (We're looking only at the iPhone and Android tweets- a much smaller number are from the web client or iPad).
 
 
@@ -62,12 +64,6 @@ tweets <- trump_tweets_df %>%
   select(id, statusSource, text, created) %>%
   extract(statusSource, "source", "Twitter for (.*?)<") %>%
   filter(source %in% c("iPhone", "Android"))
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in select(., id, statusSource, text, created): unused arguments (id, statusSource, text, created)
 {% endhighlight %}
 
 Overall, this includes 628 tweets from iPhone, and 762 tweets from Android.
@@ -197,6 +193,11 @@ android_iphone_ratios <- tweet_words %>%
 
 Which are the words most likely to be from Android and most likely from iPhone?
 
+
+{% highlight text %}
+## Error in unique.default(x): hash table is full
+{% endhighlight %}
+
 ![center](/figs/2016-08-09-trump-tweets/android_iphone_ratios_plot-1.svg)
 
 A few observations:
@@ -296,7 +297,7 @@ sentiment_differences
 ## Groups: sentiment [10]
 ## 
 ##       sentiment estimate statistic      p.value parameter  conf.low
-##           <chr>    <dbl>     <dbl>        <dbl>     <dbl>     <dbl>
+##           (chr)    (dbl)     (dbl)        (dbl)     (dbl)     (dbl)
 ## 1         anger 1.492863       321 2.193242e-05  274.3619 1.2353162
 ## 2  anticipation 1.169804       256 1.191668e-01  239.6467 0.9604950
 ## 3       disgust 1.677259       207 1.777434e-05  170.2164 1.3116238
@@ -307,8 +308,7 @@ sentiment_differences
 ## 8       sadness 1.620044       303 1.150493e-06  251.9650 1.3260252
 ## 9      surprise 1.167925       159 2.174483e-01  148.9393 0.9083517
 ## 10        trust 1.128482       369 1.471929e-01  350.5114 0.9597478
-## # ... with 3 more variables: conf.high <dbl>, method <fctr>,
-## #   alternative <fctr>
+## Variables not shown: conf.high (dbl), method (fctr), alternative (fctr)
 {% endhighlight %}
 
 And we can visualize it with a 95% confidence interval:
