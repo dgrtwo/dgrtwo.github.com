@@ -193,27 +193,6 @@ android_iphone_ratios <- tweet_words %>%
   mutate_each(funs((. + 1) / sum(. + 1)), -word) %>%
   mutate(logratio = log2(Android / iPhone)) %>%
   arrange(desc(logratio))
-
-android_iphone_ratios
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## # A tibble: 411 x 4
-##       word     Android       iPhone logratio
-##      <chr>       <dbl>        <dbl>    <dbl>
-## 1    badly 0.003993155 0.0003677823 3.440605
-## 2    crazy 0.003707929 0.0003677823 3.333690
-## 3     weak 0.003422704 0.0003677823 3.218213
-## 4    spent 0.002852253 0.0003677823 2.955178
-## 5     joke 0.002567028 0.0003677823 2.803175
-## 6    mails 0.002567028 0.0003677823 2.803175
-## 7   strong 0.002567028 0.0003677823 2.803175
-## 8  talking 0.002567028 0.0003677823 2.803175
-## 9      ago 0.002281803 0.0003677823 2.633250
-## 10  brexit 0.002281803 0.0003677823 2.633250
-## # ... with 401 more rows
 {% endhighlight %}
 
 Which are the words most likely to be from Android and most likely from iPhone?
