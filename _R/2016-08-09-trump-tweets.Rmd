@@ -202,7 +202,7 @@ android_iphone_ratios %>%
   coord_flip() +
   ylab("Android / iPhone log ratio") +
   scale_fill_manual(name = "", labels = c("Android", "iPhone"),
-                    values = c("lightblue", "red"))
+                    values = c("red", "lightblue"))
 ```
 
 A few observations:
