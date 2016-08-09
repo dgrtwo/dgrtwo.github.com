@@ -306,7 +306,7 @@ head(by_source_sentiment)
 ## 6 Android     negative        4901   560
 {% endhighlight %}
 
-(For example, we see that 321 of the 4901 words in the Android tweets were associated with "anger"). We then want to measure how much more likely the Android account is to use an emotionally-charged term relative to the iPhone account. Since this is count data, we can use a [Poisson test](TODO) to measure the difference:
+(For example, we see that 321 of the 4901 words in the Android tweets were associated with "anger"). We then want to measure how much more likely the Android account is to use an emotionally-charged term relative to the iPhone account. Since this is count data, we can use a [Poisson test](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/poisson.test.html) to measure the difference:
 
 
 {% highlight r %}
