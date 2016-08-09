@@ -4,7 +4,8 @@ title: "Text analysis of Trump's tweets confirms he writes only the (angrier) An
 description: "Text and sentiment analysis on Trump's tweets confirms that the tweets posted from the iPhone appear to come from his campaign, while his tweets from Android are the 'off-the-cuff' observations he's known for."
 date: 2016-08-09 12:00:00 -0400
 category: r
-tags: [r, statistics, work, education]
+og_image: http://varianceexplained.org/figs/2016-08-09-trump-tweets/android_iphone_ratios_plot-1.svg
+tags: [r, statistics]
 comments: true
 ---
 
