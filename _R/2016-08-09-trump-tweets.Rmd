@@ -25,7 +25,7 @@ When Trump wishes the Olympic team good luck, he's tweeting from his iPhone. Whe
 
 Others have [explored Trump's timeline](http://www.cnet.com/news/trumps-tweets-android-for-nasty-iphone-for-nice/) and noticed this tends to hold up- and Trump himself [does indeed tweet from a Samsung Galaxy](http://www.theverge.com/2015/10/5/9453935/donald-trump-twitter-strategy). But how could we examine it quantitatively? I've been writing about text mining and [sentiment analysis](varianceexplained.org/r/yelp-sentiment/) recently, particularly during my development of the [tidytext R package](http://github.com/juliasilge/tidytext) with Julia Silge, and this is a great opportunity to apply it again.
 
-My analysis, shown below, concludes that **the Android and iPhone tweets are clearly from two separate people**, posting during different times of day and using hashtags, links, and retweets in distinct ways. What's more, we can see that **the Android tweets are angrier and more negative**, while the iPhone tweets tend to be benign announcements and pictures. Overall I'd agree with [@tvaziri](https://twitter.com/tvaziri)'s analysis: this lets us tell the difference between the campaign's tweets (iPhone) and Trump's own (Android).
+My analysis, shown below, concludes that **the Android and iPhone tweets are clearly from different people**, posting during different times of day and using hashtags, links, and retweets in distinct ways. What's more, we can see that **the Android tweets are angrier and more negative**, while the iPhone tweets tend to be benign announcements and pictures. Overall I'd agree with [@tvaziri](https://twitter.com/tvaziri)'s analysis: this lets us tell the difference between the campaign's tweets (iPhone) and Trump's own (Android).
 
 ### The dataset
 
@@ -43,7 +43,8 @@ setup_twitter_oauth(getOption("twitter_consumer_key"),
                     getOption("twitter_access_token"),
                     getOption("twitter_access_token_secret"))
 
-# We can request only 3200 tweets at a time; it 
+# We can request only 3200 tweets at a time; it will return fewer
+# depending on the API
 trump_tweets <- userTimeline("realDonaldTrump", n = 3200)
 trump_tweets_df <- tbl_df(map_df(trump_tweets, as.data.frame))
 ```
@@ -86,7 +87,7 @@ tweets %>%
 
 Trump on the Android does a lot more tweeting in the morning, while the campaign posts from the iPhone more in the afternoon and early evening.
 
-Another place we can spot a difference is in Trump's unorthodox behavior of "retweeting" people by copy-pasting their tweets, then surrounding them with quotation marks:
+Another place we can spot a difference is in Trump's anachronistic behavior of "manually retweeting" people by copy-pasting their tweets, then surrounding them with quotation marks:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">&quot;<a href="https://twitter.com/trumplican2016">@trumplican2016</a>: <a href="https://twitter.com/realDonaldTrump">@realDonaldTrump</a> <a href="https://twitter.com/DavidWohl">@DavidWohl</a> stay the course mr trump your message is resonating with the PEOPLE&quot;</p>&mdash; Donald J. Trump (@realDonaldTrump) <a href="https://twitter.com/realDonaldTrump/status/758512401629192192">July 28, 2016</a></blockquote>
 <script async src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -141,7 +142,7 @@ While Android (Trump himself) tends to write picture-less tweets like:
 
 ### Comparison of words
 
-Now that we're sure there's a difference between these two accounts, what can we say about the difference between the *content* We'll use the [tidytext](https://cran.r-project.org/web/packages/tidytext) package that [Julia Silge](http://juliasilge.com/) and I developed.
+Now that we're sure there's a difference between these two accounts, what can we say about the difference between the *content*. We'll use the [tidytext](https://cran.r-project.org/web/packages/tidytext) package that [Julia Silge](http://juliasilge.com/) and I developed.
 
 We start by dividing into individual words using the `unnest_tokens` function (see [this vignette](https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html) for more), and removing some common "stopwords"[^regex]:
 
@@ -220,7 +221,7 @@ Since we've observed a difference in sentiment between the Android and iPhone tw
 ```{r nrc}
 nrc <- sentiments %>%
   filter(lexicon == "nrc") %>%
-  select(word, sentiment)
+  dplyr::select(word, sentiment)
 
 nrc
 ```
@@ -328,3 +329,4 @@ A lot has been written about Trump's mental state. But I'd really rather get ins
 [^fullcode]: To keep the post concise I don't show all of the code, especially code that generates figures. But you can find the full code [here](https://github.com/dgrtwo/dgrtwo.github.com/blob/master/_R/2016-08-09-trump-tweets.Rmd).
 [^regex]: We had to use a custom regular expression for Twitter, since typical tokenizers would split the # off of hashtags and @ off of usernames. We also removed links and ampersands (`&amp;`) from the text.
 [^plusone]: The "plus ones," called [Laplace smoothing](https://en.wikipedia.org/wiki/Additive_smoothing) are to avoid dividing by zero and to put [more trust in common word](http://varianceexplained.org/r/empirical_bayes_baseball/)
+
