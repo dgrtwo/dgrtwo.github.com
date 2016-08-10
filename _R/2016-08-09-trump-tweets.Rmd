@@ -70,7 +70,7 @@ tweets <- trump_tweets_df %>%
 
 Overall, this includes `r sum(tweets$source == "iPhone")` tweets from iPhone, and `r sum(tweets$source == "Android")` tweets from Android.
 
-Another consideration is what time of day the tweets occur, which we'd expect to be a "signature" of their user. Here we can spot a difference as well:
+One consideration is what time of day the tweets occur, which we'd expect to be a "signature" of their user. Here we can certainly spot a difference:
 
 ```{r dependson = "tweets"}
 library(lubridate)
