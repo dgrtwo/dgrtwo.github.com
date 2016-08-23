@@ -22,6 +22,7 @@ One part of the article that struck me as especially misguided was the author's 
 I personally haven't been a #seriousacademic in over a year, having since become a #sillydatascientist. So I felt no shame in live-tweeting the heck out of the two conferences I attended this summer: [userR](http://user2016.org/) and [JSM (Joint Statistical Meetings)](https://www.amstat.org/meetings/jsm/2016/).
 
 There's a great analysis [here](https://earlyamericanists.com/2016/08/11/whats-livetweeting-for-anyway/) of why people tweet during conferences. For me Twitter best serves as sort of **"public diary"**- I'm not very good at taking notes, and tweeting lets me create a record of what I found most interesting that I can refer to later. So as the summer ends, I'm looking back at my "notes" from these two conferences, and sharing my thoughts.
+
 (If you're a Serious Academic who is against live-tweeting of conferences, get out now, this post isn't going to get any better.)
 
 ### What I was up to at the conferences
@@ -171,23 +172,23 @@ VI(hist(x))
 ##  "x" is marked on the x-axis.
 ## Tick marks for the x-axis are at: -3, and 3 
 ## There are a total of 1000 elements for this variable.
-## Tick marks for the y-axis are at: 0, 50, 100, 150, and 200 
+## Tick marks for the y-axis are at: 0, 50, 100, and 150 
 ## It has 14 bins with equal widths, starting at -3.5 and ending at 3.5 .
 ## The mids and counts for the bins are:
-## mid = -3.25  count = 1 
-## mid = -2.75  count = 6 
-## mid = -2.25  count = 20 
-## mid = -1.75  count = 41 
-## mid = -1.25  count = 91 
-## mid = -0.75  count = 134 
-## mid = -0.25  count = 203 
-## mid = 0.25  count = 214 
-## mid = 0.75  count = 139 
-## mid = 1.25  count = 85 
-## mid = 1.75  count = 41 
-## mid = 2.25  count = 20 
-## mid = 2.75  count = 3 
-## mid = 3.25  count = 2
+## mid = -3.25  count = 3 
+## mid = -2.75  count = 7 
+## mid = -2.25  count = 23 
+## mid = -1.75  count = 39 
+## mid = -1.25  count = 104 
+## mid = -0.75  count = 146 
+## mid = -0.25  count = 186 
+## mid = 0.25  count = 171 
+## mid = 0.75  count = 153 
+## mid = 1.25  count = 102 
+## mid = 1.75  count = 36 
+## mid = 2.25  count = 19 
+## mid = 2.75  count = 6 
+## mid = 3.25  count = 5
 {% endhighlight %}
 
 Talking to him made me realize what great strides had been made in statistics and programming for the blind ([here's more on that general topic](http://stackoverflow.com/questions/118984/how-can-you-program-if-youre-blind)), but also what obstacles remained for R in particular. I take RStudio for granted, but according to Jonathan it's effectively unusable for blind users (too many buttons, tabs and drop-down menus, which are difficult to navigate with a screenreader). Towards that goal he's been working on the [WriteR IDE](https://github.com/ajrgodfrey/WriteR) for accessible programming in R and R markdown:
