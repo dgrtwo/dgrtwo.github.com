@@ -120,7 +120,9 @@ I think Yihui Xie might have won the day, though. He not only led a terrific dis
 
 ### RStudio
 
-[RStudio](https://www.rstudio.com/) has been one of the most influential companies in the modern R world, denot only developinghe eponymous IDE but masupporting many important open source packages, and the company was at both conferences in force.RStudio CEO J.J. Allaire talked about the new interactive notebook features of the RStudio IDE, analogous to Jupyter notebooks:
+[RStudio](https://www.rstudio.com/) has been one of the most influential companies in the modern R world, not only developing the eponymous IDE but supporting many important open source packages, and the company was at both conferences in force.
+
+RStudio CEO J.J. Allaire talked about the new interactive notebook features of the RStudio IDE, analogous to Jupyter notebooks:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">comparison betw R markdown &amp; notebooks in JJ Allaire’s intro to <a href="https://twitter.com/rstudio">@RStudio</a>’s awesome new Rmd notebooks <a href="https://twitter.com/hashtag/UseR2016?src=hash">#UseR2016</a> <a href="https://t.co/4QFp8hhBuu">pic.twitter.com/4QFp8hhBuu</a></p>&mdash; Karl Broman (@kwbroman) <a href="https://twitter.com/kwbroman/status/748209635501318145">June 29, 2016</a></blockquote>
 
@@ -170,21 +172,21 @@ VI(hist(x))
 ## Tick marks for the x-axis are at: -3, and 3 
 ## There are a total of 1000 elements for this variable.
 ## Tick marks for the y-axis are at: 0, 50, 100, 150, and 200 
-## It has 13 bins with equal widths, starting at -3.5 and ending at 3 .
+## It has 13 bins with equal widths, starting at -3 and ending at 3.5 .
 ## The mids and counts for the bins are:
-## mid = -3.25  count = 1 
-## mid = -2.75  count = 0 
-## mid = -2.25  count = 18 
-## mid = -1.75  count = 44 
-## mid = -1.25  count = 92 
-## mid = -0.75  count = 137 
-## mid = -0.25  count = 196 
-## mid = 0.25  count = 161 
-## mid = 0.75  count = 176 
-## mid = 1.25  count = 93 
-## mid = 1.75  count = 55 
-## mid = 2.25  count = 19 
-## mid = 2.75  count = 8
+## mid = -2.75  count = 5 
+## mid = -2.25  count = 14 
+## mid = -1.75  count = 55 
+## mid = -1.25  count = 90 
+## mid = -0.75  count = 161 
+## mid = -0.25  count = 206 
+## mid = 0.25  count = 181 
+## mid = 0.75  count = 134 
+## mid = 1.25  count = 89 
+## mid = 1.75  count = 36 
+## mid = 2.25  count = 22 
+## mid = 2.75  count = 6 
+## mid = 3.25  count = 1
 {% endhighlight %}
 
 Talking to him made me realize what great strides had been made in statistics and programming for the blind ([here's more on that general topic](http://stackoverflow.com/questions/118984/how-can-you-program-if-youre-blind)), but also what obstacles remained for R in particular. I take RStudio for granted, but according to Jonathan it's effectively unusable for blind users (too many buttons, tabs and drop-down menus, which are difficult to navigate with a screenreader). Towards that goal he's been working on the [WriteR IDE](https://github.com/ajrgodfrey/WriteR) for accessible programming in R and R markdown:
