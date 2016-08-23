@@ -120,7 +120,7 @@ I think Yihui Xie might have won the day, though. He not only led a terrific dis
 
 ### RStudio
 
-[RStudio](https://www.rstudio.com/) has been one of the most influential companies in the modern R world, not only developing the eponymous IDE but supporting many important open source packages, and the company was at both conferences in force.
+[RStudio](https://www.rstudio.com/) has been one of the most influential companies in the modern R world, not only developing the eponymous IDE but supporting many important open source packages, and the company was at both conferences in full force.
 
 RStudio CEO J.J. Allaire talked about the new interactive notebook features of the RStudio IDE, analogous to Jupyter notebooks:
 
@@ -172,21 +172,22 @@ VI(hist(x))
 ## Tick marks for the x-axis are at: -3, and 3 
 ## There are a total of 1000 elements for this variable.
 ## Tick marks for the y-axis are at: 0, 50, 100, 150, and 200 
-## It has 13 bins with equal widths, starting at -3 and ending at 3.5 .
+## It has 14 bins with equal widths, starting at -3.5 and ending at 3.5 .
 ## The mids and counts for the bins are:
-## mid = -2.75  count = 5 
-## mid = -2.25  count = 14 
-## mid = -1.75  count = 55 
-## mid = -1.25  count = 90 
-## mid = -0.75  count = 161 
-## mid = -0.25  count = 206 
-## mid = 0.25  count = 181 
-## mid = 0.75  count = 134 
-## mid = 1.25  count = 89 
-## mid = 1.75  count = 36 
-## mid = 2.25  count = 22 
-## mid = 2.75  count = 6 
-## mid = 3.25  count = 1
+## mid = -3.25  count = 1 
+## mid = -2.75  count = 6 
+## mid = -2.25  count = 20 
+## mid = -1.75  count = 41 
+## mid = -1.25  count = 91 
+## mid = -0.75  count = 134 
+## mid = -0.25  count = 203 
+## mid = 0.25  count = 214 
+## mid = 0.75  count = 139 
+## mid = 1.25  count = 85 
+## mid = 1.75  count = 41 
+## mid = 2.25  count = 20 
+## mid = 2.75  count = 3 
+## mid = 3.25  count = 2
 {% endhighlight %}
 
 Talking to him made me realize what great strides had been made in statistics and programming for the blind ([here's more on that general topic](http://stackoverflow.com/questions/118984/how-can-you-program-if-youre-blind)), but also what obstacles remained for R in particular. I take RStudio for granted, but according to Jonathan it's effectively unusable for blind users (too many buttons, tabs and drop-down menus, which are difficult to navigate with a screenreader). Towards that goal he's been working on the [WriteR IDE](https://github.com/ajrgodfrey/WriteR) for accessible programming in R and R markdown:

@@ -123,7 +123,7 @@ I think Yihui Xie might have won the day, though. He not only led a terrific dis
 
 ### RStudio
 
-[RStudio](https://www.rstudio.com/) has been one of the most influential companies in the modern R world, not only developing the eponymous IDE but supporting many important open source packages, and the company was at both conferences in force.
+[RStudio](https://www.rstudio.com/) has been one of the most influential companies in the modern R world, not only developing the eponymous IDE but supporting many important open source packages, and the company was at both conferences in full force.
 
 RStudio CEO J.J. Allaire talked about the new interactive notebook features of the RStudio IDE, analogous to Jupyter notebooks:
 
