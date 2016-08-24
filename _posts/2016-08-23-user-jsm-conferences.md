@@ -80,6 +80,12 @@ Like much of the R community, I've internalized a lot of the lessons and practic
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">.<a href="https://twitter.com/kwbroman">@kwbroman</a>&#39;s colleague was &quot;sorry you did all that work on incomplete dataset&quot;- reproducibility for the win <a href="https://twitter.com/hashtag/JSM2016?src=hash">#JSM2016</a> <a href="https://t.co/cUTR2LRA1J">pic.twitter.com/cUTR2LRA1J</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/760838739866316800">August 3, 2016</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+Jenny Bryan talked about her and Ritz FitzJohn's work on the [jailbreakr](https://github.com/rsheets/jailbreakr) package for reading warts-and-all Excel spreadsheets into R.
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">. <a href="https://twitter.com/JennyBryan">@JennyBryan</a> encouraging empathy for spreadsheet users as always <a href="https://twitter.com/hashtag/useR2016?src=hash">#useR2016</a> <a href="https://t.co/Nu5omprsW3">pic.twitter.com/Nu5omprsW3</a></p>&mdash; Hilary Parker (@hspter) <a href="https://twitter.com/hspter/status/747864222017560576">June 28, 2016</a></blockquote>
+
+(This is something [I've tried before](http://rpubs.com/dgrtwo/tidying-enron) but of which she and Ritz are the undisputed champions).
+
 I particularly liked Yihui Xie's idea about teaching reproducibility:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">.<a href="https://twitter.com/xieyihui">@xieyihui</a> had &quot;evil&quot; idea to teach reproducibility:<br><br>Week 1: Students analyze a dataset<br><br>Week 2: &quot;I updated the data, start over&quot;<a href="https://twitter.com/hashtag/JSM2016?src=hash">#JSM2016</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/760857073122934784">August 3, 2016</a></blockquote>
@@ -159,7 +165,17 @@ Dr. Godfrey is blind, and along with teaching and consulting on statistics, he d
 
 {% highlight r %}
 library(BrailleR)
+{% endhighlight %}
 
+
+
+{% highlight text %}
+## Error in library(BrailleR): there is no package called 'BrailleR'
+{% endhighlight %}
+
+
+
+{% highlight r %}
 x <- rnorm(1000)
 
 VI(hist(x))
@@ -168,27 +184,7 @@ VI(hist(x))
 
 
 {% highlight text %}
-## This is a histogram, with the title: Histogram of x 
-##  "x" is marked on the x-axis.
-## Tick marks for the x-axis are at: -3, and 3 
-## There are a total of 1000 elements for this variable.
-## Tick marks for the y-axis are at: 0, 50, 100, and 150 
-## It has 14 bins with equal widths, starting at -3.5 and ending at 3.5 .
-## The mids and counts for the bins are:
-## mid = -3.25  count = 3 
-## mid = -2.75  count = 7 
-## mid = -2.25  count = 23 
-## mid = -1.75  count = 39 
-## mid = -1.25  count = 104 
-## mid = -0.75  count = 146 
-## mid = -0.25  count = 186 
-## mid = 0.25  count = 171 
-## mid = 0.75  count = 153 
-## mid = 1.25  count = 102 
-## mid = 1.75  count = 36 
-## mid = 2.25  count = 19 
-## mid = 2.75  count = 6 
-## mid = 3.25  count = 5
+## Error in eval(expr, envir, enclos): could not find function "VI"
 {% endhighlight %}
 
 Talking to him made me realize what great strides had been made in statistics and programming for the blind ([here's more on that general topic](http://stackoverflow.com/questions/118984/how-can-you-program-if-youre-blind)), but also what obstacles remained for R in particular. I take RStudio for granted, but according to Jonathan it's effectively unusable for blind users (too many buttons, tabs and drop-down menus, which are difficult to navigate with a screenreader). Towards that goal he's been working on the [WriteR IDE](https://github.com/ajrgodfrey/WriteR) for accessible programming in R and R markdown:

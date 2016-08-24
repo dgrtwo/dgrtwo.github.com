@@ -83,6 +83,12 @@ Like much of the R community, I've internalized a lot of the lessons and practic
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">.<a href="https://twitter.com/kwbroman">@kwbroman</a>&#39;s colleague was &quot;sorry you did all that work on incomplete dataset&quot;- reproducibility for the win <a href="https://twitter.com/hashtag/JSM2016?src=hash">#JSM2016</a> <a href="https://t.co/cUTR2LRA1J">pic.twitter.com/cUTR2LRA1J</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/760838739866316800">August 3, 2016</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+Jenny Bryan talked about her and Ritz FitzJohn's work on the [jailbreakr](https://github.com/rsheets/jailbreakr) package for reading warts-and-all Excel spreadsheets into R.
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">. <a href="https://twitter.com/JennyBryan">@JennyBryan</a> encouraging empathy for spreadsheet users as always <a href="https://twitter.com/hashtag/useR2016?src=hash">#useR2016</a> <a href="https://t.co/Nu5omprsW3">pic.twitter.com/Nu5omprsW3</a></p>&mdash; Hilary Parker (@hspter) <a href="https://twitter.com/hspter/status/747864222017560576">June 28, 2016</a></blockquote>
+
+(This is something [I've tried before](http://rpubs.com/dgrtwo/tidying-enron) but of which she and Ritz are the undisputed champions).
+
 I particularly liked Yihui Xie's idea about teaching reproducibility:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">.<a href="https://twitter.com/xieyihui">@xieyihui</a> had &quot;evil&quot; idea to teach reproducibility:<br><br>Week 1: Students analyze a dataset<br><br>Week 2: &quot;I updated the data, start over&quot;<a href="https://twitter.com/hashtag/JSM2016?src=hash">#JSM2016</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/760857073122934784">August 3, 2016</a></blockquote>
