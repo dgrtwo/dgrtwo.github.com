@@ -165,17 +165,7 @@ Dr. Godfrey is blind, and along with teaching and consulting on statistics, he d
 
 {% highlight r %}
 library(BrailleR)
-{% endhighlight %}
 
-
-
-{% highlight text %}
-## Error in library(BrailleR): there is no package called 'BrailleR'
-{% endhighlight %}
-
-
-
-{% highlight r %}
 x <- rnorm(1000)
 
 VI(hist(x))
@@ -184,7 +174,25 @@ VI(hist(x))
 
 
 {% highlight text %}
-## Error in eval(expr, envir, enclos): could not find function "VI"
+## This is a histogram, with the title: Histogram of x 
+##  "x" is marked on the x-axis.
+## Tick marks for the x-axis are at: -3, and 3 
+## There are a total of 1000 elements for this variable.
+## Tick marks for the y-axis are at: 0, 50, 100, and 150 
+## It has 12 bins with equal widths, starting at -3 and ending at 3 .
+## The mids and counts for the bins are:
+## mid = -2.75  count = 8 
+## mid = -2.25  count = 17 
+## mid = -1.75  count = 46 
+## mid = -1.25  count = 96 
+## mid = -0.75  count = 154 
+## mid = -0.25  count = 180 
+## mid = 0.25  count = 182 
+## mid = 0.75  count = 136 
+## mid = 1.25  count = 114 
+## mid = 1.75  count = 45 
+## mid = 2.25  count = 17 
+## mid = 2.75  count = 5
 {% endhighlight %}
 
 Talking to him made me realize what great strides had been made in statistics and programming for the blind ([here's more on that general topic](http://stackoverflow.com/questions/118984/how-can-you-program-if-youre-blind)), but also what obstacles remained for R in particular. I take RStudio for granted, but according to Jonathan it's effectively unusable for blind users (too many buttons, tabs and drop-down menus, which are difficult to navigate with a screenreader). Towards that goal he's been working on the [WriteR IDE](https://github.com/ajrgodfrey/WriteR) for accessible programming in R and R markdown:
