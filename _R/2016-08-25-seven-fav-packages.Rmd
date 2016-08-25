@@ -73,7 +73,7 @@ library(tidytext)
 spl_re <- "[^a-zA-Z\\d\\@\\#\\.]"
 link_re <- "https://t.co/[A-Za-z\\d]+|&amp;"
 
-packages_raw <- tweets %>%
+packages <- tweets %>%
   mutate(text = str_replace_all(text, link_re, "")) %>%
   unnest_tokens(package, text, token = "regex", pattern = spl_re) %>%
   filter(package %in% c(cran_pkgs, bioc_pkgs, built_in)) %>%
