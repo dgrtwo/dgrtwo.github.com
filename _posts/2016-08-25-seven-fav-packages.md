@@ -90,7 +90,7 @@ Some observations:
 
 * The next most popular packages involved reproducible research (rmarkdown and knitr), along with other RStudio tools like shiny. The most popular package not authored by an RStudio employee was caret, followed by magrittr.
 
-* The vast majority of packages people listed as their favorite were CRAN packages: only `sum(packages$package %in% bioc_repos)` Bioconductor packages were mentioned (though it's worth noting they occurred across four different tweets):
+* The vast majority of packages people listed as their favorite were CRAN packages: only 7 Bioconductor packages were mentioned (though it's worth noting they occurred across four different tweets):
 
 
 {% highlight r %}
