@@ -329,4 +329,4 @@ One thing I like about this 2D layout (much as I've done with [programming langu
 
 This confirms our observation that the favorited packages are slanted towards the tidyverse/RStudio cluster.
 
-The #7First and #7Fav hashtags have been dying down a bit, but it may still be interesting to try this analysis for others, especially ones with more activity. Maëlle Salmon [has a great start to an analysis of the #first7languages hashtag](http://rpubs.com/masalmon/languages) (both programming and spoken) and I'm sure others would be informative.
+The #7First and #7Fav hashtags have been dying down a bit, but it may still be interesting to try this analysis for others, especially ones with more activity. Maëlle Salmon [is working on a great analysis of #7FirstJobs](https://github.com/masalmon/first_7_jobs) and I'm sure others would be informative.
