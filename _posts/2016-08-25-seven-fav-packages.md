@@ -317,7 +317,7 @@ Since we have this dependency data, I can't resist looking for correlations just
 
 ![center](/figs/2016-08-25-seven-fav-packages/requirement_correlation_network-1.png)
 
-(I skipped the code for these, but you can find it all [here](https://github.com/dgrtwo/dgrtwo.github.com/blob/master/_R/2016-08-23-user-jsm-conferences.Rmd)).
+(I skipped the code for these, but you can find it all [here](https://github.com/dgrtwo/dgrtwo.github.com/blob/master/_R/2016-08-25-seven-fav-packages.Rmd)).
 
 Some observations from the full network (while it's not related to the hashtag, still quite interesting):
 
