@@ -88,7 +88,9 @@ Some observations:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/drob">@drob</a> <a href="https://twitter.com/JaySun_Bee">@JaySun_Bee</a> <a href="https://twitter.com/ma_salmon">@ma_salmon</a> HOW IS THAT BIASED?</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/765637199740022785">August 16, 2016</a></blockquote>
 
-* The next most popular packages involved reproducible research (rmarkdown and knitr), along with other RStudio tools like shiny. The most popular package not authored by an RStudio employee was caret, followed by magrittr.
+* The next most popular packages involved reproducible research (rmarkdown and knitr), along with other RStudio tools like shiny. What if I excluded packages maintained by RStudio (or RStudio employees like Hadley and Yihui)?
+
+![center](/figs/2016-08-25-seven-fav-packages/no_rstudio-1.png)
 
 * The vast majority of packages people listed as their favorite were CRAN packages: only 7 Bioconductor packages were mentioned (though it's worth noting they occurred across four different tweets):
 
@@ -113,7 +115,7 @@ packages %>%
 ## 7 765630231948308481    genefilter
 {% endhighlight %}
 
-There were 109 CRAN packages that were mentioned only once, and those showed a rather large variety. A random sample of 10:
+* There were 109 CRAN packages that were mentioned only once, and those showed a rather large variety. A random sample of 10:
 
 
 {% highlight r %}

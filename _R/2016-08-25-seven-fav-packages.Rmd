@@ -109,7 +109,36 @@ Some observations:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/drob">@drob</a> <a href="https://twitter.com/JaySun_Bee">@JaySun_Bee</a> <a href="https://twitter.com/ma_salmon">@ma_salmon</a> HOW IS THAT BIASED?</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/765637199740022785">August 16, 2016</a></blockquote>
 
-* The next most popular packages involved reproducible research (rmarkdown and knitr), along with other RStudio tools like shiny. The most popular package not authored by an RStudio employee was caret, followed by magrittr.
+* The next most popular packages involved reproducible research (rmarkdown and knitr), along with other RStudio tools like shiny. What if I excluded packages maintained by RStudio (or RStudio employees like Hadley and Yihui)?
+
+```{r no_rstudio, dependson = "packages", echo = FALSE, fig.width = 6, fig.height = 6}
+library(github)
+library(purrr)
+
+extract_repos <- function(result) {
+  result$content %>%
+    keep(~ .$fork == FALSE) %>%
+    map_chr("name")
+}
+
+exclude_repos <- c(
+  extract_repos(get.user.repositories("hadley", per_page = 100)),
+  extract_repos(get.user.repositories("hadley", per_page = 100, page = 2)),
+  extract_repos(get.user.repositories("yihui", per_page = 100)),
+  extract_repos(get.organization.repositories("rstudio", per_page = 100)),
+  "reshape2")
+
+packages %>%
+  count(package, sort = TRUE) %>%
+  filter(!package %in% str_to_lower(exclude_repos)) %>%
+  filter(n > 2) %>%
+  mutate(package = reorder(package, n)) %>%
+  ggplot(aes(package, n)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  ylab("Number of #7FavPackages mentions") +
+  ggtitle("Most favorited packages, excluding RStudio")
+```
 
 * The vast majority of packages people listed as their favorite were CRAN packages: only `r sum(packages$package %in% bioc_pkgs)` Bioconductor packages were mentioned (though it's worth noting they occurred across four different tweets):
 
@@ -118,7 +147,7 @@ packages %>%
   filter(package %in% bioc_pkgs)
 ```
 
-There were `r sum(pkg_counts$n == 1 & !(pkg_counts %in% bioc_pkgs))` CRAN packages that were mentioned only once, and those showed a rather large variety. A random sample of 10:
+* There were `r sum(pkg_counts$n == 1 & !(pkg_counts %in% bioc_pkgs))` CRAN packages that were mentioned only once, and those showed a rather large variety. A random sample of 10:
 
 ```{r random_10, dependson = "packages"}
 set.seed(2016)
