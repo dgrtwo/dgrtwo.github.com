@@ -359,7 +359,7 @@ Other examples of operations that are better performed on matrices include corre
 
 ### Next time: gene set enrichment analysis
 
-(**Programming note**: this was [originally](http://varianceexplained.org/r/tidy-genomics-broom/) my plan for *this* post, but I decided to pre-empt if for biobroom!)
+(**Programming note**: this was [originally](http://varianceexplained.org/r/tidy-genomics-broom/) my plan for *this* post, but I decided to preempt it for biobroom!)
 
 These per-gene models can still be difficult to interpret biologically if you're not familiar with the functions of specific genes. What we really want is a way to summarize the results into "genes involved in this biological process changed their expression." This is where annotations of gene sets become useful.
 
