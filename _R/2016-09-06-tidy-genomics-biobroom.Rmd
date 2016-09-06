@@ -185,7 +185,7 @@ top_3
 
 We could join this with our original data, which would let us visualize the trends for only the most significant genes:
 
-```{r top_3_plot, dependson = "top_3"}
+```{r top_3_plot, dependson = "top_3", fig.height = 10, fig.width = 8}
 top_3 %>%
   rename(significant_nutrient = nutrient) %>%
   inner_join(cleaned_data, by = "systematic_name") %>%
