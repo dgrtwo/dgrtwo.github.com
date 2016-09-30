@@ -50,7 +50,7 @@ Social: [LinkedIn](https://www.linkedin.com/in/briancocolicchio)
 
 **[Kevin Cole](https://colekev.github.io/)**
 
-Talk: [Playing to Win with Social Media](https://github.com/colekev/metis-final-project) ([project link](NA))
+Talk: [Playing to Win with Social Media](https://github.com/colekev/metis-final-project)
 
 Social: [GitHub](https://github.com/colekev), [LinkedIn](https://www.linkedin.com/in/kevin-cole), [Twitter](https://twitter.com/Cole_Kev)
 
@@ -76,7 +76,7 @@ Social: [GitHub](www.github.com/asgrunwald), [LinkedIn](www.linkedin.com/in/asgr
 
 **Michael Laster**
 
-Talk: [When should an MLB manager challenge?](https://www.dropbox.com/s/18x6tcfzhgn8u1g/MLBReplay913.key?dl=0) ([project link](NA))
+Talk: [When should an MLB manager challenge?](https://www.dropbox.com/s/18x6tcfzhgn8u1g/MLBReplay913.key?dl=0)
 
 Social: [LinkedIn](/michael-laster)
 
