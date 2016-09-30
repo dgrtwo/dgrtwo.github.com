@@ -36,7 +36,7 @@ Talk: [smartImport](https://www.dropbox.com/s/wndz1d0ctk75bwl/smartImport.pdf?dl
 
 Social: [GitHub](https://github.com/bryantbiggs), [LinkedIn](https://www.linkedin.com/in/bryantbiggs)
 
-Email: `bryantbiggs at gmail dot com`
+Email: bryantbiggs at gmail dot com
 
 -------------
 
@@ -54,7 +54,7 @@ Talk: [Playing to Win with Social Media](https://github.com/colekev/metis-final-
 
 Social: [GitHub](https://github.com/colekev), [LinkedIn](https://www.linkedin.com/in/kevin-cole), [Twitter](https://twitter.com/Cole_Kev)
 
-Email: `colekev at gmail dot com`
+Email: colekev at gmail dot com
 
 -------------
 
@@ -80,7 +80,7 @@ Talk: [When should an MLB manager challenge?](https://www.dropbox.com/s/18x6tcfz
 
 Social: [LinkedIn](/michael-laster)
 
-Email: `michael dot laster at alum dot yu dot edu`
+Email: michael dot laster at alum dot yu dot edu
 
 -------------
 
@@ -90,7 +90,7 @@ Talk: [Golf Meets Machine Learning](https://github.com/adamwlev/Rank_a_Golfer/bl
 
 Social: [GitHub](https://github.com/adamwlev), [LinkedIn](https://www.linkedin.com/in/adam-levin)
 
-Email: `awl44 at me dot com`
+Email: awl44 at me dot com
 
 -------------
 
@@ -100,7 +100,7 @@ Talk: [Predicting Fraud in World Bank Projects](https://github.com/jpiter/world_
 
 Social: [GitHub](https://github.com/jpiter), [LinkedIn](linkedin.com/in/yulia-piterbarg-5396186)
 
-Email: `jpiterbarg at gmail dot com`
+Email: jpiterbarg at gmail dot com
 
  
 -------------
@@ -120,7 +120,7 @@ Talk: [Data Science for Data Scientists: How to Get a Job](https://www.dropbox.c
 
 Social: [GitHub](github.com/robinsones), [LinkedIn](linkedin.com/in/robinsones), [Twitter](https://twitter.com/robinson_es)
 
-Email: `robinson dot es at gmail dot com`
+Email: robinson dot es at gmail dot com
 
 -------------
 
@@ -139,7 +139,7 @@ Talk: [Fishing for Retweets](http://alanschoen.com/assets/fishing_retweets/twitt
 
 Social: [GitHub](https://github.com/alanjschoen), [LinkedIn](https://www.linkedin.com/in/alanschoen), [Twitter](alanschoen)
 
-Email: `alanschoen at gmail dot com`
+Email: alanschoen at gmail dot com
 
 -------------
 
