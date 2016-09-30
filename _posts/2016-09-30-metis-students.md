@@ -1,0 +1,146 @@
+---
+layout: post
+title: "Slides from the Metis Data Science Career Day"
+description: "A directory of talks and slides from graduates presenting at the Metis bootcamp."
+output: html_document
+date: 2016-09-30 10:00:00 -0500
+category: career
+tags: [career, statistics, education]
+comments: true
+---
+
+This month I got to attend the Career Day from the Metis Data Science bootcamp, where Metis graduates finished their 12-week intensive data science training by presenting a project. I'm a fan of the Metis program and I was really impressed at both the content of the analyses and the communication skills and focus the graduates showed (communicating a data science project in a four minute lightning talk is tough and they were up to the challenge!).
+
+I believe in [live-tweeting talks](http://varianceexplained.org/r/user-jsm-conferences/) and Career Day was no exception:
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Brian Cocolicchio does survival analysis of NFL positions, sees life of running back is &quot;nasty, brutish, and short&quot; <a href="https://t.co/XMvPbtCzTI">pic.twitter.com/XMvPbtCzTI</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/776538159366668288">September 15, 2016</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">.<a href="https://twitter.com/modernscientist">@modernscientist</a> uses computer vision in app that identifies wine from pic of label. I&#39;d straight up pay for this <a href="https://t.co/fptB4uVgpQ">pic.twitter.com/fptB4uVgpQ</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/776550099837222912">September 15, 2016</a></blockquote>
+
+Also in this cohort was my sister Emily Robinson, who is starting her career in data science and had done the perfect project for it:
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">.<a href="https://twitter.com/robinson_es">@robinson_es</a> builds a tool for recommending the perfect freelance data science job for your skills and background <a href="https://t.co/h9e4wiwcgI">pic.twitter.com/h9e4wiwcgI</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/776545558836219904">September 15, 2016</a></blockquote>
+
+In the process I got a few responses asking if the slides were available. **I feel strongly that talks should be available somewhere online (as "public artifacts")**, so afterwards I volunteered to host the graduates' slides, along with their professional information, here on my blog. Below you can find the information, including slides and sometimes project links, from about half the cohort.
+
+I think there's nothing like an example of work to examine a candidate's skills. So if you're looking to hire data analysts or scientists, you should read through their projects and/or CVs and get in touch with them!
+
+### Talks from the Metis Summer 2016 Cohort
+
+-------------
+
+**[Bryant Biggs](https://medium.com/big-data-engineering)**
+
+Talk: [smartImport](https://www.dropbox.com/s/wndz1d0ctk75bwl/smartImport.pdf?dl=0)
+
+Social: [GitHub](https://github.com/bryantbiggs), [LinkedIn](https://www.linkedin.com/in/bryantbiggs)
+
+Email: `bryantbiggs at gmail dot com`
+
+-------------
+
+**Brian Cocolicchio**
+
+Talk: Survival Analysis of NFL Running Backs
+
+Social: [LinkedIn](https://www.linkedin.com/in/briancocolicchio)
+
+-------------
+
+**[Kevin Cole](https://colekev.github.io/)**
+
+Talk: [Playing to Win with Social Media](https://github.com/colekev/metis-final-project) ([project link](NA))
+
+Social: [GitHub](https://github.com/colekev), [LinkedIn](https://www.linkedin.com/in/kevin-cole), [Twitter](https://twitter.com/Cole_Kev)
+
+Email: `colekev at gmail dot com`
+
+-------------
+
+**[Michelle Gill](http://themodernscientist.com)**
+
+Talk: [WINE-O.AI: Computer Vision Assisted Wine Recommendations](http://wineoai.michellelynngill.com/presentation/WINE-O_AI_MLGill.pdf) ([project link](http://wine-o.ai), [code](https://github.com/mlgill/wine-o.ai), [video](http://wineoai.michellelynngill.com/presentation/WINE-O_AI_MLGill.m4v))
+
+Social: [GitHub](https://github.com/mlgill), [LinkedIn](https://www.linkedin.com/in/michellelynngill), [Twitter](https://twitter.com/modernscientist)
+
+-------------
+
+**[Avi Grunwald](asgrunwald.github.io)**
+
+Talk: [Analyzing Federal Reserve Meeting Minutes](https://www.dropbox.com/s/dgpq1krmrg96byt/Analyzing%20Federal%20Reserve%20Meeting%20Minutes.pdf?dl=0) ([project link](FedMinutes.herokuapp.com))
+
+Social: [GitHub](www.github.com/asgrunwald), [LinkedIn](www.linkedin.com/in/asgrunwald)
+
+-------------
+
+**Michael Laster**
+
+Talk: [When should an MLB manager challenge?](https://www.dropbox.com/s/18x6tcfzhgn8u1g/MLBReplay913.key?dl=0) ([project link](NA))
+
+Social: [LinkedIn](/michael-laster)
+
+Email: `michael dot laster at alum dot yu dot edu`
+
+-------------
+
+**[Adam Levin](https://adamwlev.github.io/)**
+
+Talk: [Golf Meets Machine Learning](https://github.com/adamwlev/Rank_a_Golfer/blob/master/Golf%20Meets%20Machine%20Learning.pdf) ([project link](https://github.com/adamwlev/Rank_a_Golfer))
+
+Social: [GitHub](https://github.com/adamwlev), [LinkedIn](https://www.linkedin.com/in/adam-levin)
+
+Email: `awl44 at me dot com`
+
+-------------
+
+**Yulia Piterbarg**
+
+Talk: [Predicting Fraud in World Bank Projects](https://github.com/jpiter/world_bank/blob/master/julia_p_slides.pdf) ([project link](https://github.com/jpiter/world_bank/))
+
+Social: [GitHub](https://github.com/jpiter), [LinkedIn](linkedin.com/in/yulia-piterbarg-5396186)
+
+Email: `jpiterbarg at gmail dot com`
+
+ 
+-------------
+
+**[Sravanthi Ponnana](https://psravanthi.github.io)**
+
+Talk: [Hotel Recommender System](https://github.com/psravanthi/Hotel-Recommender-System/blob/master/Hotel_Recommender_System.pptx) ([project link](https://github.com/psravanthi/Hotel-Recommender-System))
+
+Social: [GitHub](https://github.com/psravanthi), [LinkedIn](https://www.linkedin.com/in/sravanthip)
+
+
+-------------
+
+**[Emily Robinson](robinsones.github.io)**
+
+Talk: [Data Science for Data Scientists: How to Get a Job](https://www.dropbox.com/s/vl2imec648kbzoc/Emily_Final_Presentation.key?dl=0) ([project link](https://github.com/robinsones/Freelancer-Shiny-App))
+
+Social: [GitHub](github.com/robinsones), [LinkedIn](linkedin.com/in/robinsones), [Twitter](https://twitter.com/robinson_es)
+
+Email: `robinson dot es at gmail dot com`
+
+-------------
+
+**Allison Schlissel**
+
+Talk: [Eye of the Beholder: A Met Gallery Recommender](https://github.com/aschlissel/eye_of_the_beholder/blob/master/allison_final_pdf.pdf) ([project link](https://github.com/aschlissel/eye_of_the_beholder))
+
+Social: [GitHub](https://github.com/aschlissel), [LinkedIn](https://www.linkedin.com/in/allisonschlissel)
+
+
+-------------
+
+**[Alan Schoen](alanschoen.com)**
+
+Talk: [Fishing for Retweets](http://alanschoen.com/assets/fishing_retweets/twitter_metis_ajs.pdf) ([project link](http://alanschoen.com/assets/fishing_retweets/twitter_metis_ajs.pdf))
+
+Social: [GitHub](https://github.com/alanjschoen), [LinkedIn](https://www.linkedin.com/in/alanschoen), [Twitter](alanschoen)
+
+Email: `alanschoen at gmail dot com`
+
+-------------
+
+PS If you're interested in learning more about hiring Metis graduates you can also reach out to [employ@thisismetis.com](mailto:employ@thisismetis.com).
