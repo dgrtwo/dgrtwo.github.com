@@ -66,7 +66,7 @@ Social: [GitHub](https://github.com/mlgill), [LinkedIn](https://www.linkedin.com
 
 -------------
 
-**[Avi Grunwald](asgrunwald.github.io)**
+**[Avi Grunwald](http://asgrunwald.github.io)**
 
 Talk: [Analyzing Federal Reserve Meeting Minutes](https://www.dropbox.com/s/dgpq1krmrg96byt/Analyzing%20Federal%20Reserve%20Meeting%20Minutes.pdf?dl=0) ([project link](https://FedMinutes.herokuapp.com))
 
@@ -114,7 +114,7 @@ Social: [GitHub](https://github.com/psravanthi), [LinkedIn](https://www.linkedin
 
 -------------
 
-**[Emily Robinson](robinsones.github.io)**
+**[Emily Robinson](https://robinsones.github.io)**
 
 Talk: [Data Science for Data Scientists: How to Get a Job](https://www.dropbox.com/s/vl2imec648kbzoc/Emily_Final_Presentation.key?dl=0) ([project link](https://github.com/robinsones/Freelancer-Shiny-App))
 
@@ -133,7 +133,7 @@ Social: [GitHub](https://github.com/aschlissel), [LinkedIn](https://www.linkedin
 
 -------------
 
-**[Alan Schoen](alanschoen.com)**
+**[Alan Schoen](http://alanschoen.com)**
 
 Talk: [Fishing for Retweets](http://alanschoen.com/assets/fishing_retweets/twitter_metis_ajs.pdf) ([project link](http://alanschoen.com/assets/fishing_retweets/twitter_metis_ajs.pdf))
 
