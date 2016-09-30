@@ -70,7 +70,7 @@ Social: [GitHub](https://github.com/mlgill), [LinkedIn](https://www.linkedin.com
 
 Talk: [Analyzing Federal Reserve Meeting Minutes](https://www.dropbox.com/s/dgpq1krmrg96byt/Analyzing%20Federal%20Reserve%20Meeting%20Minutes.pdf?dl=0) ([project link](https://FedMinutes.herokuapp.com))
 
-Social: [GitHub](https://www.github.com/asgrunwald), [LinkedIn](www.linkedin.com/in/asgrunwald)
+Social: [GitHub](https://www.github.com/asgrunwald), [LinkedIn](https://www.linkedin.com/in/asgrunwald)
 
 -------------
 
