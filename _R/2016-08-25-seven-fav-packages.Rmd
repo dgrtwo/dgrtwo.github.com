@@ -1,0 +1,323 @@
+---
+layout: post
+title: "Analysis of the #7FavPackages hashtag"
+description: "An analysis of people's favorite R packages, as shared in the #7FavPackages hashtag."
+date: 2016-08-25 12:00:00 -0400
+category: r
+tags: [r, statistics]
+comments: true
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, cache = TRUE)
+
+library(ggplot2)
+theme_set(theme_bw())
+```
+
+Twitter has seen a recent trend of "first 7" and "favorite 7" hashtags, like [#7FirstJobs](https://twitter.com/search?q=%237firstjobs&src=tyah) and [#7FavFilms](https://twitter.com/search?q=%237favfilms&src=tyah). Last week I added one to the mix, about my 7 favorite R packages:
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="de" dir="ltr">devtools<br>dplyr<br>ggplot2<br>knitr<br>Rcpp<br>rmarkdown<br>shiny<a href="https://twitter.com/hashtag/7FavPackages?src=hash">#7FavPackages</a> <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/765594005979693056">August 16, 2016</a></blockquote>
+<script async src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Hadley Wickham agreed to share his own, but on one condition:
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/drob">@drob</a> I&#39;ll do it if you write a script to scrape the tweets, plot overall most common, and common co-occurences</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/765617405884178432">August 16, 2016</a></blockquote>
+
+Hadley [followed through](https://twitter.com/hadleywickham/status/765621543154036737), so now it's my turn.
+
+### Setup
+
+We can use the same twitteR package that I used in my [analysis of Trump's Twitter account](http://varianceexplained.org/r/trump-tweets/):
+
+```{r echo = FALSE, results = "hide"}
+library(twitteR)
+
+setup_twitter_oauth(getOption("twitter_consumer_key"),
+                    getOption("twitter_consumer_secret"),
+                    getOption("twitter_access_token"),
+                    getOption("twitter_access_token_secret"))
+```
+
+```{r tweets}
+library(twitteR)
+library(purrr)
+library(dplyr)
+library(stringr)
+
+# You'd need to set up authentication before running this
+# See help(setup_twitter_oauth)
+tweets <- searchTwitter("#7FavPackages", n = 3200) %>%
+  map_df(as.data.frame)
+
+# Grab only the first for each user (some had followups), and ignore retweets
+tweets <- tweets %>%
+  filter(!str_detect(text, "^RT ")) %>%
+  arrange(created) %>%
+  distinct(screenName, .keep_all = TRUE)
+```
+
+There were `r nrow(tweets)` (unique) tweets in this hashtag. I can use the [tidytext](https://github.com/juliasilge/tidytext) package to analyze them, using a custom regular expression.
+
+```{r packages, dependson = "tweets"}
+library(BiocInstaller)
+
+# to avoid non-package words
+built_in <- tolower(sessionInfo()$basePkgs)
+cran_pkgs <- tolower(rownames(available.packages()))
+bioc_pkgs <- tolower(rownames(available.packages(repos = biocinstallRepos()[1:3])))
+blacklist <- c("all")
+
+library(tidytext)
+
+spl_re <- "[^a-zA-Z\\d\\@\\#\\.]"
+link_re <- "https://t.co/[A-Za-z\\d]+|&amp;"
+
+packages <- tweets %>%
+  mutate(text = str_replace_all(text, link_re, "")) %>%
+  unnest_tokens(package, text, token = "regex", pattern = spl_re) %>%
+  filter(package %in% c(cran_pkgs, bioc_pkgs, built_in)) %>%
+  distinct(id, package) %>%
+  filter(!package %in% blacklist)
+
+pkg_counts <- packages %>%
+  count(package, sort = TRUE)
+```
+
+Note that since a lot of non-package words got mixed in with these tweets, I filtered for only packages in CRAN and Bioconductor (so packages that are only on GitHub or elsewhere won't be included, though anecdotally I didn't notice any among the tweets). Tweeters were sometimes inconsistent about case as well, so I kept all packages lowercase throughout this analysis.
+
+### General results
+
+There were `r nrow(packages)` occurrences of `r n_distinct(packages$package)` packages in these tweets. What were the most common?
+
+```{r packages_graph, dependson = "packages", echo = FALSE}
+library(ggplot2)
+theme_set(theme_bw())
+
+pkg_counts %>%
+  filter(n >= 5) %>%
+  mutate(package = reorder(package, n)) %>%
+  ggplot(aes(package, n)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  ylab("Number of #7FavPackages mentions")
+```
+
+Some observations:
+
+* ggplot2 and dplyr were the most popular packages, each mentioned by more than half the tweets, and other packages by Hadley like tidyr, devtools, purrr and stringr weren't far behind. This isn't too surprising, since much of the attention to the hashtag came with Hadley's tweet.
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/drob">@drob</a> <a href="https://twitter.com/JaySun_Bee">@JaySun_Bee</a> <a href="https://twitter.com/ma_salmon">@ma_salmon</a> HOW IS THAT BIASED?</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/765637199740022785">August 16, 2016</a></blockquote>
+
+* The next most popular packages involved reproducible research (rmarkdown and knitr), along with other RStudio tools like shiny. What if I excluded packages maintained by RStudio (or RStudio employees like Hadley and Yihui)?
+
+```{r no_rstudio, dependson = "packages", echo = FALSE, fig.width = 6, fig.height = 6}
+library(github)
+library(purrr)
+
+extract_repos <- function(result) {
+  result$content %>%
+    keep(~ .$fork == FALSE) %>%
+    map_chr("name")
+}
+
+exclude_repos <- c(
+  extract_repos(get.user.repositories("hadley", per_page = 100)),
+  extract_repos(get.user.repositories("hadley", per_page = 100, page = 2)),
+  extract_repos(get.user.repositories("yihui", per_page = 100)),
+  extract_repos(get.organization.repositories("rstudio", per_page = 100)),
+  "reshape2")
+
+packages %>%
+  count(package, sort = TRUE) %>%
+  filter(!package %in% str_to_lower(exclude_repos)) %>%
+  filter(n > 2) %>%
+  mutate(package = reorder(package, n)) %>%
+  ggplot(aes(package, n)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  ylab("Number of #7FavPackages mentions") +
+  ggtitle("Most favorited packages, excluding RStudio")
+```
+
+* The vast majority of packages people listed as their favorite were CRAN packages: only `r sum(packages$package %in% bioc_pkgs)` Bioconductor packages were mentioned (though it's worth noting they occurred across four different tweets):
+
+```{r packages_bioc, dependson = "packages"}
+packages %>%
+  filter(package %in% bioc_pkgs)
+```
+
+* There were `r sum(pkg_counts$n == 1 & !(pkg_counts %in% bioc_pkgs))` CRAN packages that were mentioned only once, and those showed a rather large variety. A random sample of 10:
+
+```{r random_10, dependson = "packages"}
+set.seed(2016)
+pkg_counts %>%
+  filter(n == 1, !package %in% bioc_pkgs) %>%
+  sample_n(10)
+```
+
+### Correlations
+
+What packages tend to be "co-favorited"- that is, listed by the same people? Here I'm using my in-development [widyr](https://github.com/dgrtwo/widyr) package, which makes it easy to calculate pairwise correlations in a tidy data frame.
+
+```{r pkg_correlations, dependson = "packages"}
+# install with devtools::install_github("dgrtwo/widyr")
+library(widyr)
+
+# use only packages with at least 4 mentions, to reduce noise
+pkg_counts <- packages %>%
+  count(package) %>%
+  filter(n >= 4)
+
+pkg_correlations <- packages %>%
+  semi_join(pkg_counts) %>%
+  pairwise_cor(package, id, sort = TRUE, upper = FALSE)
+
+pkg_correlations
+```
+
+For instance, this shows the greatest correlation (technically a [phi coefficient](https://en.wikipedia.org/wiki/Phi_coefficient)) were between the base, graphics, and stats packages, by people showing loyalty to built in packages.
+
+I like using the [ggraph](https://github.com/thomasp85/ggraph) package to visualize these relationships:
+
+```{r pkg_correlations_graph, dependson = "pkg_correlations"}
+library(ggraph)
+library(igraph)
+
+set.seed(2016)
+
+# we set an arbitrary threshold of connectivity
+pkg_correlations %>%
+  filter(correlation > .2) %>%
+  graph_from_data_frame(vertices = pkg_counts) %>%
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(edge_alpha = correlation)) +
+  geom_node_point(aes(size = n), color = "lightblue") +
+  theme_void() +
+  geom_node_text(aes(label = name), repel = TRUE) +
+  theme(legend.position = "none")
+```
+
+You can recognize most of RStudio's packages (ggplot2, dplyr, tidyr, knitr, shiny) in the cluster on the bottom left of the graph. At the bottom right you can see the "base" cluster (stats, base, utils, grid, graphics), with people who showed their loyalty to base packages.
+
+Beyond that, the relationships are a bit harder to parse (outside of some expected combinations like rstan and rstanarm): we may just not have enough data to create reliable correlations.
+
+### Compared to CRAN dependencies
+
+This isn't a particularly scientific survey, to say the least. So how does it compare to another metric of a package's popularity: the number of packages that Depend, Import, or Suggest it on CRAN? (You could also compare to # of CRAN downloads using the [cranlogs](https://github.com/metacran/cranlogs) package, but since most downloads are due to dependencies, the two metrics give rather similar results).
+
+We can discover this using the `available.packages()` function, along with some processing.
+
+```{r requirements}
+library(tidyr)
+
+pkgs <- available.packages() %>%
+  as.data.frame() %>%
+  tbl_df()
+
+requirements <- pkgs %>%
+  unite(Requires, Depends, Imports, Suggests, sep = ",") %>%
+  transmute(Package = as.character(Package),
+            Requires = as.character(Requires)) %>%
+  unnest(Requires = str_split(Requires, ",")) %>%
+  mutate(Requires = str_replace(Requires, "\n", "")) %>%
+  mutate(Requires = str_trim(str_replace(Requires, "\\(.*", ""))) %>%
+  filter(!(Requires %in% c("R", "NA", "", built_in)))
+
+requirements
+
+package_info <- requirements %>%
+  count(Package = Requires) %>%
+  rename(NRequiredBy = n) %>%
+  left_join(count(requirements, Package)) %>%
+  rename(NRequires = n) %>%
+  replace_na(list(NRequires = 0))
+
+package_info
+```
+
+We can compare the number of mentions in the hashtag to the number of pacakges:
+
+```{r echo = FALSE, dependson = c("packages", "requirements")}
+packages %>%
+  count(package) %>%
+  inner_join(package_info, by = c(package = "Package")) %>%
+  ggplot(aes(NRequiredBy, n)) +
+  geom_point() +
+  geom_text(aes(label = package), vjust = 1, hjust = 1,
+            check_overlap = TRUE) +
+  scale_x_log10() +
+  scale_y_log10() +
+  xlab("Number of CRAN packages that Depend/Import/Suggest this") +
+  ylab("Number of #7FavPackages mentions")
+```
+
+Some like dplyr, ggplot2, and knitr are popular both within the hashtag and as CRAN dependencies. Some relatively new packages like purrr are popular on Twitter but haven't built up as many packages needing them, and others like plyr and foreach are a common dependency but are barely mentioned. (This isn't even counting the many packages never mentioned in the hashtag).
+
+Since we have this dependency data, I can't resist looking for correlations just like we did with the hashtag data. What packages tend to be depended on together?
+
+```{r requirement_correlation_network, dependson = "requirements", fig.width = 10, fig.height = 10, echo = FALSE}
+correlations <- requirements %>%
+  group_by(Requires) %>%
+  filter(n() >= 20) %>%
+  ungroup() %>%
+  pairwise_cor(Requires, Package, sort = TRUE)
+
+correlations
+
+cors <- correlations %>%
+  filter(correlation > .2)
+
+vertices <- package_info %>%
+  filter(Package %in% cors$item1 |
+           Package %in% cors$item2)
+
+set.seed(2016)
+
+graph_from_data_frame(cors, directed = FALSE, vertices) %>%
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(edge_width = correlation, edge_alpha = correlation)) +
+  geom_node_point(aes(size = NRequiredBy), color = "skyblue") +
+  geom_node_text(aes(label = name), size = 3,
+                 check_overlap = TRUE, vjust = 1, hjust = 1) +
+  scale_size_continuous(range = c(.5, 10)) +
+  scale_edge_width(range = c(.5, 3)) +
+  ggforce::theme_no_axes() +
+  theme(legend.position = "none")
+```
+
+(I skipped the code for these, but you can find it all [here](https://github.com/dgrtwo/dgrtwo.github.com/blob/master/_R/2016-08-25-seven-fav-packages.Rmd)).
+
+Some observations from the full network (while it's not related to the hashtag, still quite interesting):
+
+* The RStudio cluster is prominent in the lower left, with ggplot2, knitr and testthat serving as the core anchors. A lot of packages depend on these in combination.
+* You can spot a tight cluster of spatial statistics packages in the upper left (around "sp") and of machine learning packages near the bottom right (around caret, rpart, and nnet)
+* Smaller clusters include parallelization on the left (parallel, doParallel), time series forecasting on the upper right (zoo, xts, forecast), and parsing API data on top (RCurl, rjson, XML)
+
+One thing I like about this 2D layout (much as I've done with [programming languages using Stack Overflow data](https://www.dropbox.com/s/erf2o5maa6ze6yn/DavidRobinsonJSMPoster.pdf?dl=0)) is that we can bring in our hashtag information, and spot visually what types of packages tended to be favorited.
+
+```{r fig.width = 10, fig.height = 10, echo = FALSE, dependson = "requirement_correlation_network"}
+vertices2 <- pkg_counts %>%
+  rename(Favorites = n) %>%
+  right_join(vertices, by = c(package = "Package")) %>%
+  replace_na(list(Favorites = 0))
+
+set.seed(2016)
+
+graph_from_data_frame(cors, directed = FALSE, vertices2) %>%
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(edge_width = correlation, edge_alpha = correlation),
+                 show.legend = FALSE) +
+  geom_node_point(aes(size = NRequiredBy * 1.2), color = "gray") +
+  geom_node_point(aes(size = NRequiredBy, color = Favorites)) +
+  geom_node_text(aes(label = name), size = 3,
+                 check_overlap = TRUE, vjust = 1, hjust = 1) +
+  scale_size_continuous(range = c(.5, 10), guide = FALSE) +
+  scale_color_gradient2(low = "white", high = "red") +
+  scale_edge_width(range = c(.5, 3)) +
+  ggforce::theme_no_axes()
+```
+
+This confirms our observation that the favorited packages are slanted towards the tidyverse/RStudio cluster.
+
+The #7First and #7Fav hashtags have been dying down a bit, but it may still be interesting to try this analysis for others, especially ones with more activity. Maëlle Salmon [is working on a great analysis of #7FirstJobs](https://github.com/masalmon/first_7_jobs) and I'm sure others would be informative.
