@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Slides from the Metis Data Science Career Day"
-description: "A directory of talks and slides from graduates presenting at the Metis bootcamp."
+title: "Slides from graduates of the Metis Data Science Career Day"
+description: "A directory of talks, slides, and professional information from graduates presenting at the Metis bootcamp."
 output: html_document
 date: 2016-09-30 10:00:00 -0500
 category: career
