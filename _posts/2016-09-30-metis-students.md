@@ -68,9 +68,9 @@ Social: [GitHub](https://github.com/mlgill), [LinkedIn](https://www.linkedin.com
 
 **[Avi Grunwald](asgrunwald.github.io)**
 
-Talk: [Analyzing Federal Reserve Meeting Minutes](https://www.dropbox.com/s/dgpq1krmrg96byt/Analyzing%20Federal%20Reserve%20Meeting%20Minutes.pdf?dl=0) ([project link](FedMinutes.herokuapp.com))
+Talk: [Analyzing Federal Reserve Meeting Minutes](https://www.dropbox.com/s/dgpq1krmrg96byt/Analyzing%20Federal%20Reserve%20Meeting%20Minutes.pdf?dl=0) ([project link](https://FedMinutes.herokuapp.com))
 
-Social: [GitHub](www.github.com/asgrunwald), [LinkedIn](www.linkedin.com/in/asgrunwald)
+Social: [GitHub](https://www.github.com/asgrunwald), [LinkedIn](www.linkedin.com/in/asgrunwald)
 
 -------------
 
@@ -78,7 +78,7 @@ Social: [GitHub](www.github.com/asgrunwald), [LinkedIn](www.linkedin.com/in/asgr
 
 Talk: [When should an MLB manager challenge?](https://www.dropbox.com/s/18x6tcfzhgn8u1g/MLBReplay913.key?dl=0)
 
-Social: [LinkedIn](/michael-laster)
+Social: [LinkedIn](https://www.linkedin.com/in/michael-laster)
 
 Email: michael dot laster at alum dot yu dot edu
 
@@ -98,7 +98,7 @@ Email: awl44 at me dot com
 
 Talk: [Predicting Fraud in World Bank Projects](https://github.com/jpiter/world_bank/blob/master/julia_p_slides.pdf) ([project link](https://github.com/jpiter/world_bank/))
 
-Social: [GitHub](https://github.com/jpiter), [LinkedIn](linkedin.com/in/yulia-piterbarg-5396186)
+Social: [GitHub](https://github.com/jpiter), [LinkedIn](https://linkedin.com/in/yulia-piterbarg-5396186)
 
 Email: jpiterbarg at gmail dot com
 
@@ -118,7 +118,7 @@ Social: [GitHub](https://github.com/psravanthi), [LinkedIn](https://www.linkedin
 
 Talk: [Data Science for Data Scientists: How to Get a Job](https://www.dropbox.com/s/vl2imec648kbzoc/Emily_Final_Presentation.key?dl=0) ([project link](https://github.com/robinsones/Freelancer-Shiny-App))
 
-Social: [GitHub](github.com/robinsones), [LinkedIn](linkedin.com/in/robinsones), [Twitter](https://twitter.com/robinson_es)
+Social: [GitHub](https://github.com/robinsones), [LinkedIn](https://linkedin.com/in/robinsones), [Twitter](https://twitter.com/robinson_es)
 
 Email: robinson dot es at gmail dot com
 
@@ -137,7 +137,7 @@ Social: [GitHub](https://github.com/aschlissel), [LinkedIn](https://www.linkedin
 
 Talk: [Fishing for Retweets](http://alanschoen.com/assets/fishing_retweets/twitter_metis_ajs.pdf) ([project link](http://alanschoen.com/assets/fishing_retweets/twitter_metis_ajs.pdf))
 
-Social: [GitHub](https://github.com/alanjschoen), [LinkedIn](https://www.linkedin.com/in/alanschoen), [Twitter](alanschoen)
+Social: [GitHub](https://github.com/alanjschoen), [LinkedIn](https://www.linkedin.com/in/alanschoen), [Twitter](https://twitter.com/alanschoen)
 
 Email: alanschoen at gmail dot com
 
