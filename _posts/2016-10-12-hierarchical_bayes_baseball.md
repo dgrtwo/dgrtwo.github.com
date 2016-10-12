@@ -309,4 +309,5 @@ In my next post I'm going to introduce [mixture models](https://en.wikipedia.org
 
 ### Footnotes
 
+[^df]: Why 5 degrees of freedom? Not very scientific- I just tried a few and picked one that roughly captured the shapes we saw in the boxplots. If you have too few degrees of freedom you can't capture the complex trend we're seeing here, but if you have too many you'll overfit to noise in your data.
 [^pitchers]: Admittedly it's not very realistic to assume we don't know which players are pitchers. But this gives us a great example of fitting a mixture model, which will be an important element of this series.
