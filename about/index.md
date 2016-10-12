@@ -34,6 +34,8 @@ Links
 
 * I built an online R video course, [Data Analysis and Visualization Using R](/RData/).
 
+* I'm also creating an online course on exploratory data analysis together with [DataCamp](https://www.datacamp.com), an interactive platform to [learn R](https://www.datacamp.com/courses/free-introduction-to-r) and data science.
+
 * [My CV](/files/DavidRobinsonResume.pdf)
 
 * [My GitHub](https://github.com/dgrtwo)
