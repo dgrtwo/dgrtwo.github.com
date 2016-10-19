@@ -117,7 +117,7 @@ In fact, on reflection it's fairly straightforward to calculate the exact probab
 * For each position, the probability is the average of the probabilities of the previous 6 positions
 * We define the position 0 to have a probability of 1 (you always start there), and negative positions to a have a probability of 0.
 
-We can execute this simulation with a for loop or a functional approach[^purrr]:
+We can execute this simulation with a for loop or a functional approach[^reduce]:
 
 ```{r exact}
 # with a for loop:
