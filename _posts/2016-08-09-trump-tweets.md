@@ -18,7 +18,7 @@ I don't normally post about politics (I'm not particularly savvy about polling, 
 
 When Trump wishes the Olympic team good luck, he's tweeting from his iPhone. When he's insulting a rival, he's usually tweeting from an Android. Is this an artifact showing which tweets are Trump's own and which are by some handler?
 
-Others have [explored Trump's timeline](http://www.cnet.com/news/trumps-tweets-android-for-nasty-iphone-for-nice/) and noticed this tends to hold up- and Trump himself [does indeed tweet from a Samsung Galaxy](http://www.theverge.com/2015/10/5/9453935/donald-trump-twitter-strategy). But how could we examine it quantitatively? I've been writing about text mining and [sentiment analysis](varianceexplained.org/r/yelp-sentiment/) recently, particularly during my development of the [tidytext R package](http://github.com/juliasilge/tidytext) with Julia Silge, and this is a great opportunity to apply it again.
+Others have [explored Trump's timeline](http://www.cnet.com/news/trumps-tweets-android-for-nasty-iphone-for-nice/) and noticed this tends to hold up- and Trump himself [does indeed tweet from a Samsung Galaxy](http://www.theverge.com/2015/10/5/9453935/donald-trump-twitter-strategy). But how could we examine it quantitatively? I've been writing about text mining and [sentiment analysis](http://varianceexplained.org/r/yelp-sentiment/) recently, particularly during my development of the [tidytext R package](http://github.com/juliasilge/tidytext) with Julia Silge, and this is a great opportunity to apply it again.
 
 My analysis, shown below, concludes that **the Android and iPhone tweets are clearly from different people**, posting during different times of day and using hashtags, links, and retweets in distinct ways. What's more, we can see that **the Android tweets are angrier and more negative**, while the iPhone tweets tend to be benign announcements and pictures. Overall I'd agree with [@tvaziri](https://twitter.com/tvaziri)'s analysis: this lets us tell the difference between the campaign's tweets (iPhone) and Trump's own (Android).
 
@@ -292,7 +292,7 @@ sentiment_differences
 ## Groups: sentiment [10]
 ## 
 ##       sentiment estimate statistic      p.value parameter  conf.low
-##           <chr>    <dbl>     <dbl>        <dbl>     <dbl>     <dbl>
+##           (chr)    (dbl)     (dbl)        (dbl)     (dbl)     (dbl)
 ## 1         anger 1.492863       321 2.193242e-05  274.3619 1.2353162
 ## 2  anticipation 1.169804       256 1.191668e-01  239.6467 0.9604950
 ## 3       disgust 1.677259       207 1.777434e-05  170.2164 1.3116238
@@ -303,8 +303,7 @@ sentiment_differences
 ## 8       sadness 1.620044       303 1.150493e-06  251.9650 1.3260252
 ## 9      surprise 1.167925       159 2.174483e-01  148.9393 0.9083517
 ## 10        trust 1.128482       369 1.471929e-01  350.5114 0.9597478
-## # ... with 3 more variables: conf.high <dbl>, method <fctr>,
-## #   alternative <fctr>
+## Variables not shown: conf.high (dbl), method (fctr), alternative (fctr)
 {% endhighlight %}
 
 And we can visualize it with a 95% confidence interval:

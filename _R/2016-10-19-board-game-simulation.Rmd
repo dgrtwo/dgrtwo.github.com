@@ -1,0 +1,356 @@
+---
+layout: post
+title: "The 'deadly board game' puzzle: efficient simulation in R"
+description: "A simulation of a probabilistic puzzle from the Riddler column on FiveThirtyEight."
+output: html_document
+date: 2016-10-19 14:00:00 -0400
+category: r
+tags: [r, statistics, education, puzzle]
+comments: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, warning = FALSE, message = FALSE)
+
+library(ggplot2)
+library(ggthemes)
+theme_set(theme_fivethirtyeight() +
+            theme(axis.title = element_text()))
+```
+
+Last Friday's ["The Riddler" column](http://fivethirtyeight.com/features/can-you-survive-this-deadly-board-game/) on FiveThirtyEight presents an interesting probabilistic puzzle:
+
+> While traveling in the Kingdom of Arbitraria, you are accused of a heinous crime. Arbitraria decides who’s guilty or innocent not through a court system, but a board game. It’s played on a simple board: a track with sequential spaces numbered from 0 to 1,000. The zero space is marked “start,” and your token is placed on it. You are handed a fair six-sided die and three coins. You are allowed to place the coins on three different (nonzero) spaces. Once placed, the coins may not be moved.
+
+> After placing the three coins, you roll the die and move your token forward the appropriate number of spaces. If, after moving the token, it lands on a space with a coin on it, you are freed. If not, you roll again and continue moving forward. If your token passes all three coins without landing on one, you are executed. On which three spaces should you place the coins to maximize your chances of survival?
+
+(There are also two variations offered, for which I present solutions afterwards).
+
+Last year I took a look at [the "lost boarding pass" puzzle](http://varianceexplained.org/r/boarding-pass-simulation/) in R, and I found it a useful example of using simulation to answer probabilistic puzzles. Much like the boarding pass puzzle, this has recursive relationships between each round and the previous choices, making it nontrivial to simulate. And much like the other puzzle, performing simulations can be a way to gain insight towards an exact solution.
+
+### Simpler version: one choice, 50 spaces
+
+It's often good to start with a simpler version of a puzzle. Here, let's consider the case where:
+
+* We have only **1** coin to place, not 3
+* There are only 50 spaces, not 1000
+
+Well, to sample a random roll we would use the `sample` function with `replace = TRUE`, and can turn those into positions with the `cumsum()` (cumulative sum) function:
+
+```{r}
+set.seed(2016-10-18)
+cumsum(sample(6, 20, replace = TRUE))
+```
+
+In this simulation the player rolled a 4, then 3, then 3, getting to positions 4, 7, and 10. It's easy to perform this for many rolls and many trials with the `replicate` function. I'll sample 50 rolls in each trial.[^fifty]
+
+```{r}
+set.seed(2016-10-18)
+num_rolls <- 50
+max_position <- 50
+trials <- 200000
+
+# create a 50 x 10 matrix of cumulative positions
+# Each row is a turn and each column a trial
+positions <- replicate(trials, cumsum(sample(6, num_rolls, replace = TRUE)))
+positions[1:6, 1:6]
+```
+
+We end up with 50 rows (one for each roll) and 10 columns (one for each trial), each containing a random simulation. For example, the first player ended up in position 4, then 7, then 10, and so on. The next went from 4 to 5 to 11.
+
+We want to place our one coin in the most likely position, which means we just have to count the number of times each space (up to space 50) is visited. We can use the (built in) `tabulate` function to do so[^tabulate]:
+
+```{r position_probs, dependson = "positions"}
+count_per_position <- tabulate(positions, max_position)
+count_per_position
+```
+
+I'm going to stick these results into a data frame for easy analysis later:
+
+```{r}
+library(dplyr)
+
+position_probs <- data_frame(position = seq_len(max_position),
+                              probability = count_per_position / trials)
+
+position_probs
+```
+
+#### Interpreting the results
+
+Let's start by visualizing the probability of landing on each space. (I'm using `theme_fivethirtyeight` from [ggthemes](https://github.com/jrnold/ggthemes) in honor of the source of the puzzle).
+
+```{r position_probs_plot, dependson = "position_probs"}
+library(ggplot2)
+library(ggthemes)
+theme_set(theme_fivethirtyeight() +
+            theme(axis.title = element_text()))
+
+ggplot(position_probs, aes(position, probability)) +
+  geom_line()
+```
+
+First, we notice that each position gets increasingly more likely up to 6, before diving back down. The pattern repeats itself more mildly up to 12, then basically stabilizes.
+
+That the probabilities climb up to 6 makes sense, because there's only a 1/6 chance of landing on 1 (you have to get it on your first roll), but there are many ways of ending up on 6 (you could roll it directly, roll 1 then 5, two 3s, three 2s, etc). The drop to 7 then makes sense because there is no longer the 1/6 possibility of landing on it on your first roll. So what would be the best spaces to pick if you had only one coin to place?
+
+```{r}
+position_probs %>%
+  arrange(desc(probability))
+```
+
+6, 5, 12, 11, and 10 (the ends of those periodic cycles) were the only spaces that were better than the stabilizing probability that the later positions get stuck in.
+
+What is that stabilizing state? Well, consider that the average roll of a six-sided die (the average of its six faces) is $$(1 + 2 + 3 + 4 + 5 + 6) / 6=3.5$$. This means that in the long run, we'd expect the die to move about 3.5 spaces each round- which means it would hit one out of every 3.5 spots. So if it stabilized around any one number, it would make sense for it to be 1/3.5 (2/7), which looks right:
+
+```{r position_probs_6_12_hline, echo = FALSE}
+ggplot(position_probs, aes(position, probability)) +
+  geom_line() +
+  geom_vline(xintercept = c(6, 12), color = "red", lty = 2) +
+  geom_hline(yintercept = 1 / 3.5, color = "blue", lty = 2) +
+  xlab("Position (6, 12 shown in red)") +
+  ylab("Probability (1 / 3.5 shown in blue)")
+```
+
+In fact, on reflection it's fairly straightforward to calculate the exact probabilities for each space by defining a recursive relationship between each position and the previous ones. We could notice that:
+
+* For each position, the probability is the average of the probabilities of the previous 6 positions
+* We define the position 0 to have a probability of 1 (you always start there), and negative positions to a have a probability of 0.
+
+We can execute this simulation with a for loop or a functional approach[^reduce]:
+
+```{r exact}
+# with a for loop:
+exact <- 1
+for (i in seq_len(50)) {
+  exact <- c(exact, sum(tail(exact, 6)) / 6)
+}
+exact <- exact[-1]
+
+# alternative version with purrr::reduce
+exact <- purrr::reduce(seq_len(51), ~ c(., sum(tail(., 6)) / 6))[-1]
+
+exact
+```
+
+We can compare this (in red) to our simulated values to confirm we got it right:
+
+```{r echo = FALSE}
+library(tidyr)
+
+position_probs %>%
+  ggplot(aes(position, probability)) +
+  geom_line(aes(y = exact), color = "red") +
+  geom_point()
+```
+
+### Three coins to place
+
+We'll now try the original version of the problem, where we place three coins. Why not just pick the three individually most likely spaces (5, 6, and 12) and call it a day? Because the probability of landing on these spaces is **not independent**. We need to maximize the chance we land on **any** space if we want to survive, and perhaps choosing 5, 6, and 12 includes "redundancies," where we are likely.
+
+One common necessity in simulations is to rearrange your data into. Let's rearrange our simulated data `positions` into a **binary matrix** that I'm calling `boards`. Here instead of having one row for each turn, there will be one row for each **space on the board**. We'll then place 1s at all the spaces where you landed. To do this, we'll use a trick for using a two-column matrix as indices that we originally used in the [boarding pass post](http://varianceexplained.org/r/boarding-pass-simulation/).
+
+```{r boards, dependson = "positions"}
+# create a two-column matrix of position and trial number
+position_indices <- cbind(c(positions), rep(seq_len(trials), each = num_rolls))
+position_indices <- position_indices[position_indices[, 1] <= max_position, ]
+
+# create an empty integer matrix, set those positions to 1
+boards <- matrix(0L, nrow = num_rolls, ncol = trials)
+boards[position_indices] <- 1L
+
+dim(boards)
+boards[1:10, 1:6]
+```
+
+For example, we can see that the first simulation landed on 4, 7, and 10, and the second on positions 4 and 5.
+
+Why construct it this way? Because *it makes it easy to evaluate a three-coin strategy.* For example, how well would we do if we choose spaces 1, 2, and 3? We can simply ask how many trials we landed in at least one of them:
+
+```{r dependson = "boards"}
+# get first three rows of boards 
+mean(colSums(boards[1:3, ]) > 0)
+```
+
+It looks like we'd win about half the time (which makes sense- we'd have to get a 1-3 as the first roll). What about choosing 4, 5, and 6?
+
+```{r dependson = "boards"}
+mean(colSums(boards[4:6, ]) > 0)
+```
+
+We'd do a good deal better, with an almost 80% chance of surviving.
+
+Let's brute force this by trying all possible three-coin strategies between 1 and 20. (Since the per-space probability, it looks very unlikely that the best strategies will need to go past 20 spaces. A strategy of picking 5, 6 and 20 isn't going to be that different than picking 5, 6, and 500). The [combn](https://stat.ethz.ch/R-manual/R-devel/library/utils/html/combn.html) function is useful for this, creating a matrix with one row for each of the 1140 three-coin choices:
+
+```{r strategies}
+strategies <- combn(20, 3)
+
+dim(strategies)
+strategies[, 1:6]
+```
+
+For each of these strategies (each column in the matrix), we do the same "probability-of-winning" calculation as before.
+
+```{r probabilities, dependson = "boards"}
+calculate_success <- function(choice) mean(colSums(boards[choice, ]) > 0)
+
+# use apply to perform this function on each column of strategies
+probabilities <- apply(strategies, 2, calculate_success)
+```
+
+This is by far the slowest step of the simulation, and it gets slower still if you consider more than 20 spaces. (See the Appendix for a faster matrix-based method when working with two coins). 
+
+Which three-coin strategies maximized your probability of surviving?
+
+```{r best_options, dependson = c("strategies", "probabilities")}
+# Restructure the strategies matrix into a three-column data frame
+strategy_df <- as_data_frame(t(strategies))
+
+# now add in the probabilities and sort:
+best_options <- strategy_df %>%
+  mutate(probability = probabilities) %>%
+  arrange(desc(probability))
+
+best_options
+```
+
+We notice that most of the top strategies include 5 and 6 in them, which were the two best choices for our "choose one" version of the game. However, the version that beat everything else (and not by a small amount) was to choose 4-5-6: and even though 4 on its own was not a particularly high probability space.
+
+We can visualize the 25 best choices to see what else they have in common:
+
+```{r best_options_plot, dependson = "best_options", echo = FALSE}
+best_options %>%
+  mutate(Rank = row_number()) %>%
+  gather(key, Position, V1:V3) %>%
+  complete(Rank, Position) %>%
+  filter(Rank <= 25) %>%
+  ggplot(aes(Position, Rank, fill = !is.na(key))) +
+  geom_tile(color = ggthemes_data$fivethirtyeight["ltgray"], size = 1, show.legend = FALSE) +
+  scale_fill_manual(values = c("white", "black")) +
+  scale_y_reverse() +
+  xlab("Placement of coins") +
+  ylab("Ranking of strategy")
+```
+
+We notice that 5 and 6 dominate most strategies, and when we move away from them we tend to focus on consecutive triplets (like 10-11-12 or 9-10-11).
+
+This makes sense in terms of interdependence among choices. Once you're already picking 5 and 6, you should pick ones that are less likely to co-occur with those two to maximize your chances of hitting at least one. This includes ones that are immediately adjacent (4 or 7).
+
+To review, here's all the code we used to solve the puzzle, in one place:
+
+```{r eval = FALSE}
+set.seed(2016-10-18)
+num_rolls <- 50
+max_position <- 50
+trials <- 200000
+
+positions <- replicate(trials, cumsum(sample(6, num_rolls, replace = TRUE)))
+
+position_indices <- cbind(c(positions), rep(seq_len(trials), each = num_rolls))
+position_indices <- position_indices[position_indices[, 1] <= max_position, ]
+
+boards <- matrix(0L, nrow = num_rolls, ncol = trials)
+boards[position_indices] <- 1L
+
+calculate_success <- function(choice) mean(colSums(boards[choice, ]) > 0)
+probabilities <- apply(strategies, 2, calculate_success)
+```
+
+### Variations
+
+The Riddler offered a few variations on the puzzle. One of the advantages of the simulation approach to puzzle-solving is that it can be easy to extract the answers to related questions.
+
+#### Can't pick adjacent spaces
+
+> Suppose there’s an additional rule that you cannot place the coins on adjacent spaces. What is the ideal placement now?
+
+This is straightforward with our simulation setup:
+
+```{r dependson = "best_options"}
+best_options %>%
+  filter(V2 - V1 > 1,
+         V3 - V2 > 1)
+```
+
+It looks like the best positions are typically those two or three apart, and that include 6.
+
+#### Worst spaces
+
+> What about the worst squares — where should you place your coins if you’re making a play for martyrdom?
+
+Simply sort your strategies in ascending rather than descending order:
+
+```{r dependson = "best_options"}
+best_options %>%
+  arrange(probability)
+```
+
+It looks like both 1-2-3 and 1-2-8 offer about fifty-fifty odds, but that 1-2-7 beats them out for the worst combination.
+
+### What if you need to get all three?
+
+My own variation- what if you needed to land on all three coins to win?
+
+```{r probability_all, dependson = "best_options"}
+# change > 0 to == 3 in our simulation
+calculate_success_all <- function(choice) mean(colSums(boards[choice, ]) == 3)
+probability_all <- apply(strategies, 2, calculate_success_all)
+
+strategy_df %>%
+  mutate(probability_all) %>%
+  arrange(desc(probability_all))
+```
+
+The best way to get all three is to pick 6-12-18. In retrospect this makes sense: if you need to hit every coin, this is equivalent to playing the single-choice version **three times** and needing to win all three. Since 6 is the best choice for each "subgame", you place your coins 6 apart.
+
+### Lessons
+
+What can we learn from this example simulation?
+
+* **Start with a simpler version**: In this case we started with a one-coin version of the puzzle, and explored the results with visualization and mathematical reasoning. This gives you an intuition for the problem and help design the full simulation.
+
+* **Add restrictions to your solution space**. The Riddler offered a board with 1,000 spaces. There are 166 million (`choose(1000, 3)`) possible three-coin strategies in a board that large, which would have made it almost impossible for us to brute-force. But since we'd already started with a simpler verison and knew that the probabilities stabilized around the 15th space, we figured that we didn't need to use more than the first 20 spaces to find the best strategy. (Exercise for the reader: what is the best strategy that requires a space beyond the first 20, and how highly is it ranked?)
+
+* **Know your built-in functions in R**. The `combn` function is an easy way to generate possible coin-placing strategies, and the `tabulate` function is an extremely efficient way of counting integers in a limited range (far faster than the more commonly used `table`). The [Vocabulary chapter of Advanced R](http://adv-r.had.co.nz/Vocabulary.html) gives a pared-down list of built-in functions that's worth reviewing. (Though amusingly, the list skips `tabulate`!)
+
+### Appendix: Matrix-based approach for two coins
+
+If you're experienced in matrix multiplication and sets, you may spot a fast way we can find pairs of "or" combinations.
+
+The number of events in the union of A and B ($$A\cup B$$) can be found with:
+
+$$|A\cup B|=|A|+|B|-|A\cap B|$$
+
+(where $$A\cap B$$ means the number of times A and B happen together). Luckily, from our binary matrix it is computationally easy to get both $$A+B$$ and $$A\cap B$$ as matrices:
+
+```{r}
+# 50 x 50 matrix of A + B
+per_position <- rowSums(boards)
+position_plus <- outer(per_position, per_position, "+")
+
+# 50 x 50 matrix of A and B
+position_and <- boards %*% t(boards)
+
+# 50 x 50 matrix of counts of A or B
+position_or <- position_plus - position_and
+```
+
+Thanks to optimizations in R's matrix operations, this is far faster than the `apply` method we use in the main post. We can examine the best strategies using `melt` from the reshape2 package:
+
+```{r dependson = "position_or"}
+library(reshape2)
+
+melt(position_or) %>%
+  tbl_df() %>%
+  filter(Var2 > Var1) %>%
+  mutate(probability = value / trials) %>%
+  arrange(desc(probability))
+```
+
+We can then see that the best two-coin strategies include 5-6 (which are the two best single-coin strategies), as well as 4-6 and 6-8.
+
+I don't yet have an effective method for extending this matrix approach to three coins. Can you find one?
+
+[^tabulate]: If you're familiar with R you may have expected me to do `table(positions)`: but `table` is **very slow** for large integer vectors relative to other counting methods, taking about two seconds on this data. (Among other reasons, it converts it to a character vector before counting). `count` from the dplyr package gets about a 10x improvement, and data.table a greater improvement still. But in the very special case of counting occurences of integers from 1 to 50, tabulate is by far the fastest: about a 150x improvement above `table`.
+[^fifty]: We don't really need to sample 50 rolls for the 50-space version since the chance of needing all fifty (rolling all 1s) is effectively impossible- I include it only for simplicity.
+[^reduce]: Why did I use reduce from the `purrr` package rather than the built in `Reduce`? I like the conciseness of defining each step as `~ c(., sum(tail(.)) / 6)` rather than `function(x, y) c(., sum(tail(.)) / 6)`. Note also that while this step builds up a vector incrementally, which is normally a performance hit in R, this calculation takes about a millisecond so it's not really worth optimizing.
