@@ -4,6 +4,7 @@ title: "Analysis of software developers in New York, San Francisco, London and B
 description: "An analysis of how programmers use different programming languages among different cities, based on Stack Overflow traffic."
 date: 2016-12-01 11:15:00 -0400
 category: r
+og_image: http://varianceexplained.org/figs/2016-12-01-developers-cities/ny_sf_compare_plot-1.png
 tags: [r, statistics, stackoverflow]
 comments: true
 ---
