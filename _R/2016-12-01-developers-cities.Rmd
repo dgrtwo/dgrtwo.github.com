@@ -238,7 +238,7 @@ Let's expand the story to include Bangalore, India, and London, England. Togethe
 
 Each of these cities is the "capital" of particular tags, visiting them more than the other three cities do. Which tags does each city lead in?
 
-```{r compare_four_cities, dependson = "city_traffic"}
+```{r compare_four_cities, dependson = "city_traffic", dpi = 400}
 city_traffic_tidy %>%
   filter(TagRank <= 200) %>%
   arrange(Tag) %>%
