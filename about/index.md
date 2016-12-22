@@ -5,12 +5,13 @@ tags: [about]
 comments: false
 ---
 
-I am a Data Scientist at [Stack Overflow](http://stackoverflow.com/). In May 2015 I received my PhD in [Quantitative and Computational Biology](http://www.princeton.edu/qcbgrad/) from Princeton University, where I worked with Professor [John Storey](http://www.genomine.org/). My interests include statistics, data analysis, genomics, education, and programming in R and Python.
+I am a Data Scientist at [Stack Overflow](http://stackoverflow.com/). In May 2015 I received my PhD in [Quantitative and Computational Biology](http://www.princeton.edu/qcbgrad/) from Princeton University, where I worked with Professor [John Storey](http://www.genomine.org/). My interests include statistics, data analysis, genomics, education, and programming in R.
 
 Software
 ============
 
 * [broom](http://github.com/dgrtwo/broom): an R package for converting messy model outputs to a tidy format, for use with tools such as [dplyr](http://github.com/hadley/dplyr) and [tidyr](http://github.com/hadley/tidyr).
+* [gganimate](http://github.com/dgrtwo/gganimate): an R package for creating animations within the grammar of graphics.
 * [subSeq](http://github.com/StoreyLab/subSeq): Subsample reads from an RNA-Seq experiment to determine if it has sufficient depth.
 * [stackr](https://github.com/dgrtwo/stackr): R package for connecting to the Stack Exchange API.
 * [snippr](https://github.com/dgrtwo/snippr): R package for managing, sharing, and installing [RStudio code snippets](http://blog.rstudio.org/2015/04/13/rstudio-v0-99-preview-code-snippets/).
@@ -32,9 +33,9 @@ Publications
 Links
 =====
 
-* I built an online R video course, [Data Analysis and Visualization Using R](/RData/).
+* I've published a course, [Exploratory Data Analysis in R: Case Study](https://campus.datacamp.com/courses/exploratory-data-analysis-in-r-case-study), on [DataCamp](https://www.datacamp.com), an interactive platform to [learn R](https://www.datacamp.com/courses/free-introduction-to-r) and data science.
 
-* I'm also creating an online course on exploratory data analysis together with [DataCamp](https://www.datacamp.com), an interactive platform to [learn R](https://www.datacamp.com/courses/free-introduction-to-r) and data science.
+* I also built an online R video course, [Data Analysis and Visualization Using R](/RData/).
 
 * [My CV](/files/DavidRobinsonResume.pdf)
 
