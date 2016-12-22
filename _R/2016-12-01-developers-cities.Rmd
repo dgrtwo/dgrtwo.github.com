@@ -1,0 +1,272 @@
+---
+layout: post
+title: "Analysis of software developers in New York, San Francisco, London and Bangalore"
+description: "An analysis of how programmers use different programming languages among different cities, based on Stack Overflow traffic."
+date: 2016-12-01 11:15:00 -0400
+category: r
+og_image: http://varianceexplained.org/figs/2016-12-01-developers-cities/ny_sf_compare_plot-1.png
+tags: [r, statistics, stackoverflow]
+comments: true
+---
+
+```{r include = FALSE, cache = FALSE}
+## REPRODUCIBILITY NOTE: This post, unlike most of my blog posts, is *not*
+## reproducible without the internal sqlstackr package and access to Stack
+## Overflow databases. (This full data is not public).
+
+## I share the code to be otherwise transparent about the statistical
+## methods and summaries.
+
+library(knitr)
+opts_chunk$set(echo = FALSE, cache = TRUE, message = FALSE, warning = FALSE, fig.cap = "")
+
+library(methods)
+library(ggplot2)
+library(scales)
+theme_set(theme_bw())
+```
+
+*(Note: Cross-posted [with the Stack Overflow Blog](http://stackoverflow.blog/2016/11/How-Do-Developers-in-New-York-San-Francisco-London-and-Bangalore-Differ/).)*
+
+When I tell someone Stack Overflow is based in New York City, they're often surprised: many people assume it's in San Francisco. (I've even seen job applications with "I'm in New York but willing to relocate to San Francisco" in the cover letter.) San Francisco is a safe guess of where an American tech company might be located: it's in the heart of Silicon Valley, near the headquarters of tech giants such as Apple, Google, and Facebook. But New York has a rich startup ecosystem as well- and it's [a very different world](http://www.businessinsider.com/difference-between-nyc-and-sf-tech-scene-2016-7) from San Francisco, with developers who use different languages and technologies.
+
+On the Stack Overflow data team we don't have to hypothesize about where developers are and what they use: we can measure it! By analyzing our traffic, we have a bird's eye view of who visits Stack Overflow, and what technologies they're working on. As the first in a series of upcoming analyses of Stack Overflow data, here we'll show some examples of what we can detect about software developers in each major city.
+
+```{r traffic}
+library(sqlstackr)
+
+# This particular database table (called TrafficLite) contains 25% of Stack Overflow
+# visits along with their cities for the last ~2 years
+
+# (It was up to October 12 when I did this analysis; kept that way for reproducibility)
+traffic <- tbl_TrafficLite("QuestionViews025") %>%
+    filter(Date > "2015-10-12", Date <= "2016-10-12", !is.null(GeonameId))
+
+total_traffic <- collect(count(traffic))$n
+```
+
+```{r city_totals, dependson = "traffic"}
+# These database tables contain information on geonames (city IDs) and the relationships
+# between them (which are within 50 miles of another)
+city_totals <- traffic %>%
+  inner_join(tbl_TrafficLite("GeonameCenters"), by = "GeonameId") %>%
+  count(CenterId) %>%
+  inner_join(tbl_TrafficLite("Geonames"), by = c(CenterId = "GeonameId")) %>%
+  select(CenterId, CountryName, RegionName, CityName, VisitsTotal = n, Longitude, Latitude) %>%
+  collect(n = Inf) %>%
+  arrange(desc(VisitsTotal)) %>%
+  mutate(CityName = ifelse(CityName == "Bengaluru", "Bangalore", CityName))
+
+# note: renamed Bengaluru to Bangalore to fit the most common Western spelling
+```
+
+```{r biggest_cities_graph, dependson = "city_totals"}
+city_totals %>%
+  head(20) %>%
+  mutate(City = paste(CityName, CountryName, sep = ", ")) %>%
+  mutate(Percent = VisitsTotal / total_traffic,
+         City = reorder(City, Percent)) %>%
+  ggplot(aes(City, Percent)) +
+  geom_col() +
+  scale_y_continuous(labels = percent_format()) +
+  ggtitle("Metro areas with the most Stack Overflow traffic") +
+  xlab("City (including surrounding 50 mile radius)") +
+  ylab("% of Stack Overflow traffic") +
+  coord_flip()
+```
+
+In this post we're going to focus on the four cities that visit Stack Overflow the most: San Francisco, Bangalore, London, and New York.[^fiftymiles]
+
+(The data used in this post is private within the company, but if you're curious how it was generated you can find the code [here](https://github.com/dgrtwo/dgrtwo.github.com/blob/master/_R/2016-12-01-developers-cities.Rmd)).
+
+```{r fraction_by_city, dependson = "traffic"}
+fraction_by_city <- function(tags = NULL, cities = NULL) {
+  centers <- tbl_TrafficLite("GeonameCenters")
+  qtags <- tbl_TrafficLite("QuestionTags")
+
+  if (!is.null(tags)) {
+    if (length(tags) > 1) {
+      qtags <- qtags %>%
+        filter(Tag %in% tags)
+    } else {
+      qtags <- qtags %>%
+        filter(Tag == tags)
+    }
+  }
+  if (!is.null(cities)) {
+    if (length(cities) > 1) {
+      centers <- centers %>%
+        filter(CenterId %in% cities)
+    } else {
+      centers <- centers %>%
+        filter(CenterId == cities)
+    }
+  }
+  
+  tag_by_city <- traffic %>%
+    inner_join(centers, by = "GeonameId") %>%
+    inner_join(qtags, by = "QuestionId") %>%
+    count(CenterId, Tag) %>%
+    collect(n = Inf) %>%
+    ungroup() %>%
+    rename(VisitsTag = n) %>%
+    inner_join(city_totals, by = "CenterId")
+  
+  tag_by_city
+}
+```
+
+```{r top_cities_traffic, dependson = "fraction_by_city"}
+# Four cities
+top_cities_traffic <- fraction_by_city(cities = c(5128581, 1277333, 5391959, 2643743))
+```
+
+```{r city_traffic, dependson = "top_cities_traffic"}
+library(stringr)
+library(tidyr)
+
+cities <- c("San Francisco", "Bangalore", "London", "New York")
+
+tag_totals <- top_cities_traffic %>%
+  group_by(Tag) %>%
+  summarize(TagTotal = sum(VisitsTag)) %>%
+  arrange(desc(TagTotal)) %>%
+  mutate(TagRank = row_number())
+
+city_traffic_tidy <- top_cities_traffic %>%
+  inner_join(tag_totals, by = "Tag") %>%
+  transmute(CityName = factor(CityName, levels = cities), Tag,
+            Fraction = VisitsTag / VisitsTotal) %>%
+  inner_join(tag_totals, by = "Tag")
+
+city_traffic <- city_traffic_tidy %>%
+  mutate(CityName = str_replace(CityName, " ", "")) %>%
+  spread(CityName, Fraction, fill = 0)
+```
+
+### San Francisco vs New York
+
+First we'll compare the two most popular American cities for software development: San Francisco and New York.
+
+When developers are using a programming language or technology, they typically visit questions related to it. So based on how much traffic goes to questions tagged with Python, or Javascript, we can estimate what fraction of a city's software development takes place in that language.
+
+```{r top_10_barplot, dependson = "city_traffic"}
+top_10_setup <- city_traffic_tidy %>%
+  filter(CityName %in% c("New York", "San Francisco")) %>%
+  arrange(desc(TagTotal)) %>%
+  filter(TagRank <= 10)
+
+top_10_setup %>%
+  mutate(Tag = reorder(Tag, Fraction),
+         City = factor(CityName)) %>%
+  ggplot(aes(Tag, Fraction, fill = City)) +
+  geom_col(position = "dodge") +
+  scale_y_continuous(labels = percent_format()) +
+  ggtitle("Composition of NY and SF traffic") +
+  ylab("% of city's traffic to SO questions") +
+  coord_flip()
+
+python <- top_10_setup %>%
+  filter(Tag == "python")
+```
+
+For example, there were `r round(city_totals$VisitsTotal[1] * 4 / 1e6)` million question views from San Francisco in the last year, and we can see that `r percent(python$Fraction[1])` of these visits were to questions with the Python tag, compared to `r percent(python$Fraction[2])` of New York's traffic.
+
+Most of these common technologies look like they make up a fairly similar fraction of NY and SF traffic, but we're interested in stark differences. What tags (among the 200 most high-traffic tags) showed the largest difference between San Francisco and New York?
+
+```{r ny_sf_compare, dependson = "city_traffic"}
+ny_sf_compare <- city_traffic %>%
+  mutate(Ratio = SanFrancisco / NewYork,
+         LogRatio = log2(Ratio),
+         Tag = reorder(Tag, LogRatio),
+         Direction = ifelse(LogRatio > 0, "San Francisco", "New York"))
+```
+
+```{r ny_sf_compare_plot, fig.height = 7, fig.width = 10, dependson = "ny_sf_compare"}
+num_tags_ny_sf <- 200
+
+ny_sf_compare %>%
+  filter(TagRank <= num_tags_ny_sf) %>%
+  group_by(Direction) %>%
+  top_n(15, abs(LogRatio)) %>%
+  ungroup() %>%
+  ggplot(aes(Tag, LogRatio, fill = Direction)) +
+  geom_col() +
+  scale_y_continuous(breaks = c(-1, 0, 1),
+                     labels = c("1/2X", "1X", "2X")) +
+  labs(x = "Tag",
+       y = "Relative frequency in San Francisco vs New York",
+       fill = "More common in...") +
+  coord_flip() +
+  ggtitle("Largest NY/SF differences in tag traffic")
+```
+
+One clear difference: New York has a larger share of Microsoft developers. Many tags important in the Microsoft technology stack, such as C#, .NET, SQL Server, and VB.NET, had about twice as much traffic in New York as in San Francisco. This may be because many banks and financial firms, which are much more common in NY than in SF, use these technologies.
+
+There are also patterns in the technologies that are more common in the San Francisco area, especially languages developed by Apple (Cocoa, Objective-C, OSX) and Google (Go, Android). We can also see several influential open source projects, especially ones associated with Apache (Hive, Hadoop, Spark).
+
+Rather than looking only at the most dramatic changes, we could visualize the SF/NY ratio compared to the total visits:
+
+```{r ny_sf_compare_scatter, dependson = "ny_sf_compare", fig.width = 12, fig.height = 8}
+two_city_tag_traffic <- top_cities_traffic %>%
+  filter(CityName %in% c("New York", "San Francisco")) %>%
+  count(Tag, wt = VisitsTag, sort = TRUE) %>%
+  head(500) %>%
+  mutate(TwoCityTotal = n * 4)
+
+ny_sf_compare %>%
+  mutate(Tag = as.character(Tag)) %>%
+  inner_join(two_city_tag_traffic, by = "Tag") %>%
+  arrange(desc(abs(LogRatio))) %>%
+  ggplot(aes(TwoCityTotal, LogRatio)) +
+  geom_point() +
+  geom_text(aes(label = Tag), vjust = 1, hjust = 1, check_overlap = TRUE) +
+  geom_hline(yintercept = 0, color = "red", lty = 2) +
+  scale_x_log10() +
+  expand_limits(x = 1.6e5) +
+  scale_y_continuous(breaks = c(-1, 0, 1),
+                     labels = c("1/2X", "1X", "2X")) +
+  labs(x = "Total visits in one year from both cities",
+       y = "Relative frequency in San Francisco vs New York") +
+  ggtitle("New York vs San Francisco: Relative frequency vs total visits")
+```
+
+This confirms that C# (in NY) and Android (in SF) stand out as the highest traffic tags that show different behavior, with tags such as Excel, VBA, Cocoa, and Go showing more even dramatic differences. Meanwhile, the Java tag has about the same level of traffic in each city, as do several "language agnostic" tags such as "string", "regex", and "performance".
+
+### New York, San Francisco, Bangalore, and London
+
+Let's expand the story to include Bangalore, India, and London, England. Together these four cities make up `r percent(sum(city_totals$VisitsTotal[1:4]) / total_traffic)` of all Stack Overflow traffic.
+
+Each of these cities is the "capital" of particular tags, visiting them more than the other three cities do. Which tags does each city lead in?
+
+```{r compare_four_cities, dependson = "city_traffic", dpi = 400}
+city_traffic_tidy %>%
+  filter(TagRank <= 200) %>%
+  arrange(Tag) %>%
+  group_by(Tag) %>%
+  mutate(Increase = Fraction / ((sum(Fraction) - Fraction) / (n() - 1)) - 1) %>%
+  group_by(Tag) %>%
+  top_n(1, Increase) %>%
+  group_by(CityName) %>%
+  top_n(12, Increase) %>%
+  ungroup() %>%
+  mutate(Tag = reorder(Tag, Increase)) %>%
+  ggplot(aes(Tag, Increase)) +
+  geom_col() +
+  facet_wrap(~ CityName, scales = "free_y") +
+  coord_flip() +
+  scale_y_continuous(breaks = c(0, .5, 1, 1.5, 2), labels = c("1X", "1.5X", "2X", "2.5X", "3X")) +
+  ggtitle("What tags does each major city lead in?") +
+  ylab("Increase in tag traffic relative to average of other cities")
+```
+
+This fills out more of our story:
+
+* **London has the highest percentage of developers using the Microsoft stack**: while New York had more Microsoft-related traffic than San Francisco, here we see London with a still greater proportion. Since both London and New York are financial hubs, this suggests we were right that Microsoft technologies tend to be associated with financial professionals.
+* **New York leads in several data analysis tools**, including pandas (a Python data science library) and R. This is probably due to a combination of finance, academic research, and data science at tech companies. It's not a huge lead, but as an R user in New York I'm still personally happy to see it!
+* **Bangalore has the most Android development**, with two to three times as much traffic to Android-related tags as the other three cities. Bangalore is sometimes called the ["Silicon Valley of India"](http://www.nytimes.com/2006/03/20/business/worldbusiness/is-the-next-silicon-valley-taking-root-in-bangalore.html) for its thriving software export industry, with [Android development](http://247wallst.com/apps-software/2016/11/18/where-do-all-those-mobile-apps-come-from/) playing the largest role.
+* **San Francisco leads in the same technologies as it did in the comparison with New York** (except for Android). In particular (thanks to Mountain View), it's indisputably the "Go capital of the world." (This is true even if we look at the 50 highest-traffic cities rather than just the top 4).
+
+This portrait of four major developer hubs is is just one of many ways Stack Overflow traffic can tell us about the global software engineering ecosystem. Whether you want to understand developers, hire them, engage them, or make your own developers more efficient, we have solutions to help you solve your problems. Check out [Developer Insights](https://business.stackoverflow.com/research/learn-more) to learn more.
+
+[^fiftymiles]: In this analysis, we counted all traffic within 50 miles of a city: this means San Francisco includes a larger part of the "Bay Area", such as Mountain View and Cupertino.
