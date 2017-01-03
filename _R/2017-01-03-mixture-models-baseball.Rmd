@@ -363,8 +363,8 @@ final_parameters %>%
   crossing(H = 1:40) %>%
   transmute(H, cluster, likelihood = prior * VGAM::dbetabinom.ab(H, 100, alpha, beta)) %>%
   spread(cluster, likelihood) %>%
-  mutate(probability_B = B / (A + B)) %>%
-  ggplot(aes(H, probability_B)) +
+  mutate(probability_A = A / (A + B)) %>%
+  ggplot(aes(H, probability_A)) +
   geom_line() +
   geom_vline(aes(xintercept = H), data = batter_100, lty = 2) +
   geom_text(aes(x = H, y = 0, label = name), data = batter_100, hjust = 1, vjust = 1, angle = 270) +
