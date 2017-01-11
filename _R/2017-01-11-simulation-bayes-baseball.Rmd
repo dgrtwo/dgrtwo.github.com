@@ -166,7 +166,7 @@ career_sim_gathered %>%
        subtitle = "Red line is x = y; dashed white line is a linear fit")
 ```
 
-Our method works: the the Raw (H / AB) estimates have a *lot* more noise than the shrunken estimates, just as we expected. (We filtered out cases where $$AB < 10$$ in this graph: if we hadn't, the difference would have been even starker). So 
+Our method works: the the Raw (H / AB) estimates have a *lot* more noise than the shrunken estimates, just as we expected. (We filtered out cases where $$AB < 10$$ in this graph: if we hadn't, the difference would have been even starker).
 
 However, notice the dashed line representing the best-fit slope. One property that we'd prefer an estimate to have is that it's equally likely to be an overestimate or an underestimate (that is, that $$E[\hat{p}]=p$$), and that's true for the raw average. However, the shrunken estimate tends to be too high for low values of $$p$$, and too low for high values of $$p$$. The empirical Bayes method has introduced **bias** into our estimate, in exchange for drastically reducing the **variance**. This is a [classic tradeoff in statistics and machine learning](https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff).
 
