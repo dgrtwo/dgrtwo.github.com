@@ -239,7 +239,7 @@ Notice how the variance around the true (red) line shrinks in the raw estimate, 
 
 ### Credible intervals
 
-Besides the shrunken empirical Bayes estimates, the `add_ebb_estimate` function also adds [credible intervals](https://en.wikipedia.org/wiki/Credible_interval) for each of our playesr. For example, we 
+Besides the shrunken empirical Bayes estimates, the `add_ebb_estimate` function also adds [credible intervals](https://en.wikipedia.org/wiki/Credible_interval) for each of our players. For example, we 
 
 ```{r career_sim_eb}
 set.seed(2017)
@@ -312,7 +312,7 @@ If the FDR control were successful, we'd expect 10% of the true batting averages
 mean(hall_of_fame$p < .3)
 ```
 
-Yes- almost exactly 10% of the players included in this "hall of fame" were included incorrectly, indicating that the q-value succeeded in controlling FDR. We could instaed try this for all q-values, using the `cummean` function:
+Yes- almost exactly 10% of the players included in this "hall of fame" were included incorrectly, indicating that the q-value succeeded in controlling FDR. We could instead try this for all q-values, using the `cummean` function:
 
 ```{r}
 pt %>%
@@ -330,7 +330,7 @@ Notice that the FDR was often a little bit higher than we aimed for with the q-v
 
 Most simulation analyses start with a simple model, than gradually add complications. In [a post on beta-binomial regression](http://varianceexplained.org/r/beta_binomial_baseball/), we discovered that there is a relationship between $$\mbox{AB}_i$$ and the true batting average $$p_i$$ that we need to incorporate into our model. Let's add that complication to our simulation, and see if the method we used to account for it actually works.
 
-The model described in that post had three hyperparameters: $$\mu_0$$, \mu_{\mbox{AB}} and $$\sigma_0$$. Then each of the probabilities $$\p_i$$ was computed as:
+The model described in that post had three hyperparameters: $$\mu_0$$, $$\mu_{\mbox{AB}}$$ and $$\sigma_0$$. Then each of the probabilities $$p_i$$ was computed as:
 
 $$\mu_i = \mu_0 + \mu_{\mbox{AB}} \cdot \log(\mbox{AB})$$
 
