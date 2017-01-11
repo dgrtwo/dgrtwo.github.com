@@ -162,8 +162,8 @@ career_sim_gathered %>%
   facet_wrap(~ type) +
   labs(x = "True batting average (p)",
        y = "Raw or shrunken batting average",
-       title = "EB shrinkage reduces variance, but causes bias",
-       subtitle = "Red line is x = y; dashed black line is a linear fit")
+       title = "Empirical Bayes shrinkage reduces variance, but causes bias",
+       subtitle = "Red line is x = y; dashed white line is a linear fit")
 ```
 
 Our method works: the the Raw (H / AB) estimates have a *lot* more noise than the shrunken estimates, just as we expected. (We filtered out cases where $$AB < 10$$ in this graph: if we hadn't, the difference would have been even starker). So 
@@ -231,8 +231,8 @@ career_sim_gathered %>%
   facet_grid(ab_bin ~ type, scales = "free_y") +
   labs(x = "True batting average (p)",
        y = "Raw or shrunken estimate",
-       title = "EB shrinkage reduces variance, but introduces bias",
-       subtitle = "Red line is x = y; dashed black line is a linear fit")
+       title = "Empirical Bayes shrinkage reduces variance, but introduces bias",
+       subtitle = "Red line is x = y; dashed white line is a linear fit")
 ```
 
 Notice how the variance around the true (red) line shrinks in the raw estimate, and the bias (the flatness of the gray dashed line) in the shrunken estimate decreases, until both look quite similar in the 1000+ bin.

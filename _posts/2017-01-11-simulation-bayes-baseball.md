@@ -188,8 +188,8 @@ career_sim_gathered %>%
   facet_wrap(~ type) +
   labs(x = "True batting average (p)",
        y = "Raw or shrunken batting average",
-       title = "EB shrinkage reduces variance, but causes bias",
-       subtitle = "Red line is x = y; dashed black line is a linear fit")
+       title = "Empirical Bayes shrinkage reduces variance, but causes bias",
+       subtitle = "Red line is x = y; dashed white line is a linear fit")
 {% endhighlight %}
 
 ![center](/figs/2017-01-11-simulation-bayes-baseball/career_sim_gathered_plot-1.png)
