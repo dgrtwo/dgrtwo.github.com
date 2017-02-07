@@ -25,7 +25,7 @@ How does the book differ from the posted blog entries?
 
 * There is a **new, exclusive chapter** available only in the book, introducing the Dirichlet and the multinomial distributions. By extending the beta and the binomial to more than two categories, this lets us model not only hits and misses but also singles, doubles, triples, and home runs. The chapter shows how to use these distributions to perform empirical Bayes estimation on [slugging percentages](https://en.wikipedia.org/wiki/Slugging_percentage).
 
-* There's been **additional material** added to several other chapters. Most notable is that I've expanded the chapter on the beta distribution to include a deeper explanation of conjugate priors, and expanded the chapter on simulation to show how varying the number of observations affects the results.
+* There's been **additional material** added to several other chapters. Most notable is that I've expanded the chapter on the beta distribution to include a deeper explanation of conjugate priors, and expanded the chapter on simulation to show how varying the number of observations affects the accuracy of the methods.
 
 * With the benefit of hindsight across the series I've been able to make many small improvements, including reducing extraneous code and linking chapters to each other to form a cohesive narrative.
 
