@@ -1,0 +1,46 @@
+---
+layout: post
+title: "Announcing the release of my e-book: Introduction to Empirical Bayes"
+description: "Releasing my e-book 'Introduction to Empirical Bayes: Examples from Baseball Statistics', adapted from my series of posts on applying empirical Bayesian methods to baseball."
+output: html_document
+date: 2017-02-07 14:15:00 -0400
+category: r
+tags: [r, statistics, education]
+comments: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I'm excited to announce the release of my new e-book: **Introduction to Empirical Bayes: Examples from Baseball Statistics**, available [here](https://gumroad.com/l/empirical-bayes).
+
+This book is adapted from a series of ten posts on my blog, starting with [Understanding the beta distribution](http://varianceexplained.org/statistics/beta_distribution_and_baseball/) and ending recently with [Simulation of empirical Bayesian methods](http://varianceexplained.org/r/simulation-bayes-baseball/). In these posts I've introduced the empirical Bayesian approach to estimation, credible intervals, A/B testing, mixture models, and other methods, all through the example of baseball batting averages.
+
+If you've enjoyed some or all of these posts, I'd encourage you to purchase the e-book to see how it all fits together.
+
+### What's in the book
+
+How does the book differ from the posted blog entries?
+
+* There is a **new, exclusive chapter** available only in the book, introducing the Dirichlet and the multinomial distributions. By extending the beta and the binomial to more than two categories, this lets us model not only hits and misses but also singles, doubles, triples, and home runs. The chapter shows how to use these distributions to perform empirical Bayes estimation on [slugging percentages](https://en.wikipedia.org/wiki/Slugging_percentage).
+
+* There's been **additional material** added to several other chapters. Most notable is that I've expanded the chapter on the beta distribution to include a deeper explanation of conjugate priors, and expanded the chapter on simulation to show how varying the number of observations affects the results.
+
+* With the benefit of hindsight across the series I've been able to make many small improvements, including reducing extraneous code and linking chapters to each other to form a cohesive narrative.
+
+* Using [bookdown](https://bookdown.org/yihui/bookdown/) I've reformatted it to include figure captions and sidenotes, based on the [tufte-style book layout](http://www.latextemplates.com/template/tufte-style-book). Here's an example page from the new format:
+
+![](https://www.dropbox.com/s/07bi2i7pi4so7ev/Screenshot%202017-02-07%2013.59.19.png?dl=1)
+
+### Other questions you might have
+
+* **How much does it cost?** Based on the example of others like Jeff Leek and Roger Peng, I'm offering it as "pay-what-you-want," with a *suggested* price of $9.95. Paying is a great way to support my blogging, but if you're a student or otherwise uncomfortable paying full price you're welcome to pay less, or get it for free.
+
+* **Why charge at all?** This is an *experiment* in self-publishing work from my blog. If it's successful, I could spend more time and energy on statistical education, by building more blog post series that I later combine into books. My hope is that people who have gotten value out of the baseball series won't mind paying to support it.
+
+* **Why [Gumroad](https://gumroad.com/)?** Gumroad was the most generous self-publishing platform I found in letting authors keep the revenue from customer's purchases. If you pay the full \$9.95 price, \$9.30 goes directly to me.
+
+* **Why the Tufte book format?** Most people that use bookdown publish it as HTML, but much of the material is already available online in my blog posts. I like the style of Tufte books both visually and practically (I can put extraneous material in margin notes), but I'm interested in feedback and may offer other formats in the near future.
+
+I encourage you to leave feedback in the comments below (or, if you prefer, by email). I hope you've enjoyed the baseball series and that you'll continue to enjoy my future work!
