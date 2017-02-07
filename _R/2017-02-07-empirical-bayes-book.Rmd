@@ -23,7 +23,7 @@ If you've enjoyed some or all of these posts, I'd encourage you to purchase the 
 
 How does the book differ from the posted blog entries?
 
-* There is a **new, exclusive chapter** available only in the book, introducing the Dirichlet and the multinomial distributions. By extending the beta and the binomial to more than two categories, this lets us model not only hits and misses but also singles, doubles, triples, and home runs. The chapter shows how to use these distributions to perform empirical Bayes estimation on [slugging percentages](https://en.wikipedia.org/wiki/Slugging_percentage).
+* There is a **new chapter** available exclusively in the book, introducing the Dirichlet and the multinomial distributions. By extending the beta and the binomial to more than two categories, this lets us model not only hits and misses but also singles, doubles, triples, and home runs. The chapter shows how to use these distributions to perform empirical Bayes estimation on [slugging percentages](https://en.wikipedia.org/wiki/Slugging_percentage).
 
 * There's been **additional material** added to several other chapters. Most notable is that I've expanded the chapter on the beta distribution to include a deeper explanation of conjugate priors, and expanded the chapter on simulation to show how varying the number of observations affects the accuracy of the methods.
 
@@ -43,4 +43,4 @@ How does the book differ from the posted blog entries?
 
 * **Why the Tufte book format?** Most people that use bookdown publish it as HTML, but much of the material is already available online in my blog posts. I like the style of Tufte books both visually and practically (I can put extraneous material in margin notes), but I'm interested in feedback and may offer other formats in the near future.
 
-I encourage you to leave feedback in the comments below (or, if you prefer, by email). I hope you've enjoyed the baseball series and that you'll continue to enjoy my future work!
+I encourage you to leave feedback in the comments below (or, if you prefer, by email). I hope you've enjoyed the baseball series and that you'll continue to follow my future work!
