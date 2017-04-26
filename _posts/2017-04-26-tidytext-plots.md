@@ -74,9 +74,11 @@ This dataset contains over 40 million words across 112,000 stories.
 
 ### Words at the beginning or end of stories
 
-Almost every story shares some common dramatic structure: you'd be surprised if a plot started with a climactic fight, or ended by introducing new characters. That story structure is reflected in what words are used at which point in a story: there are some words you'd expect would appear at the start, and others at the end.
+Joseph Campbell introduced the idea of a ["hero's journey"](https://en.wikipedia.org/wiki/Hero%27s_journey), that every story follows the same structure. Whether or not you buy into his theory, you can agree it'd be surprising if a plot started with a climactic fight, or ended by introducing new characters.
 
-As a simple measure of where a word occurs within a plot, we'll record the **median** position, along with the number of times it occurred.
+That structure is reflected quantitatively in what words are used at which point in a story: there are some words you'd expect would appear at the start, and others at the end.
+
+As a simple measure of where a word occurs within a plot, we'll record the **median** position of each word, along with the number of times it appears.
 
 
 {% highlight r %}
@@ -124,7 +126,7 @@ What were were the words most shifted towards the beginning or end of a story?
 
 ![center](/figs/2017-04-26-tidytext-plots/word_average_plot-1.png)
 
-The words shifted towards the beginning of a story tend to describe a setting: "The book **opens** in a **fictional** town in **California** in the **year** 1980, where the **protagonist**, a **wealthy**..."). Most are therefore nouns and adjectives that can be used to specify and describe a person, location, or time period.
+The words shifted towards the beginning of a story tend to describe a setting: "The story **opens** on the **protagonist**, a **wealthy** **young** 19th **century** **student** **recently** graduated from the **fictional University College** in **Los Angeles, California.**". Most are therefore nouns and adjectives that can be used to specify and describe a person, location, or time period.
 
 In contrast, the words shifted towards the end of a story are packed with excitement! There are a few housekeeping terms you'd expect to find at the end of a plot description ("ending", "final"), but also a number of verbs suggestive of a climax. "The hero **shoots** the villain and **rushes** to the heroine, and **apologizes**. The two **reunited**, they **kiss**."
 
