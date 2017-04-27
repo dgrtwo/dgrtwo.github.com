@@ -1,0 +1,249 @@
+---
+layout: post
+title: "Examining the arc of 100,000 stories: a tidy analysis"
+description: "An analysis of over 100,000 plot descriptions downloaded from Wikipedia, particularly examining which words tend to occur at which point in a story."
+output: html_document
+date: 2017-04-26 10:00:00 -0400
+category: r
+tags: [r, statistics, education]
+comments: true
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, cache = TRUE, cache.lazy = FALSE, dpi = 300)
+
+library(ggplot2)
+library(scales)
+library(silgelib)
+theme_set(theme_roboto())
+```
+
+I recently came across a [great natural language dataset](https://github.com/markriedl/WikiPlots) from [Mark Riedel](https://research.cc.gatech.edu/inc/mark-riedl): 112,000 plots of stories downloaded from English language Wikipedia. This includes books, movies, TV episodes, video games- anything that has a **Plot** section on a Wikipedia page.
+
+This offers a great opportunity to analyze story structure quantitatively. In this post I'll do a simple analysis, examining what words tend to occur at particular points within a story, including words that characterize the beginning, middle, or end.
+
+As I usually do for text analysis, I'll be using the [tidytext package](https://github.com/juliasilge/tidytext) Julia Silge and I developed last year. To learn more about analyzing datasets like this, see our online book [Text Mining with R: A Tidy Approach](http://tidytextmining.com/), soon to be [published by O'Reilly](https://www.amazon.com/Text-Mining-R-tidy-approach/dp/1491981652). I'll provide code for the text mining sections so you can follow along. I don't show the code for most of the visualizations to keep the post concise, but as with all of my posts the code can be found [here on GitHub](https://github.com/dgrtwo/dgrtwo.github.com/tree/master/_R/2017-04-26-tidytext-plots.Rmd). 
+
+### Setup
+
+I downloaded and unzipped the [plots.zip](https://gtvault-my.sharepoint.com/personal/mriedl3_gatech_edu/_layouts/15/guestaccess.aspx?docid=09511cca101bd45859859fe1765c7a84d&authkey=Af3ym3JQ-UIXbyKYwyEe0hU&expiration=2017-06-19T13%3a37%3a21.000Z) file from the link on the GitHub repository. We then read the files into R, and combined them using dplyr.
+
+```{r plot_text}
+library(readr)
+library(dplyr)
+
+# Plots and titles are in separate files
+plots <- read_lines("~/Downloads/plots/plots", progress = FALSE)
+titles <- read_lines("~/Downloads/plots/titles", progress = FALSE)
+
+# Each story ends with an <EOS> line
+plot_text <- data_frame(text = plots) %>%
+  mutate(story_number = cumsum(text == "<EOS>") + 1,
+         title = titles[story_number]) %>%
+  filter(text != "<EOS>")
+```
+
+We can then use the [tidytext](http://tidytextmining.com/) package to unnest the plots into a tidy format, with one token per line.
+
+```{r plot_words, dependson = "plot_text"}
+library(tidytext)
+plot_words <- plot_text %>%
+  unnest_tokens(word, text)
+```
+
+```{r dependson = "plot_words"}
+plot_words
+```
+
+This dataset contains over 40 million words across 112,000 stories.
+
+### Words at the beginning or end of stories
+
+Joseph Campbell introduced the idea of a ["hero's journey"](https://en.wikipedia.org/wiki/Hero%27s_journey), that every story follows the same structure. Whether or not you buy into his theory, you can agree it'd be surprising if a plot started with a climactic fight, or ended by introducing new characters.
+
+That structure is reflected quantitatively in what words are used at which point in a story: there are some words you'd expect would appear at the start, and others at the end.
+
+As a simple measure of where a word occurs within a plot, we'll record the **median** position of each word, along with the number of times it appears.
+
+```{r word_averages, dependson = "plot_words"}
+word_averages <- plot_words %>%
+  group_by(title) %>%
+  mutate(word_position = row_number() / n()) %>%
+  group_by(word) %>%
+  summarize(median_position = median(word_position),
+            number = n())
+```
+
+We're not interested in rare words that occurred in only a few plot descriptions, so we'll filter for ones occurring at least 2,500 times.
+
+```{r dependson = "word_averages"}
+word_averages %>%
+  filter(number >= 2500) %>%
+  arrange(median_position)
+```
+
+For example, we can see that the word "fictional" was used about 2700 times, and that half of its uses were before the 12% mark of the story: it's highly shifted towards the beginning.
+
+What were were the words most shifted towards the beginning or end of a story?
+
+```{r start_end_words, dependson = "word_averages", echo = FALSE}
+# 15 in each direction
+start_end_words <- word_averages %>%
+  filter(number >= 2500) %>%
+  arrange(desc(median_position)) %>%
+  slice(c(1:15, n():(n() - 14)))
+```
+
+```{r word_average_plot, dependson = "start_end_words", echo = FALSE}
+start_end_words %>%
+  mutate(word = reorder(word, -median_position),
+         direction = ifelse(median_position < .5, "Beginning", "End")) %>%
+  ggplot(aes(median_position, word, color = direction)) +
+  geom_point(size = 5) +
+  geom_errorbarh(aes(xmin = .5, xmax = median_position), height = 0) +
+  geom_vline(xintercept = .5, lty = 2) +
+  scale_x_continuous(labels = percent_format()) +
+  expand_limits(x = c(0, 1)) +
+  labs(x = "Median position of word within story plots",
+       y = "",
+       title = "Words most shifted towards the beginning or end of a story",
+       subtitle = "Of words with at least 2,500 uses across 112,000 stories",
+       color = "")
+```
+
+The words shifted towards the beginning of a story tend to describe a setting: "The story **opens** on the **protagonist**, a **wealthy** **young** 19th **century** **student** **recently** graduated from the **fictional University College** in **Los Angeles, California.**". Most are therefore nouns and adjectives that can be used to specify and describe a person, location, or time period.
+
+In contrast, the words shifted towards the end of a story are packed with excitement! There are a few housekeeping terms you'd expect to find at the end of a plot description ("ending", "final"), but also a number of verbs suggestive of a climax. "The hero **shoots** the villain and **rushes** to the heroine, and **apologizes**. The two **reunited**, they **kiss**."
+
+### Visualizing trends of words
+
+The median gives us a useful summary statistic of where a word appears within a story, but let's take a closer look at a few. First we'll divide each story into deciles (first 10%, second 10%, etc), and count the appearances of each word within each decile.
+
+```{r decile_counts, dependson = "plot_words"}
+decile_counts <- plot_words %>%
+  group_by(title) %>%
+  mutate(word_position = row_number() / n()) %>%
+  ungroup() %>%
+  mutate(decile = ceiling(word_position * 10) / 10) %>%
+  count(decile, word)
+```
+
+This lets us visualize the frequency of a word across the length of plot descriptions. We may want to look at the most extreme start/end ones:
+
+```{r progress_counts_filtered, dependson = "decile_counts", fig.width = 11, fig.height = 7, echo = FALSE}
+decile_counts %>%
+  inner_join(start_end_words, by = "word") %>%
+  mutate(word = reorder(word, median_position)) %>%
+  ggplot(aes(decile, n / number)) +
+  geom_line() +
+  facet_wrap(~ word) +
+  scale_x_continuous(labels = percent_format()) +
+  scale_y_continuous(labels = percent_format()) +
+  geom_hline(yintercept = .1, color = "red", lty = 2) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  labs(x = "Position within a story's plot",
+       y = "Percentage of word's appearances",
+       title = "Words within a story's plot",
+       subtitle = "Words that occurred at least 2,500 times that were shifted towards the beginning or end of stories.\nThe horizontal dashed line marks 10%, which would represent a word that is equally likely anywhere in a story.")
+```
+
+No word happens *exclusively* at the start or end of a story. Some, like "happily", remain steady throughout and then spike up at the end ("lived happily ever after"). Other words, like "truth", or "apologizes", show a constant rise in frequency over the course of the story, which makes sense: a character generally wouldn't "apologize" or "realize the truth" right at the start of the story. Similarly, words that establish settings like "wealthy" become steadily rarer the course of the story, as it becomes less likely the plot will introduce new characters.
+
+One interesting feature of the above graph is that while most words peak either at the beginning or end, words like "grabs", "rushes", and "shoots" were most common at the 90% point. This might represent the **climax** of the story.
+
+### Words appearing in the middle of a story
+
+Inspired by this examination of words that might occur at a climax, let's consider what words were most likely to appear at particular points in the middle, rather than being shifted towards the beginning or end.
+
+```{r peak_decile, dependson = "decile_counts"}
+peak_decile <- decile_counts %>%
+  inner_join(word_averages, by = "word") %>%
+  filter(number >= 2500) %>%
+  transmute(peak_decile = decile,
+            word,
+            number,
+            fraction_peak = n / number) %>%
+  arrange(desc(fraction_peak)) %>%
+  distinct(word, .keep_all = TRUE)
+
+peak_decile
+```
+
+Each decile of the book (the start, the end, the 30% point, etc) therefore has some some words that peak within it. What words were most characteristic of particular deciles?
+
+```{r word_decile_percent, dependson = "peak_decile", fig.width = 13, fig.height = 8, echo = FALSE}
+peak_decile %>%
+  group_by(percent = reorder(percent(peak_decile), peak_decile)) %>%
+  top_n(8, fraction_peak) %>%
+  ungroup() %>%
+  mutate(word = reorder(word, fraction_peak)) %>%
+  ggplot(aes(word, fraction_peak, fill = peak_decile)) +
+  geom_col(show.legend = FALSE) +
+  geom_hline(yintercept = .1, color = "red", lty = 2) +
+  coord_flip() +
+  facet_wrap(~ percent, nrow = 2, scales = "free_y") +
+  scale_y_continuous(labels = percent_format()) +
+  theme(panel.grid.major = element_blank()) +
+  labs(x = "",
+       y = "Percentage of word's appearances that occur in this decile",
+       title = "Words that characterize each part of a story",
+       subtitle = "The eight words in each decile that are most over-represented at that part of the story.\nThe vertical dashed line marks 10%, which would represent a word that is equally likely anywhere in a story.")
+```
+
+We see that the words in the start and the end are the most specific to their particular deciles: for example, almost half of the occurrences of the word "fictional" occurred in the first 10% of the story. The middle sections have words that are more spread out (having, say, 14% of their occurrences in that section rather than the expected 10%), but they still are words that make sense in the story structure.
+
+Let's visualize the full trend for the words overrepreseted at each point.
+
+```{r sparklines, fig.width = 8, fig.height = 8, echo = FALSE}
+peak_decile %>%
+  filter(peak_decile > .1, peak_decile < 1) %>%
+  group_by(peak_decile) %>%
+  top_n(3, fraction_peak) %>%
+  ungroup() %>%
+  inner_join(decile_counts, by = "word") %>%
+  mutate(word = reorder(word, peak_decile + .001 * fraction_peak)) %>%
+  ggplot(aes(decile, n / number, color = word)) +
+  geom_line(show.legend = FALSE, size = 1) +
+  geom_hline(lty = 2, yintercept = .1, alpha = .5) +
+  facet_wrap(~ word, ncol = 6) +
+  scale_x_continuous(labels = percent_format()) +
+  scale_y_continuous(labels = percent_format()) +
+  expand_limits(y = 0) +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank()) +
+  labs(x = "Position within a story's plot",
+       y = "Percentage of word's appearances",
+       title = "Words used at particular points of a story's plot",
+       subtitle = "Includes words that appeared at 2,500 times across 112,000 plot descriptions, showing three most overrepresented at each decile.\nThe horizontal dashed line marks 10%, which would represent a word that is equally likely anywhere in a story.")
+```
+
+Try reading the 24 word story laid out by the subgraph titles. Our protagonist is "attracted", then "suspicious", followed by "jealous", "drunk", and ultimately "furious". A shame that once they "confront" the problem, they run into a "trap" and are "wounded". If you ignore the repetitive words and the lack of syntax, you can see the rising tension of a story just in these sparklines.
+
+### Sentiment analysis
+
+As one more confirmation of our hypothesis about rising tension and conflict within a story, we can use [sentiment analysis](http://tidytextmining.com/sentiment.html) to find the average sentiment within each piece of a story.
+
+```{r sentiment_story_plot, dependson = "decile_counts"}
+decile_counts %>%
+  inner_join(get_sentiments("afinn"), by = "word") %>%
+  group_by(decile) %>%
+  summarize(score = sum(score * n) / sum(n)) %>%
+  ggplot(aes(decile, score)) +
+  geom_line() +
+  scale_x_continuous(labels = percent_format()) +
+  expand_limits(y = 0) +
+  labs(x = "Position within a story",
+       y = "Average AFINN sentiment score")
+```
+
+Plot descriptions have a negative average AFINN score at all points in the story (which makes sense, since stories focus on conflict. But it might start with a relatively peaceful beginning, before the conflict increases over the course of the plot, until it hits a maximum around the climax, 80-90%. It's then often followed by a resolution, which contains words like "happily", "rescues", and "reunited" that return it to a higher sentiment score.
+
+In short, if we had to summarize the *average* story that humans tell, it would go something like **Things get worse and worse until at the last minute they get better.**
+
+### To be continued
+
+This was a pretty simple analysis of story arcs (for a more in-depth example, see the [research described here](https://www.theatlantic.com/technology/archive/2016/07/the-six-main-arcs-in-storytelling-identified-by-a-computer/490733/)), and it doesn't tell us too much we wouldn't have been able to guess. 
+(Except perhaps that characters are most likely to be drunk right in the middle of a story. How can we monetize that insight?)
+
+What I like about this approach is how quickly you can gain insights with simple quantitative methods (counting, taking the median) applied to a large text dataset. In future posts, I'll be diving deeper into these plots and showing what else we can learn.
