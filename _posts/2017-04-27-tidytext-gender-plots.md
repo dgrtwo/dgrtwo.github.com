@@ -141,5 +141,5 @@ I'd also note that we could expand the analysis to include not only pronouns but
 
 Again, the full code for this post is available [here](https://github.com/dgrtwo/dgrtwo.github.com/blob/master/_R/2017-04-27-tidytext-gender-plots.Rmd), and I hope others explore this data more deeply.
 
-[^binary]: Gender is not a binary, so please note that this analysis is examining how the Wikipedia description's author refers to the character. For exampele, we miss cases of [singular they](https://en.wikipedia.org/wiki/Gender-neutral_language), but it would be challenging to separate it from the more common plural.
+[^binary]: Gender is not a binary, so please note that this analysis is examining how the Wikipedia description's author refers to the character. For example, we miss cases of [singular they](https://en.wikipedia.org/wiki/Gender-neutral_language), but it would be challenging to separate it from the more common plural.
 [^himself]: I'm also skipping the words "himself" and "herself", which are the most gender-shifted words but aren't interesting for our purposes.
