@@ -62,7 +62,7 @@ library(htmlTable)
 read_csv("../../analyze_hn/topics.csv") %>%
   htmlTable(rnames = FALSE,
             css.cell = "border: 1px solid black",
-            css.table = "border: 0px")
+            css.table = "border: 0px; font-size: 9pt")
 ```
 
 [fuzzyjoin](https://github.com/dgrtwo/fuzzyjoin) in R makes it easy to match those to titles, and we ended up with a training set of about 10,000 labeled documents (note that not all titles match any regular expressions, and some can match multiple). The breakdown of ones that match each regular expression was:

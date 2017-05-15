@@ -47,7 +47,7 @@ This process took some experimenting, including some exploratory analysis of com
 
 Here was the set of regular expressions we landed to train the model. This required a number of iterations and adjustments as we explored the resulting classifications, removing regular expressions that led to clear false positives and adding some that we'd missed.
 
-<!--html_preserve--><table class='gmisc_table' style='border-collapse: collapse; border: 0px' >
+<!--html_preserve--><table class='gmisc_table' style='border-collapse: collapse; border: 0px; font-size: 9pt' >
 <thead>
 <tr>
 <th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>topic</th>
