@@ -121,7 +121,7 @@ Of course, "accuracy" on this training set really just meant "could predict whet
 
 ### Productionizing a model
 
-While Chris and I were building the model, Nathan and Dan had built the site with Django and deployed on Heroku. It synchronized with the Hacker News API every ten minutes, but as a placeholder assigned entirely random topics. Around 2 AM, once Chris and I had a trained model, it was time to combine our efforts.
+While Chris and I were building the model, Nathan and Dan had built the site with Django, deployed on Heroku, and registered a domain name. It synchronized with the Hacker News API every ten minutes, but as a placeholder assigned entirely random topics. Around 2 AM, once Chris and I had a trained model, it was time to combine our efforts.
 
 In theory, building both the algorithm and the website in Python meant this would be straightforward, since we could slot it into directly into a function in the site. I'm accustomed to productionizing models by working with my team to convert from R to C#, so the ability to serialize models with [pickle](https://docs.python.org/2/library/pickle.html) and load them directly into the app was certainly convenient, and let us be flexible with the model we implemented.
 
@@ -134,6 +134,10 @@ But this doesn't mean deployment was painless! Two of the biggest hiccups we ran
 We originally considered having the machine learning process as a microservice (a separate server that was passed text by the website and returned classifications). If we'd known the challenges we'd run into, we might have gone through with it. It would have made the handoff of a machine learning algorithm (giving the web team an API endpoint, rather than code and a list of package requirements) more painless.
 
 ### Speaking and sharing
+
+And with that, we had a live site at [taggernews.com](http://www.taggernews.com/). We've changed the site a bit since, but when we submitted the project at 4:30 AM here's what it looked like:
+
+![](taggernewsgallery.jpg)
 
 One thing I like about TechCrunch hackathons is that building the project is only part of the experience: we also had to "market" it. [Our DevPost submission](https://devpost.com/software/tagger-news)- required by 9:30 AM- consisted of a pitch for the product, a few images, and a short discussion of some of the challenges.
 

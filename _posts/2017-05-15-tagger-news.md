@@ -99,7 +99,7 @@ Of course, "accuracy" on this training set really just meant "could predict whet
 
 ### Productionizing a model
 
-While Chris and I were building the model, Nathan and Dan had built the site with Django and deployed on Heroku. It synchronized with the Hacker News API every ten minutes, but as a placeholder assigned entirely random topics. Around 2 AM, once Chris and I had a trained model, it was time to combine our efforts.
+While Chris and I were building the model, Nathan and Dan had built the site with Django, deployed on Heroku, and registered a domain name. It synchronized with the Hacker News API every ten minutes, but as a placeholder assigned entirely random topics. Around 2 AM, once Chris and I had a trained model, it was time to combine our efforts.
 
 In theory, building both the algorithm and the website in Python meant this would be straightforward, since we could slot it into directly into a function in the site. I'm accustomed to productionizing models by working with my team to convert from R to C#, so the ability to serialize models with [pickle](https://docs.python.org/2/library/pickle.html) and load them directly into the app was certainly convenient, and let us be flexible with the model we implemented.
 
