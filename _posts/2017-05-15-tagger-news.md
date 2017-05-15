@@ -11,7 +11,7 @@ comments: true
 
 
 
-This weekend three friends (Chris Riederer, Nathan Gould, and my twin brother Dan) and I took part in the [2017 TechCrunch Disrupt Hackathon](https://techcrunch.com/event-info/disrupt-ny-2017/disrupt-ny-2017-hackathon/). We'd all been to several of these hackathons before, and we enjoy the challenge of building a usable application in a short timeframe while learning some new technologies along the way.
+This weekend three friends ([Chris Riederer](www.criederer.com), [Nathan Gould](https://www.linkedin.com/in/nathanegould), and my twin brother [Dan](https://twitter.com/danrobinson?lang=en)) and I took part in the [2017 TechCrunch Disrupt Hackathon](https://techcrunch.com/event-info/disrupt-ny-2017/disrupt-ny-2017-hackathon/). We'd all been to several of these hackathons before, and we enjoy the challenge of building a usable application in a short timeframe while learning some new technologies along the way.
 
 Since three of the four of us are data scientists, we knew we were looking for a data-driven project, and since the best hackathon projects tend to be usable apps (as opposed to an analysis or a library) we figured we'd build a machine-learning driven product. We quickly landed on the idea of a classifier for the programmer community [Hacker News](https://news.ycombinator.com/), which would automatically assign topics to each submitted based on its text.
 
@@ -29,7 +29,7 @@ We immediately knew we'd need a large amount of training data- perhaps tens of t
 
 One mistake we made was relying on the [Hacker News API](https://github.com/HackerNews/API) to download submitted stories one at a time, which was a slow process that took hours to get 25,000 links. After the hackathon was over, we learned that there's [Hacker News dataset on Google BigQuery](https://cloud.google.com/bigquery/public-data/hacker-news)- after about twenty minutes of configuration I was able to download a million links. In the pressure of a hackathon, it's hard to tell when to keep hunting for easy solutions like that as opposed to implementing something slow that you know will work (but that's part of the fun).
 
-Once we had the article links, we needed the text of each. This is challenging because these articles come from thousands of different websites in many different formats, but the [python-goose](https://github.com/grangier/python-goose) package is designed for exactly this purpose. We divided this scraping up among three of our computers, at which point we were able to collect a couple thousand articles each hour.
+Once we had the article links, we needed the text of each. This is challenging because these articles come from thousands of different websites in many different formats, but the [python-goose](https://github.com/grangier/python-goose) package is designed for exactly this purpose. We divided this scraping up among three of our computers, at which point we were able to collect a couple thousand articles each hour. You can find our scraping code and some of our results in [this GitHub repository](https://github.com/dodger487/scrape_hn).
 
 Normally with a project like this we'd let a scraper run overnight, but of course that wasn't an option! As the data started downloading, we split up into two teams: Nathan and Dan building the website, while Chris and I developed the machine learning algorithm on the data as it accumulated.
 
@@ -130,7 +130,9 @@ Here was the set of regular expressions we landed to train the model. This requi
 </tbody>
 </table><!--/html_preserve-->
 
-[fuzzyjoin](https://github.com/dgrtwo/fuzzyjoin) in R makes it easy to match those to titles, and we ended up with a training set of about 10,000 labeled documents (note that not all titles match any regular expressions, and some can match multiple). The breakdown of ones that match each regular expression was:
+[fuzzyjoin](https://github.com/dgrtwo/fuzzyjoin) in R makes it easy to match those to titles. You can find the code and some analyis behind it, as well as our machine learning work, [in this repository](https://github.com/dodger487/analyze_hn).
+
+We ended up with a training set of about 10,000 labeled documents (note that not all titles match any regular expressions, and some can match multiple). The breakdown of ones that match each regular expression was:
 
 
 
