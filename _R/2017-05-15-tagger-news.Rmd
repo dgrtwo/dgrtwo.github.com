@@ -137,7 +137,7 @@ We originally considered having the machine learning process as a microservice (
 
 And with that, we had a live site at [taggernews.com](http://www.taggernews.com/). We've changed the site a bit since, but when we submitted the project at 4:30 AM here's what it looked like:
 
-![](taggernewsgallery.jpg)
+![](/images/taggernewsgallery.jpg)
 
 One thing I like about TechCrunch hackathons is that building the project is only part of the experience: we also had to "market" it. [Our DevPost submission](https://devpost.com/software/tagger-news)- required by 9:30 AM- consisted of a pitch for the product, a few images, and a short discussion of some of the challenges.
 
