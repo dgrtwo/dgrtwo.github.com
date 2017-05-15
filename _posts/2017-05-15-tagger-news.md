@@ -158,9 +158,9 @@ I've written on topic modeling before ([it plays an important role in our text-m
 
 We also saw that random forests beat logistic regression in terms of cross-validated AUC (area under the ROC curve) on our training set:
 
-![](/images/auc_compare_720.png)
+![](/images/auc_plot_r_720.png)
 
-This fits with the common s around those models. Logistic regression is faster to train and a bit more interpretable, but isn't as good at handling cases where many features **interact**. For example, it wouldn't notice that the word "learning" means something different with the word "deep" than it would with "college" or "education."
+This fits with the general reputation around those models. Logistic regression is faster to train and a bit more interpretable, but isn't as good at handling cases where many features **interact**. For example, it wouldn't notice that the word "learning" means something different with the word "deep" than it would with "college" or "education."
 
 Of course, "accuracy" on this training set really just meant "could predict whether the article's title matched the regular expression we thought it did", but was our hope that this would translate to realistic predictions on new articles.
 
