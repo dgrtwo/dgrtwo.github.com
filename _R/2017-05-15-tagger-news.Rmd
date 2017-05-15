@@ -57,9 +57,12 @@ Here was the set of regular expressions we landed to train the model. This requi
 ```{r topics}
 library(readr)
 library(dplyr)
+library(htmlTable)
 
 read_csv("../../analyze_hn/topics.csv") %>%
-  knitr::kable()
+  htmlTable(rnames = FALSE,
+            css.cell = "border: 1px solid black",
+            css.table = "border: 0px")
 ```
 
 [fuzzyjoin](https://github.com/dgrtwo/fuzzyjoin) in R makes it easy to match those to titles, and we ended up with a training set of about 10,000 labeled documents (note that not all titles match any regular expressions, and some can match multiple). The breakdown of ones that match each regular expression was:

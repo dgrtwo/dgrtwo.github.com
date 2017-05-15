@@ -47,27 +47,88 @@ This process took some experimenting, including some exploratory analysis of com
 
 Here was the set of regular expressions we landed to train the model. This required a number of iterations and adjustments as we explored the resulting classifications, removing regular expressions that led to clear false positives and adding some that we'd missed.
 
-
-|topic               |regex                                                                                                                                    |
-|:-------------------|:----------------------------------------------------------------------------------------------------------------------------------------|
-|Python              |python&#124;pandas                                                                                                                       |
-|Mobile              |mobile&#124;android&#124;iphone&#124;phone                                                                                               |
-|Design              |design                                                                                                                                   |
-|Security            |security&#124;worm&#124;ransomware&#124;attack&#124;virus&#124;patch&#124;infosec                                                        |
-|Blockchain          |blockchain&#124;bitcoin&#124;ethereum                                                                                                    |
-|AI/Machine Learning |\bai\b&#124;artificial intelligence&#124;machine learning&#124;deep learning&#124;tensorflow&#124;machine intelligence                   |
-|Google              |google                                                                                                                                   |
-|Microsoft           |microsoft&#124;windows&#124;visual studio                                                                                                |
-|Apple               |apple&#124;mac\b&#124;os ?x                                                                                                              |
-|Facebook            |facebook                                                                                                                                 |
-|Amazon              |amazon                                                                                                                                   |
-|Startups            |startup&#124;\bvc\b                                                                                                                      |
-|Politics            |trump&#124;comey&#124;russian&#124;fbi&#124;snowden&#124;neutrality&#124;white house&#124;government&#124;brexit&#124;nsa                |
-|Databases           |sql&#124;cockroachdb&#124;mongodb&#124;database&#124;\bdb\b                                                                              |
-|Linux               |linux&#124;debian&#124;ubuntu&#124;centos                                                                                                |
-|Data Science        |data scien&#124;big data&#124;data vi&#124;data ?set&#124;data analy&#124;machine learning&#124;pandas&#124;ggplot2                      |
-|Science             |bio&#124;drug&#124;researcher&#124;genomic&#124;physics&#124;scienti&#124;spacex&#124;\\bmoon\\b&#124;nasa&#124;\\bastro&#124;\\bmars\\b |
-|Math                |math&#124;geome&#124;cryptograph&#124;algebra&#124;calculus                                                                              |
+<!--html_preserve--><table class='gmisc_table' style='border-collapse: collapse; border: 0px' >
+<thead>
+<tr>
+<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>topic</th>
+<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>regex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Python</td>
+<td style='border: 1px solid black; text-align: center;'>python|pandas</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Mobile</td>
+<td style='border: 1px solid black; text-align: center;'>mobile|android|iphone|phone</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Design</td>
+<td style='border: 1px solid black; text-align: center;'>design</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Security</td>
+<td style='border: 1px solid black; text-align: center;'>security|worm|ransomware|attack|virus|patch|infosec</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Blockchain</td>
+<td style='border: 1px solid black; text-align: center;'>blockchain|bitcoin|ethereum</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>AI/Machine Learning</td>
+<td style='border: 1px solid black; text-align: center;'>\bai\b|artificial intelligence|machine learning|deep learning|tensorflow|machine intelligence</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Google</td>
+<td style='border: 1px solid black; text-align: center;'>google</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Microsoft</td>
+<td style='border: 1px solid black; text-align: center;'>microsoft|windows|visual studio</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Apple</td>
+<td style='border: 1px solid black; text-align: center;'>apple|mac\b|os ?x</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Facebook</td>
+<td style='border: 1px solid black; text-align: center;'>facebook</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Amazon</td>
+<td style='border: 1px solid black; text-align: center;'>amazon</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Startups</td>
+<td style='border: 1px solid black; text-align: center;'>startup|\bvc\b</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Politics</td>
+<td style='border: 1px solid black; text-align: center;'>trump|comey|russian|fbi|snowden|neutrality|white house|government|brexit|nsa</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Databases</td>
+<td style='border: 1px solid black; text-align: center;'>sql|cockroachdb|mongodb|database|\bdb\b</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Linux</td>
+<td style='border: 1px solid black; text-align: center;'>linux|debian|ubuntu|centos</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Data Science</td>
+<td style='border: 1px solid black; text-align: center;'>data scien|big data|data vi|data ?set|data analy|machine learning|pandas|ggplot2</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; text-align: center;'>Science</td>
+<td style='border: 1px solid black; text-align: center;'>bio|drug|researcher|genomic|physics|scienti|spacex|\\bmoon\\b|nasa|\\bastro|\\bmars\\b</td>
+</tr>
+<tr>
+<td style='border: 1px solid black; border-bottom: 2px solid grey; text-align: center;'>Math</td>
+<td style='border: 1px solid black; border-bottom: 2px solid grey; text-align: center;'>math|geome|cryptograph|algebra|calculus</td>
+</tr>
+</tbody>
+</table><!--/html_preserve-->
 
 [fuzzyjoin](https://github.com/dgrtwo/fuzzyjoin) in R makes it easy to match those to titles, and we ended up with a training set of about 10,000 labeled documents (note that not all titles match any regular expressions, and some can match multiple). The breakdown of ones that match each regular expression was:
 
