@@ -11,7 +11,7 @@ comments: true
 
 
 
-This weekend three friends ([Chris Riederer](www.criederer.com), [Nathan Gould](https://www.linkedin.com/in/nathanegould), and my twin brother [Dan](https://twitter.com/danrobinson?lang=en)) and I took part in the [2017 TechCrunch Disrupt Hackathon](https://techcrunch.com/event-info/disrupt-ny-2017/disrupt-ny-2017-hackathon/). We'd all been to several of these hackathons before, and we enjoy the challenge of building a usable application in a short timeframe while learning some new technologies along the way.
+This weekend three friends ([Chris Riederer](http://www.criederer.com), [Nathan Gould](https://www.linkedin.com/in/nathanegould), and my twin brother [Dan](https://twitter.com/danrobinson?lang=en)) and I took part in the [2017 TechCrunch Disrupt Hackathon](https://techcrunch.com/event-info/disrupt-ny-2017/disrupt-ny-2017-hackathon/). We'd all been to several of these hackathons before, and we enjoy the challenge of building a usable application in a short timeframe while learning some new technologies along the way.
 
 Since three of the four of us are data scientists, we knew we were looking for a data-driven project, and since the best hackathon projects tend to be usable apps (as opposed to an analysis or a library) we figured we'd build a machine-learning driven product. We quickly landed on the idea of a classifier for the programmer community [Hacker News](https://news.ycombinator.com/), which would automatically assign topics to each submitted based on its text.
 
