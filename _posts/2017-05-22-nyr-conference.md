@@ -54,7 +54,7 @@ Serge Belongie gave a fascinating talk ([video](https://www.youtube.com/watch?v=
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">.<a href="https://twitter.com/SergeBelongie">@SergeBelongie</a>: w/deep learning, seeing if a bird is in a pic is now easy- what&#39;s hard is identifying type of bird<br><br>🐦🐔🐧🐤🦆🦅🦉<a href="https://twitter.com/hashtag/rstatsnyc?src=hash">#rstatsnyc</a> <a href="https://t.co/Om2pwnSBqU">pic.twitter.com/Om2pwnSBqU</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/855418188015824900">April 21, 2017</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-[Sandy Griffith](http://www.sandradgriffith.com/) gave a brilliant talk on how her team went from a research question to a completed manuscript in just two days. I enjoy hackathons so I've(like [this recent one](http://varianceexplained.org/programming/tagger-news/))  often dreamed of being part of an effort like that.
+[Sandy Griffith](http://www.sandradgriffith.com/) gave a brilliant talk on how her team went from a research question to a completed manuscript in just two days. I enjoy hackathons (like [this recent one](http://varianceexplained.org/programming/tagger-news/)) so I've often dreamed of being part of an effort like that.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">How did <a href="https://twitter.com/sgrifter">@sgrifter</a> and colleagues write a publication in 2 day? Feeling ownership, shutting off distractions, and strict timeline <a href="https://twitter.com/hashtag/rstatsnyc?src=hash">#rstatsnyc</a> <a href="https://t.co/sQ0wb5he9Y">pic.twitter.com/sQ0wb5he9Y</a></p>&mdash; Emily Robinson (@robinson_es) <a href="https://twitter.com/robinson_es/status/855789522671611905">April 22, 2017</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -74,7 +74,7 @@ I'd been looking forward to Ramnath Vaidyanathan's talk ([video](https://www.you
 
 There were many other excellent speakers: make sure you check out [the full list of videos](http://www.rstats.nyc/2017)!
 
-### Stack verflow Data Team
+## Stack Overflow Data Team
 
 I was excited to see Julia Silge (only the third time we've met in person!) and data team members Nick Larsen and Jason Punyon, who normally work remotely but came to New York for the week.
 
