@@ -10,8 +10,7 @@ comments: true
 
 
 
-In April I attended the [2017 New York R conference](http://www.work-bench.com/blog/2017/05/16/highlights-from-the-2017-r-conference/), hosted by [Lander Analytics](https://www.landeranalytics.com/) and [Work-Bench]
-(https://www.work-bench.com/about). It was both the third time the conference was held and the third time I've attended, and it gets more fun each year, especially because this year eight of us attended from Stack Overflow (including all five of us on the Data Team).
+In April I attended the [2017 New York R conference](http://www.work-bench.com/blog/2017/05/16/highlights-from-the-2017-r-conference/), hosted by [Lander Analytics](https://www.landeranalytics.com/) and [Work-Bench](https://www.work-bench.com/about). It was both the third time the conference was held and the third time I've attended, and it gets more fun each year, especially because this year eight of us attended from Stack Overflow (including all five of us on the Data Team).
 
 Now that the [videos from the conference are all posted](http://www.rstats.nyc/2017), I'm sharing some thoughts on the conference, and the slides and video from my talk, below. [As is my habit](http://varianceexplained.org/r/user-jsm-conferences/), I'm also sharing some of my favorite tweets from the conference.
 
