@@ -139,8 +139,8 @@ slopes %>%
   head(16) %>%
   inner_join(word_month_counts, by = "word") %>%
   mutate(word = reorder(word, -estimate)) %>%
-  ggplot(aes(month, n / month_total)) +
-  geom_line() +
+  ggplot(aes(month, n / month_total, color = word)) +
+  geom_line(show.legend = FALSE) +
   scale_y_continuous(labels = percent_format()) +
   facet_wrap(~ word, scales = "free_y") +
   expand_limits(y = 0) +
@@ -159,8 +159,8 @@ slopes %>%
   tail(16) %>%
   inner_join(word_month_counts, by = "word") %>%
   mutate(word = reorder(word, estimate)) %>%
-  ggplot(aes(month, n / month_total)) +
-  geom_line() +
+  ggplot(aes(month, n / month_total, color = word)) +
+  geom_line(show.legend = FALSE) +
   scale_y_continuous(labels = percent_format()) +
   facet_wrap(~ word, scales = "free_y") +
   expand_limits(y = 0) +
