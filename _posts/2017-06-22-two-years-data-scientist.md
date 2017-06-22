@@ -90,7 +90,7 @@ Instead, I work with engineers to implement product changes based on analyses an
 
 Last year I mentioned that one of my projects was developing targeting algorithms for Job Ads, which match Stack Overflow visitors with jobs they may be interested in (such as, for example, matching people who visit Python and Javascript questions with Python web developer jobs). These are an important part of our business and still make up part of my data science work. But I learned in the last year about a lot of components of the business that data could help more with.
 
-One team that I've worked with is Display Ads, which I hadn't worked with in my first year b.isplay Ads are separate from job ads, and are purchased by companies with developer-focused products and services.
+One team that I've worked with that I hadn't in the first year is Display Ads. Display Ads are separate from job ads, and are purchased by companies with developer-focused products and services.
 
 ![](https://www.dropbox.com/s/tifcvrbe5jqroc0/adtypes.png?dl=1)
 
