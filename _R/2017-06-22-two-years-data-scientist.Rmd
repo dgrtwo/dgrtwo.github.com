@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Two years as a Data Scientist at Stack Overflow"
-description: "Looking back at my second year at this job"
+description: "Looking back at my second year at the first job I've had outside academia."
 date: 2017-06-22 15:00:00 -0400
 category: r
 tags: [r, statistics, work, education]
