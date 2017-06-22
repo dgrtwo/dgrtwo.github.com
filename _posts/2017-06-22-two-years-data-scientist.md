@@ -21,12 +21,14 @@ In [last year's blog post](http://varianceexplained.org/r/year_data_scientist/),
 This continued to be a challenge, and fortunately in December we hired our second data scientist, Julia Silge.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">I have some very exciting news! I am joining the data team at <a href="https://twitter.com/StackOverflow">@StackOverflow</a>. ✨📊✨📊✨</p>&mdash; Julia Silge (@juliasilge) <a href="https://twitter.com/juliasilge/status/808671275597971456">December 13, 2016</a></blockquote>
-<script async src="//https:platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 We started hiring for the position in September, and there were a lot of terrific candidates I got to meet and review during the application and review process. But I was particularly excited to welcome Julia to the team because we'd been working together during the course of the year, ever since [we met and created the tidytext package at the 2016 rOpenSci unconference](https://juliasilge.com/blog/i-went-to-ropensci/).
 
-Julia, like me, works on analysis and visualization rather than building and productionizing features, and having a second person in that role has made our team much more productive. This is not just because Julia is an exceptional colleague, but because the two of us can now collaborate on statistical analyses or split them up to give each more focus. I did enjoy being the first data scientist at the company, but I'm glad I'm no longer the only one. ShJulia also a skilled writer and communicator, which was essential in achieving the next goal:
-.### Company blog posts
+Julia, like me, works on analysis and visualization rather than building and productionizing features, and having a second person in that role has made our team much more productive. This is not just because Julia is an exceptional colleague, but because the two of us can now collaborate on statistical analyses or split them up to give each more focus. I did enjoy being the first data scientist at the company, but I'm glad I'm no longer the only one. Julia's also a skilled writer and communicator, which was essential in achieving the next goal.
+
+
+### Company blog posts
 
 In last year's post, I shared some of the work that I'd done to explore the landscape of software developers, and set a goal for the following year (emphasis is new):
 
@@ -56,7 +58,7 @@ Other members of the team have written data-driven blog posts as well, including
 * [A Dive Into Stack Overflow Jobs Search](https://medium.com/@aurelien.gasser/a-dive-into-stack-overflow-jobs-search-62bc6e628f83) (Aurélien Gasser)
 * [New Kids on the Block: Understanding Developers Entering the Workforce Today](https://stackoverflow.blog/2017/06/12/new-kids-block-understanding-developers-entering-workforce-today/) (Julia Silge)
 
-I'I' really enjoyed sharing these snapshots of the software developer world, and I'm looking forward to sharing a lot more on the blog this next year.
+I've really enjoyed sharing these snapshots of the software developer world, and I'm looking forward to sharing a lot more on the blog this next year.
 
 ### Teaching R at Stack Overflow
 
@@ -92,7 +94,8 @@ One team that I've worked with is Display Ads, which I hadn't worked with in my 
 
 ![](https://www.dropbox.com/s/tifcvrbe5jqroc0/adtypes.png?dl=1)
 
-For example, I've been excited to work closer with [Steve Feldman](https://twitter.com/stevvve) on the Display Ad Operations team. If you're wondering why I'm not ashamed to work on *ads*, please read Steve's [blog post on how we sell display ads at Stack Overflow](https://stackoverflow.blog/2016/10/26/why-stack-overflow-doesnt-care-about-ad-blockers/)- he explains it better than I could. We've worked on several new methods for display ad targeting and evaluation, and I think there's a lot of potential infor data to have a postive impact for the company
+For example, I've been excited to work closer with [Steve Feldman](https://twitter.com/stevvve) on the Display Ad Operations team. If you're wondering why I'm not ashamed to work on *ads*, please read Steve's [blog post on how we sell display ads at Stack Overflow](https://stackoverflow.blog/2016/10/26/why-stack-overflow-doesnt-care-about-ad-blockers/)- he explains it better than I could. We've worked on several new methods for display ad targeting and evaluation, and I think there's a lot of potential for data to have a postive impact for the company.
+
 ### Changes in the rest of my career
 
 There've been other changes in my second year out of academia. In my first year, I attended only one conference ([NYR 2016](http://www.rstats.nyc/2016)) but I've since had more of a chance to travel, including to [useR and JSM 2017](http://varianceexplained.org/r/user-jsm-conferences/), PLOTCON, rstudio::conf 2017, and [NYR 2017](http://varianceexplained.org/r/nyr-conference/). I spoke at a few of these, about my [broom package](https://www.youtube.com/watch?v=eM3Ha0kTAz4), about [gganimate](https://www.youtube.com/watch?v=9Y7Y1s4-VdA) and about [the history of R as seen by Stack Overflow](https://www.youtube.com/watch?v=WEwFckGPRzU).
