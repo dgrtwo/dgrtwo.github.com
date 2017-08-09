@@ -202,7 +202,7 @@ all_tweet_words %>%
 
 ### Changes in words since the election
 
-My original analysis was on tweets in early 2016, and I've often been asked how and if Trump's tweeting habits have changed since the election. The remainder of the analyses will look only at tweets since Trump launched his campaign (June 16, 2017), and disregards retweets.
+My original analysis was on tweets in early 2016, and I've often been asked how and if Trump's tweeting habits have changed since the election. The remainder of the analyses will look only at tweets since Trump launched his campaign (June 16, 2015), and disregards retweets.
 
 
 {% highlight r %}
