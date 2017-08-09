@@ -77,8 +77,8 @@ A number of different people have clearly tweeted for the \@realDonaldTrump acco
 * **Early days**: All of Trump's tweets until late 2011 came from the Web Client.
 * **Other platforms**: There was then a burst of tweets from TweetDeck and TwitLonger Beta, but these disappeared. Some exploration (shown later) indicate these may have been used by publicists promoting his book, though some ([like this one from TweetDeck](https://twitter.com/realdonaldtrump/status/146994336670822400)) clearly either came from him or were dictated.
 * **Starting the Android**: Trump's first tweet from the Android was in [February 2013](https://twitter.com/realdonaldtrump/status/298972696438521857), and it quickly became his main device.
-* **Campaign**: The iPhone was introduced only when Trump announced his campaign by 2015. It was clearly used by one or more of his staff, because by the end of the campaign. (There was also an iPad used occasionally, which was lumped with several other platforms into the "Other" category). The iPhone reduced its activity after the 
-* **Switch to iPhone**: Trump's last Android tweet was on [March 25th, 2017](https://twitter.com/realdonaldtrump/status/845646761704243200), and a few days later [Trump's staff confirmed he'd switched to using an iPhone](https://www.theverge.com/2017/3/29/15103504/donald-trump-iphone-using-switched-android).
+* **Campaign**: The iPhone was introduced only when Trump announced his campaign by 2015. It was clearly used by one or more of his staff, because by the end of the campaign it made up a majority of the tweets coming from the account. (There was also an iPad used occasionally, which was lumped with several other platforms into the "Other" category). The iPhone reduced its activity after the election and before the inauguration.
+* **Trump's switch to iPhone**: Trump's last Android tweet was on [March 25th, 2017](https://twitter.com/realdonaldtrump/status/845646761704243200), and a few days later [Trump's staff confirmed he'd switched to using an iPhone](https://www.theverge.com/2017/3/29/15103504/donald-trump-iphone-using-switched-android).
 
 Which devices did Trump use himself, and which did other people use to tweet for him? To answer this, we could consider that **Trump almost never uses hashtags, pictures or links** in his tweets. Thus, the percentage of tweets containing one of those features is a proxy for how much others are tweeting for him.
 
@@ -165,12 +165,14 @@ between <- all_tweets %>%
 percent_mentioned <- mean(between$obama)
 {% endhighlight %}
 
-Between July 2011 and November 2012 (Obama's re-election), **a full 32.3%% of Trump's tweets mentioned Obama by name** (and that's not counting the ones that mentioned him or the election implicitly, [like this](https://twitter.com/realDonaldTrump/status/266037143628038144)).
+Between July 2011 and November 2012 (Obama's re-election), **a full 32.3%% of Trump's tweets mentioned Obama by name** (and that's not counting the ones that mentioned him or the election implicitly, [like this](https://twitter.com/realDonaldTrump/status/266037143628038144)). Of course, this is old news, but it's an interesting insight into what Trump's Twitter was up to when it didn't draw as much attention as it does now.
 
-Trump's opinion of Obama is well known enough that this may be the most redundant sentiment analysis I've ever done... but it's worth noting that that was the moment Trump's tweets turned negative. This requires tokenizing the tweets into words. I do so with the [tidytext package](http://tidytextmining.com/) created by me and Julia Silge.
+Trump's opinion of Obama is well known enough that this may be the most redundant sentiment analysis I've ever done, but it's worth noting that this was the time period where Trump's tweets first turned negative. This requires tokenizing the tweets into words. I do so with the [tidytext package](http://tidytextmining.com/) created by me and Julia Silge.
 
 
 {% highlight r %}
+library(tidytext)
+
 all_tweet_words <- all_tweets %>%
   mutate(text = str_replace_all(text, "https?://t.co/[A-Za-z\\d]+|&amp;", "")) %>%
   filter(!str_detect(text, "^(\"|RT)")) %>%
@@ -307,4 +309,4 @@ The post has certainly had some professional value. But it disappoints me that t
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">I remember when my Android/iPhone analysis came out last year, people asked &quot;Who cares what Trump tweets?&quot;<br><br>😬<a href="https://t.co/fnDEiWMNYk">https://t.co/fnDEiWMNYk</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/890296437090725889">July 26, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-I don'’t love analyzing political data; I prefer writing about [baseball](http://varianceexplained.org/r/empirical-bayes-book/), [biology](http://varianceexplained.org/r/tidy-genomics-biobroom/), [R education](http://varianceexplained.org/r/teach-tidyverse/), and [programming languages](https://stackoverflow.blog/authors/drobinson/). But as you might imagine, that’ the least of the reasons I wish this particular chapter of my work had faded into obscurity.
+I don’t love analyzing political data; I prefer writing about [baseball](http://varianceexplained.org/r/empirical-bayes-book/), [biology](http://varianceexplained.org/r/tidy-genomics-biobroom/), [R education](http://varianceexplained.org/r/teach-tidyverse/), and [programming languages](https://stackoverflow.blog/authors/drobinson/). But as you might imagine, that’s the least of the reasons I wish this particular chapter of my work had faded into obscurity.
