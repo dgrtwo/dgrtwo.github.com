@@ -15,7 +15,7 @@ Wouldn't you be annoyed? And yet this kind of attitude is strangely common in pr
 
 I was recently talking to a friend who works with R and whose opinions I greatly respect. He was teaching some sessions to people in his company who hadn't used R before, where he largely followed my [philosophy on teaching the tidyverse to beginners](http://varianceexplained.org/r/teach-tidyverse/). I agreed with his approach, until he said something far too familiar to me:
 
-> "I teach them `group_by`/`summarize` in the second lesson, but I teach them loops first just to show them how much easier dplyr is."
+> "I teach them dplyr's `group_by`/`summarize` in the second lesson, but I teach them loops first just to show them how much easier dplyr is."
 
 I talk to people about teaching a lot, and that phrase keeps popping up: **"I teach them X just to show them how much easier Y is"**. It's a trap- a trap I've fallen into before when teaching, and one that I'd like to warn others against.
 
