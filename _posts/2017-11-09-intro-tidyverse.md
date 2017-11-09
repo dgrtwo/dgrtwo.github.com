@@ -13,7 +13,7 @@ For the last few years I've been encouraging a particular approach to R educatio
 
 ![](https://www.dropbox.com/s/rcug1awxycext2x/Screenshot%202017-11-09%2011.00.06.png?dl=1)
 
-The course is an introduction to the dplyr and ggplot2 packages through an analysis of the [Gapminder dataset](https://github.com/jennybc/gapminder), enabling students to explore and visualize country statistics over time. It's designed so that people can take it even if they have no previous experience in R, or if they've learned some ([like in DataCamp's free introduction](https://www.datacamp.com/courses/free-introduction-to-r) but aren't familiar with dplyr, ggplot2, or how they fit together.
+The course is an introduction to the dplyr and ggplot2 packages through an analysis of the [Gapminder dataset](https://github.com/jennybc/gapminder), enabling students to explore and visualize country statistics over time. It's designed so that people can take it even if they have no previous experience in R, or if they've learned some ([like in DataCamp's free introduction](https://www.datacamp.com/courses/free-introduction-to-r)) but aren't familiar with dplyr, ggplot2, or how they fit together.
 
 I've published two DataCamp courses before, [Exploratory Data Analysis: Case Study](https://www.datacamp.com/courses/exploratory-data-analysis-in-r-case-study) (which makes a great followup to this new one) and [Foundations of Probability](https://www.datacamp.com/courses/foundations-of-probability-in-r). But I'm particularly excited about this one because the topic is so important to me. Here I'll share a bit of my thinking behind the course and we made the decisions we did.
 
