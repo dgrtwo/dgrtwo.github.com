@@ -16,7 +16,7 @@ Last week I shared a thought on Twitter:
 
 Ironically, this tweet hints at a piece of advice I've given at least 3 *dozen* times, but haven't yet written a post about. I've given this advice to almost every aspiring data scientist who asked me what they should do to find a job: **start a blog, and write about data science**.[^current]
 
-What could you write about if you're not yet working as a data scientist? Here are some examples (each attached to examples from my own blog):
+What could you write about if you're not yet working as a data scientist? Here are some possible topics (each attached to examples from my own blog):
 
 * Analyses of datasets you find interesting ([example](http://varianceexplained.org/r/love-actually-network/), [example](http://varianceexplained.org/r/trump-tweets/))
 * Intuitive explanations of concepts you've recently mastered ([example](http://varianceexplained.org/r/empirical_bayes_baseball/), [example](http://varianceexplained.org/r/kmeans-free-lunch/))
