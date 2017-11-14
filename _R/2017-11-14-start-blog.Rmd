@@ -66,7 +66,7 @@ Just because you're expecting employers to look at your work doesn't mean it has
 
 And the purpose of blogging isn't only to advertise yourself to employers. You also get to build a network of colleagues and fellow data scientists, which helps both in finding a job and in your future career. (I've found [#rstats users on Twitter](https://twitter.com/hashtag/rstats) to be a particularly terrific community). A great example of someone who succeeded in this strategy is my colleague [Julia Silge](https://juliasilge.com/blog/), who started her excellent blog while she was looking to shift her career into data science, and both got a job and built productive relationships through it.
 
-<script async class="speakerdeck-embed" data-id="ad0aa99ee64943cb9fa2ac74e3bc7ef9" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-slide="38" data-id="ad0aa99ee64943cb9fa2ac74e3bc7ef9" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
 
 ### Get feedback and evaluation
 
