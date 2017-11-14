@@ -30,7 +30,7 @@ In a future post I'd like to share advice about the **how** of data science blog
 
 ### Practice analyzing data and communicating about it
 
-If you're hoping to be a data scientist, you're (presumably) not one yet. *This is your chance to practice the relevant skills*.
+If you're hoping to be a data scientist, you're (presumably) not one yet. *A blog is your chance to practice the relevant skills*.
 
 * **Data cleaning**: One of the benefits of working with a variety of datasets is that you learn to take data "as it comes", whether it's in the form of a [supplementary file from a journal article](http://varianceexplained.org/r/tidy-genomics/) or a [movie script](http://varianceexplained.org/r/love-actually-network/)
 * **Statistics**: Working with unfamiliar data lets you put statistical methods into practice, and writing posts that communicate and teach concepts helps build your own understanding
