@@ -5,20 +5,26 @@ tags: [about]
 comments: false
 ---
 
-I am a Data Scientist at [Stack Overflow](http://stackoverflow.com/). In May 2015 I received my PhD in [Quantitative and Computational Biology](http://www.princeton.edu/qcbgrad/) from Princeton University, where I worked with Professor [John Storey](http://www.genomine.org/). My interests include statistics, data analysis, genomics, education, and programming in R.
+I'm the Chief Data Scientist at [DataCamp](http://datacamp.com/), an education company for teaching data science through interactive online courses. My interests include statistics, data analysis, education, and programming in R.
+
+I'm the co-author with Julia Silge of the tidytext package and the O'Reilly book Text Mining with R. I'm also the author of the [broom](http://github.com/dgrtwo/broom), [gganimate](http://github.com/dgrtwo/gganimate), and [fuzzyjoin](http://github.com/dgrtwo/fuzzyjoin) packages, and of the e-book [Introduction to Empirical Bayes](http://varianceexplained.org/r/empirical-bayes-book/).
+
+I previously worked as a data scientist at Stack Overflow, and received a PhD in [Quantitative and Computational Biology](http://www.princeton.edu/qcbgrad/) from Princeton University.
+
+Books
+============
+
+* [Text Mining with R: A Tidy Approach](https://www.amazon.com/gp/product/1491981652/): a guide to drawing insights from text using the [tidytext](http://github.com/dgrtwo/tidytext) package in R. Co-authored with Julia Silge, and published by O'Reilly in July 2017. Also available [for free online](https://www.tidytextmining.com/).
+* [Introduction to Empirical Bayes: Examples from Baseball Statistics](http://varianceexplained.org/r/empirical-bayes-book/). An e-book demonstrating the statistical method of empirical Bayes, based on the example of estimating baseball batting averages.
 
 Software
 ============
 
-* [broom](http://github.com/dgrtwo/broom): an R package for converting messy model outputs to a tidy format, for use with tools such as [dplyr](http://github.com/hadley/dplyr) and [tidyr](http://github.com/hadley/tidyr).
-* [gganimate](http://github.com/dgrtwo/gganimate): an R package for creating animations within the grammar of graphics.
-* [subSeq](http://github.com/StoreyLab/subSeq): Subsample reads from an RNA-Seq experiment to determine if it has sufficient depth.
-* [stackr](https://github.com/dgrtwo/stackr): R package for connecting to the Stack Exchange API.
-* [snippr](https://github.com/dgrtwo/snippr): R package for managing, sharing, and installing [RStudio code snippets](http://blog.rstudio.org/2015/04/13/rstudio-v0-99-preview-code-snippets/).
-* [ParsePy](https://github.com/dgrtwo/ParsePy): a Python API client for the [Parse](https://parse.com/) mobile backend.
-* [gleam](http://github.com/dgrtwo/gleam): Python package for building interactive online visualizations without web programming.
-* [OASIS](https://github.com/dgrtwo/OASIS): Python package for annotating insertion sequences in prokaryotic genomes.
-* [BarNone](http://github.com/dgrtwo/barnone): Python package to match barcodes in sequencing data to a catalog based on Levenshtein distance.
+* [broom](http://github.com/dgrtwo/broom): Convert messy model outputs to a tidy format, for use with tools such as [dplyr](http://github.com/hadley/dplyr) and [tidyr](http://github.com/hadley/tidyr).
+* [gganimate](http://github.com/dgrtwo/gganimate): Create animations within the grammar of graphics
+* [fuzzyjoin](http://github.com/dgrtwo/fuzzyjoin): Join tables based on inexact matching of columns
+* [tidytext](http://github.com/dgrtwo/tidytext): Analyze text using tidy packages such as dplyr, ggplot2, and tidyr
+* [stackr](https://github.com/dgrtwo/stackr): R package for connecting to the Stack Exchange API
 
 Publications
 ============
@@ -35,8 +41,6 @@ Links
 
 * I've published a course, [Exploratory Data Analysis in R: Case Study](https://campus.datacamp.com/courses/exploratory-data-analysis-in-r-case-study), on [DataCamp](https://www.datacamp.com), an interactive platform to [learn R](https://www.datacamp.com/courses/free-introduction-to-r) and data science.
 
-* I also built an online R video course, [Data Analysis and Visualization Using R](/RData/).
-
 * [My CV](/files/DavidRobinsonResume.pdf)
 
 * [My GitHub](https://github.com/dgrtwo)
@@ -52,4 +56,4 @@ This site is powered by [Jekyll](http://jekyllrb.com/) using the [Minimal Mistak
 
 All blog posts are compiled with [knitr](http://yihui.name/knitr/) [R markdown](http://rmarkdown.rstudio.com/) using [this script](https://github.com/dgrtwo/dgrtwo.github.com/blob/master/_scripts/knitpages.R). You can find the reproducible sources of each blog post [here](https://github.com/dgrtwo/dgrtwo.github.com/tree/master/_R).
 
-All opinions and views are my own and do not represent my employer ( [including](http://varianceexplained.org/r/are_users_quitting/) [posts](http://varianceexplained.org/r/providence-visualizer/) [about](http://varianceexplained.org/r/introducing-stackr/) Stack Overflow).
+All opinions and views are my own and do not represent my employer.
