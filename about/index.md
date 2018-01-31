@@ -41,8 +41,6 @@ Links
 
 * I've published a course, [Exploratory Data Analysis in R: Case Study](https://campus.datacamp.com/courses/exploratory-data-analysis-in-r-case-study), on [DataCamp](https://www.datacamp.com), an interactive platform to [learn R](https://www.datacamp.com/courses/free-introduction-to-r) and data science.
 
-* [My CV](/files/DavidRobinsonResume.pdf)
-
 * [My GitHub](https://github.com/dgrtwo)
 
 <a href="http://stackoverflow.com/users/712603/david-robinson">
