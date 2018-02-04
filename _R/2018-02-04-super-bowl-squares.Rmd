@@ -74,16 +74,18 @@ It's likely that each team's strategy influences the other (and both may be infl
 games %>%
   count(home_digit = home_score %% 10,
         visitors_digit = visitors_score %% 10) %>%
-  ggplot(aes(home_digit, visitors_digit, fill = n)) +
+  mutate(percent = n / sum(n)) %>%
+  ggplot(aes(home_digit, visitors_digit, fill = percent)) +
   geom_tile() +
   scale_x_continuous(breaks = 0:9) +
   scale_y_continuous(breaks = 0:9) +
-  scale_fill_gradient2(high = "#C8102E", low = "white") +
+  scale_fill_gradient2(high = "#C8102E", low = "white",
+                       labels = scales::percent_format()) +
   theme_minimal() +
   labs(x = "Last digit of home team score",
        y = "Last digit of visitor team score",
        title = "Common pairs of NFL scores",
-       fill = "Frequency")
+       fill = "% of games since 1978")
 ```
 
 (Super Bowl games don't actually have a home and away team, but it's a reasonable way to visualize this data).
@@ -115,7 +117,7 @@ We could consider filtering for only a subset of the data, such as games since 1
 
 ### Conclusion
 
-The pairs I'd bet on are **7-0**/**0-7** or **4-7**/**7-4**, the most common pairings of digits. If those are taken I'd generally avoid pairs of the same digit, since the lack of ties make them unusually uncommon (last year's Super Bowl game was the first to ever go into overtime, and there has never been a tied score).
+The pairs I'd bet on are **7-0**/**0-7** or **4-7**/**7-4**, the most common pairings of digits. (Though the chance of winning with each is still around 3%, not much higher than winning a [roulette spin](https://en.wikipedia.org/wiki/Roulette)). If those are taken I'd generally avoid pairs of the same digit, since the lack of ties make them unusually uncommon (last year's Super Bowl game was the first to ever go into overtime, and there has never been a tied score).
 
 In a more sophisticated model we'd consider rates within each team, and possibly incorporate the Vegas odds (a winning team's score distribution is different than a losing team). I might try that for Super Bowl LIII next year.
 
