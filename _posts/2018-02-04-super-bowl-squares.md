@@ -3,6 +3,7 @@ layout: post
 title: "What digits should you bet on in Super Bowl squares?"
 description: "An statistical examination of the least significant digit of NFL scores."
 output: html_document
+og_image: http://varianceexplained.org/figs/2018-02-04-super-bowl-squares/unnamed-chunk-4-1.png
 date: 2018-02-04 6:00:00 -0400
 category: r
 tags: [r, statistics]
