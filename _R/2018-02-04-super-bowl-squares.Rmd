@@ -60,7 +60,7 @@ So let's create a histogram of the most common final digits. (I'll do this one i
 ```{r}
 ggplot(scores, aes(digit)) +
   geom_histogram(fill = "#8D9093", binwidth = .5) +
-  scale_x_continuous(breaks = 1:10) +
+  scale_x_continuous(breaks = 0:9) +
   labs(title = "Frequency of final digits in NFL games since 1966")
 ```
 
