@@ -91,7 +91,7 @@ scores %>%
 ## # ... with 50 more rows
 {% endhighlight %}
 
-The most commmon (by a wide margin) is 17. This could come from two touchdowns (each with an extra point, or one with two extra points) and a field goal. 27 is also common, so seven is already looking like a solid bet.
+The most commmon (by a wide margin) is 17. This could come from two touchdowns (each with an extra point, or one with two extra points) and a field goal. 27 is also common, so 7 as the least significant digit is already looking like a solid bet.
 
 So let's create a histogram of the most common final digits. (I'll do this one in [silver for the Eagles](https://teamcolorcodes.com/philadelphia-eagles-color-codes/)).
 
@@ -105,7 +105,7 @@ ggplot(scores, aes(digit)) +
 
 ![center](/figs/2018-02-04-super-bowl-squares/unnamed-chunk-3-1.png)
 
-As we suspected, **the most common digit is seven**. It's closely followed by 0, and 4 and 5 are pretty common as well. But you **really don't want to bet on 2 or 5**.
+As we suspected, **the most common digit is 7**. It's closely followed by 0, and 4 and 5 are pretty common as well. But you **really don't want to bet on 2 or 5**.
 
 ### Are they independent?
 
