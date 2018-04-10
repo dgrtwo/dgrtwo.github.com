@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Joining DataCamp as their Chief Data Scientist"
+title: "Data science at DataCamp"
 description: "Two months after starting as Chief Data Scientist at DataCamp, I share some thoughts on the role and the team's future."
 output: word_document
 date: 2018-04-10 11:00:00 -0400
