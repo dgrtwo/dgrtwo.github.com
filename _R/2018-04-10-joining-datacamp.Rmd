@@ -55,7 +55,7 @@ I previously wrote about [what a data scientist does](http://varianceexplained.o
 
 Similarly, another challenge is to surface work that data scientists have done so that the whole company can benefit from it. Towards that goal I've launched an internal knowledge repository, using AirBnb's open source [Knowledge Repo](http://knowledge-repo.readthedocs.io/en/latest/) project. This lets data scientists contribute articles that everyone at the company can browse and understand, which helps reduce duplication of effort.
 
-![Picture of our internal knowledge repository](https://www.dropbox.com/s/p716mx80imk1hns/Screenshot%202018-04-09%2012.22.33.png?dl=1)
+![Picture of our internal knowledge repository](http://varianceexplained.org/images/knowledge_repo.png)
 
 I've open sourced some of my work in the [knowledgerepo R package](https://github.com/dgrtwo/knowledgerepo), an R client for submitting articles to a knowledge repo. I'm hoping to share more of what I've learned in the future. 
 
