@@ -88,4 +88,4 @@ Now that I'm a bit settled in, I've started planning what the rest of the year o
 
 ![](http://varianceexplained.org/images/r-exercises.png)
 
-    One of my favorite parts of being a data scientist is sharing my results publicly. In the coming months my team and I will be sharing some blog posts about what we've learned from our learners, and how we've used these analyses to improve our platform and remain the best way to learn data science.
+One of my favorite parts of being a data scientist is sharing my results publicly. In the coming months my team and I will be sharing some blog posts about what we've learned from our learners, and how we've used these analyses to improve our platform and remain the best way to learn data science.
