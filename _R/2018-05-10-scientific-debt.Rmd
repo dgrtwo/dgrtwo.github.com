@@ -1,0 +1,100 @@
+---
+layout: post
+title: "Scientific debt"
+description: "Introducing an analogy to 'technical debt' for data scientists."
+output: html_document
+date: 2018-05-10 10:00:00 -0400
+category: r
+tags: [r, career]
+comments: true
+---
+
+A very useful concept in software engineering is **[technical debt](https://martinfowler.com/bliki/TechnicalDebt.html)**.
+
+Technical debt occurs when engineers choose a quick but suboptimal solution to a problem, or don't spend time to build sustainable infrastructure. Maybe they're using an approach that doesn't scale well as the team and codebase expand (such as hardcoding "magic numbers"), or using a tool for reasons of convenience rather than appropriateness ("we'll write the DevOps infrastructure in PHP since that's what our team already knows"). Either way, it's something that seems like it's working at first but causes real challenges in the long-term, in the form of delayed feature launches and hard-to-fix bugs.
+
+![](https://josephdpurcell.github.io/Lorax/dist/2015-madison-php/assets/What_colour_is_your_backlog.svg)
+
+In my [new job as Chief Data Scientist at DataCamp](http://varianceexplained.org/r/joining-datacamp/), I've been thinking about the role of data science within a business, and discussing this with other professionals in the field. On [a panel earlier this year](https://twitter.com/robinson_es/status/959948446542151680), I realized that data scientists have a rough equivalent to this concept: "scientific debt."
+
+**Scientific debt is when a team takes shortcuts in data analysis, experimental practices, and monitoring that could have long-term negative consequences.** When you hear a statement like:
+
+* "We don't have enough time to run a randomized test, let's launch it"
+* "To a first approximation this effect is probably linear"
+* "This could be a confounding factor, but we'll look into that later"
+* "It's directionally accurate at least"
+
+you're hearing a little scientific debt being "borrowed".
+
+### Example: WidgetCorp
+
+Most engineers have a sense of what it's like for a company to struggle with technical debt. What would a company struggling with scientific debt look like?
+
+Imagine a small startup WidgetCorp is developing a B2B product, and deciding on their sales strategy. One year they decide to start focusing their sales efforts on larger corporate clients. They notice that as they take on this new strategy, their monthly revenue increases. They're encouraged by this, and in the following years hire half a dozen salespeople with experience working with large clients, and spend marketing and design effort building that as part of their brand.
+
+Years later, the strategy doesn't seem to be paying off: their revenue is struggling and the early successes aren't repeating themselves. They hire an analyst who looks at their sales data, and finds that in fact, it had never been the case that they'd had a higher return-on-investment selling to large companies. In that early year, their revenue had been rising because of a seasonal effect (the demand for widgets goes up in the fall and winter), which was compounded with some random noise and anecdotes (e.g. "SmallCompany.com was a waste of our time, but we just closed a huge deal with Megabiz!")
+
+What happened? **WidgetCorp took on too much scientific debt.**
+
+![](https://smallbiztrends.com/wp-content/uploads/2016/01/cartoon7379.png)
+
+Some ways this might have happened:
+
+**They made irreversible decisions based on flawed analyses.** It's reasonable to take a quick look at metrics and be happy that they're going in the right direction. But once the company made product, sales and marketing changes, it became difficult to reverse them. Before making a major shift in business, it's worth making sure that the data supports it: that they've accounted for seasonal effects and applied proper statistical tests.
+
+**Lack of monitoring**. Early on, there may not have been enough data to tell whether larger clients were . But as more data was collected, it would be worth *continually testing* this assumption, in the form of a dashboard or a quarterly report. If this isn't tracked, no one will notice that the hypothesis was falsified even once they have the data.
+
+**Lack of data infrastructure**: Maybe early in the company the leads were locked in a sales CRM, while accounting data was stored in Excel spreadsheets that were emailed around. Even if there were a dedicated analyst within the company, they may not have easy access to the relevant data (linking together sales sucess and company size). Even if it were theoretically possible to combine the datasets with some effort, [schlep blindness](http://www.paulgraham.com/schlep.html) might have made everyone avoid the analysis entirely. This is an area where technical debt and scientific debt often appear together, since it takes engineering effort to make scientific problems easy to solve.
+
+**Spreading inaccurate lore**. Suppose that the WidgetCorp CEO had given a series of company-wide talks and public blog posts with the message "The future of WidgetCorp is serving big companies!" Product teams got into the habit of prioritizing features in this direction, and every failure got blamed on "I guess we weren't focused enough on big clients". This kind of "cultural inertia" can be very difficult to reverse, even if the executive team is willing to publicly admit their mistake (which isn't guaranteed!)
+
+Just about every experienced data scientist has at least a few of these stories, even from otherwise successful companies. They are to scientific debt what the [Daily WTF](https://thedailywtf.com/) is to technical debt.
+
+### Is scientific debt always bad?
+
+Not at all!
+
+![](http://files.explosm.net/comics/Rob/profits.png)
+
+I often take shortcuts in my own analyses. Running a randomized experiment for a feature launch is sometimes too expensive, especially if the number of users is fairly small or the change pretty uncontroversial (you wouldn't A/B test a typo fix). And while correlation doesn't imply causation, it's usually better than nothing when making business decisions.
+
+The comparison to technical debt is useful here: a small engineering team's first goal is typically to build an minimum viable product quickly, rather than *overengineer* a system that they think will be robust in the distant future. (The equivalent in scientific debt is typically called *overthinking*, e.g. "Yes I suppose we could control for weather when we examine what sales deals succeed, but I'm pretty sure you're overthinking this"). And the comparison to financial debt is meaningful too: companies typically take on debt (or, similarly, give up equity) while they're growing. Just like you can't build a company without borrowing money, you can't build a company while being certain every decision is thoroughly supported by data.
+
+What's important in both technical and scientific debt is to **keep the long-term cost in mind**.
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">It isn&#39;t technical debt if you aren&#39;t...<br><br>1) Leveraging it to get something valuable up front<br>2) Paying interest on it regularly<br>3) Treating it as a liability that you may eventually need to pay in full<br><br>Code that doesn&#39;t meet this criteria isn&#39;t debt, it&#39;s just low quality work.</p>&mdash; Practicing Developer (@practicingdev) <a href="https://twitter.com/practicingdev/status/968175299581108224?ref_src=twsrc%5Etfw">February 26, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Wrong decisions are expensive, and not paying attention to data is a risk. We can do a cost-benefit analysis of whether the risk is worth it, but we shouldn't write it off as "data scientists always find something to complain about".
+
+### Why even call it "debt"?
+
+To a data scientist or analyst, this post might sound pretty obvious. Of course there are downsides to ignoring statistical rigor, so why bother giving it a "buzzword-y" name? **Because it puts the concept in terms executives and managers can easily understand.**
+
+Again, let's go back to technical debt. There are lots of reasons individual engineers may want to write "clean code": they appreciate its elegance, they want to impress their peers, or they're perfectionists procrastinating on other work. These reasons don't generally matter to non-technical employees, who care about product features and reliability. The framing of technical debt helps emphasize what the company loses by not investing in architecture: the idea that even if a product looks like it's working, the flaws have a long-term cost in actual dollars and time.
+
+-----
+
+**Engineer:** It bothers me that different internal project use different naming conventions.
+
+**CTO:** Sorry it annoys you, but code is code, I don't see why you should waste time on this.
+
+-----
+
+**Engineer:** Our inconsistent naming conventions are technical debt: they make it harder for new developers to learn the system.
+
+**CTO:** I've been looking for ways to reduce our onboarding time! Great idea, let me know when it's implemented.
+
+-----
+
+Similarly, scientists, especially from an academic background, often have a particular interest in discovering truths about reality. So the idea of "I'd like to analyze whether X is a confounding factor here" can sound like an indulgence rather than an immediate business need. Statisticians in particular are often excited by finding flaws in mathematical methods. So when a data scientist says something like "We can't use that method, Jones et al 2012 proved that it is asymptotically inconsistent," non-technical colleagues might assume they're overthinking it or even showing off. Framing it in terms of what we're actually *risking* helps communicate why it's worth spending time on.
+
+### How can we manage scientific debt well?
+
+* **Understand not all data science work produces "new" results.** Just as not every engineering project will lead to a new feature, not every analysis will lead to an exciting discovery or novel algorithm. Some work needs to be spent confirming or invalidating existing assumptions. [Jonathan Nolis has a great article about prioritizing data science work](https://towardsdatascience.com/prioritizing-data-science-work-936b3765fd45), where he describes this quadrant as "providing proof".
+
+* **Build data engineering processes:** As described earlier, one reason a company might fall into scientific debt is that analysts may not have easy access to the data they need. It could be locked away in a platform that hasn't been ingested, or in Google sheets that are edited by hand. Ingesting relevant data into a data warehouse or a data lake makes it more likely data scientists can make relevant discoveries.
+
+* **Revisit old analyses**: One common reason early-stage companies go into scientific debt is that they don't yet have enough data to draw robust conclusions. Even if you don't have enough data yet, that doesn't mean you should forget about the problem. Sometimes [I put time on my calendar](https://medium.com/the-mission/why-calendars-are-more-effective-than-to-do-lists-9bc6ce3bee50) to run an analysis once I expect enough data to be available, even if it's a few months away. This can also help confirm an important analysis is still relevant: just like you'd keep track of a KPI over time, you want to keep track of whether a conclusion remains true.
+
+* **Have data expertise spread throughout the company**. Just as someone who can't program may not recognize technical debt, someone who doesn't have experience analyzing and understanding data may not recognize scientific debt. This is yet another reason to [democratize data science within your company](https://register.gotowebinar.com/register/5951553477110700289?source=blog), as [we do at DataCamp](http://varianceexplained.org/r/joining-datacamp/).
