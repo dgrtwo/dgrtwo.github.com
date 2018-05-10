@@ -34,7 +34,9 @@ Imagine a small startup WidgetCorp is developing a B2B product, and deciding on 
 
 Years later, the strategy doesn't seem to be paying off: their revenue is struggling and the early successes aren't repeating themselves. They hire an analyst who looks at their sales data, and finds that in fact, it had never been the case that they'd had a higher return-on-investment selling to large companies. In that early year, their revenue had been rising because of a seasonal effect (the demand for widgets goes up in the fall and winter), which was compounded with some random noise and anecdotes (e.g. "SmallCompany.com was a waste of our time, but we just closed a huge deal with Megabiz!")
 
-What happened? **WidgetCorp took on too much scientific debt.**
+**WidgetCorp took on too much scientific debt.** 
+
+&nbsp;
 
 ![](https://smallbiztrends.com/wp-content/uploads/2016/01/cartoon7379.png)
 
@@ -53,6 +55,8 @@ Just about every experienced data scientist has at least a few of these stories,
 ### Is scientific debt always bad?
 
 Not at all!
+
+&nbsp;
 
 ![](http://files.explosm.net/comics/Rob/profits.png)
 
