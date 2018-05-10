@@ -79,7 +79,7 @@ Again, let's go back to technical debt. There are lots of reasons individual eng
 
 -----
 
-**Engineer:** It bothers me that different internal project use different naming conventions.
+**Engineer:** It bothers me that different internal projects use different naming conventions.
 
 **CTO:** Sorry it annoys you, but code is code, I don't see why you should waste time on this.
 
@@ -87,7 +87,7 @@ Again, let's go back to technical debt. There are lots of reasons individual eng
 
 **Engineer:** Our inconsistent naming conventions are technical debt: they make it harder for new developers to learn the system.
 
-**CTO:** I've been looking for ways to reduce our onboarding time! Great idea, let me know when it's implemented.
+**CTO:** I've been looking for ways to reduce our onboarding time! Great idea, let me know what you need to fix it.
 
 -----
 
