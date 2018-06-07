@@ -10,7 +10,7 @@ comments: true
 
 
 
-I have some experience teaching R programming (see, for instance, my [online course](http://dgrtwo.github.io/RData)). One of the atypical choices I make is to start by teaching Hadley Wickham's [ggplot2](http://ggplot2.org/) package, rather than the built-in R plotting (see [these videos](http://dgrtwo.github.io/RData/lesson2)).
+I have some experience teaching R programming (see, for instance, my [Introduction to the Tidyverse course](https://www.datacamp.com/courses/introduction-to-the-tidyverse)). One of the atypical choices I make is to start by teaching Hadley Wickham's [ggplot2](http://ggplot2.org/) package, rather than the built-in R plotting.
 
 Many times that I mention this choice to others involved in statistics education, they treat it like a mistake to teach a third-party package first- even if they themselves use ggplot2 for their own plotting. Many teachers suggest I'm overestimating their students: "No, see, my students are *beginners*...". If I push the point, they might insist I'm not understanding just how *much* of a beginner these students are, and emphasize they're looking to keep it *simple* and teach the *basics*, and that that students can get to the *advanced* methods later. The difference between basic plotting and ggplot2 is thus framed as
 
@@ -45,7 +45,7 @@ plot(diamonds$carat, diamonds$price, col = diamonds$color,
     pch = as.numeric(diamonds$cut))
 {% endhighlight %}
 
-![center](/figs/2014-12-16-teach_ggplot2_to_beginners/basicplot-1.png) 
+![center](/figs/2014-12-16-teach_ggplot2_to_beginners/basicplot-1.png)
 
 ### ggplot2
 
@@ -55,7 +55,7 @@ ggplot(diamonds, aes(carat, price, col = color, shape = cut)) +
     geom_point()
 {% endhighlight %}
 
-![center](/figs/2014-12-16-teach_ggplot2_to_beginners/ggplot2-1.png) 
+![center](/figs/2014-12-16-teach_ggplot2_to_beginners/ggplot2-1.png)
 
 Why does it matter how the plot looks? **Because you're not just teaching students *how* to program in R, you're teaching them that they *should.*** Learning to program takes effort and investment, and the more compelling the figures you can create very early in the course, the more easily you can convince them it is worth the effort.
 
