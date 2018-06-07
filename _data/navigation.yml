@@ -6,8 +6,11 @@
 - title: Posts
   url: /posts/
 
-- title: R Course
-  url: /RData/
+- title: Learn R
+  url: https://www.datacamp.com/courses/introduction-to-the-tidyverse
+
+- title: Text Mining in R
+  url: https://www.tidytextmining.com/
 
 - title: Introduction to Empirical Bayes
   url: /r/empirical-bayes-book/
