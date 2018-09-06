@@ -309,9 +309,6 @@ It's worth emphasizing again that this article is just my guess based on a singl
 
 I was fairly skeptical from the start that we could get strong results with document-comparison methods like this, especially on such a small article. That opinion mirrored people with much more expertise than I have:
 
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Now might be a good time to remind everyone that “distinctive phrases” and rare words (high TF-IDF) are not as good for stylometry as subtle differences like “and” vs “the” ratios. If you can easily notice it, someone can easily spoof it.</p>&mdash; David Mimno (@dmimno) <a href="https://twitter.com/dmimno/status/1037490603846787073?ref_src=twsrc%5Etfw">September 6, 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">That means you need a pretty large sample to not have large error bars. Don’t expect conclusive or even suggestive evidence here.</p>&mdash; David Mimno (@dmimno) <a href="https://twitter.com/dmimno/status/1037490608015925248?ref_src=twsrc%5Etfw">September 6, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
