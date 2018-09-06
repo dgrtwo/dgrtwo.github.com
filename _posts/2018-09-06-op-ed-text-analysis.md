@@ -10,7 +10,7 @@ comments: true
 ---
 
 
-Like a lot of people, I was intrigued by ["I Am Part of the Resistance Inside the Trump Administration" ](https://www.nytimes.com/2018/09/05/opinion/trump-white-house-anonymous-resistance.html), an anonymous New York Times op-ed written by a "senior official in the Trump administration". And like many data scientists, I was curious about what role text mining could play. 
+Like a lot of people, I was intrigued by ["I Am Part of the Resistance Inside the Trump Administration"](https://www.nytimes.com/2018/09/05/opinion/trump-white-house-anonymous-resistance.html), an anonymous New York Times op-ed written by a "senior official in the Trump administration". And like many data scientists, I was curious about what role text mining could play. 
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Ok NLP people, now’s your chance to shine. Just spitballing here but TF-IDF on “the op-ed” compared to the published writing of every senior Trump admin official? I want likelihood estimates with standard errors. GO!</p>&mdash; Drew Conway (@drewconway) <a href="https://twitter.com/drewconway/status/1037475836042117120?ref_src=twsrc%5Etfw">September 5, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -20,6 +20,8 @@ This is a useful opportunity to demonstrate how to use the [tidytext package](ht
 * Using TF-IDF to find words specific to each document (examined in more detail in [Chapter 3 of our book](https://www.tidytextmining.com/tfidf.html))
 * Using [widyr](https://github.com/dgrtwo/widyr) to compute pairwise cosine similarity
 * How to make similarity interpretable by breaking it down by word
+
+Since my goal is R education more than it is political analysis, I show all the code in the post.
 
 Even in the less than 24 hours since the article was posted, I'm far from the first to run text analysis on it. In particular [Mike Kearney](https://twitter.com/kearneymw) has shared a [great R analysis on GitHub](https://github.com/mkearney/resist_oped) (which in particular pointed me towards [CSPAN's cabinet Twitter list](https://twitter.com/cspan/lists/the-cabinet)), and [Kanishka Misra](https://twitter.com/iamasharkskin) has done some exciting work [here](https://github.com/kanishkamisra/inside-trumps-white-house).
 
