@@ -31,7 +31,7 @@ This is a useful opportunity to demonstrate how to use the [tidytext package](ht
 * Using [widyr](https://github.com/dgrtwo/widyr) to compute pairwise cosine similarity
 * How to make similarity interpretable by breaking it down by word
 
-Even in the less than 24 hours since the article was posted, I'm far from the first to run text analysis on it. In particular [Mike Kearney has shared a great R analysis on GitHub](https://github.com/mkearney/resist_oped) (which in particular pointed me towards [CSPAN's cabinet Twitter list](https://twitter.com/cspan/lists/the-cabinet)), and [Kanishka Misra](https://twitter.com/iamasharkskin) has done some exciting work [here](https://github.com/kanishkamisra/inside-trumps-white-house).
+Even in the less than 24 hours since the article was posted, I'm far from the first to run text analysis on it. In particular [Mike Kearney](https://twitter.com/kearneymw) has shared a [great R analysis on GitHub](https://github.com/mkearney/resist_oped) (which in particular pointed me towards [CSPAN's cabinet Twitter list](https://twitter.com/cspan/lists/the-cabinet)), and [Kanishka Misra](https://twitter.com/iamasharkskin) has done some exciting work [here](https://github.com/kanishkamisra/inside-trumps-white-house).
 
 ### Downloading data
 
@@ -126,7 +126,7 @@ tweet_words %>%
   labs(y = "# of uses among staff Twitter accounts")
 ```
 
-No real surprises here. Many accounts mention \@potus often, as well as words like "people", "American", and "Trump" that you'd expect from administration accounts.
+No real surprises here. Many accounts mention @POTUS often, as well as words like "people", "American", and "Trump" that you'd expect from administration accounts.
 
 ### Finding a text signature: TF-IDF vectors
 
@@ -179,7 +179,7 @@ word_tf_idf %>%
        title = "TF-IDF: top words for selected staff members")
 ```
 
-This gives us a set of words that are quite specific to each account. For instance, \@DeptVetAffairs uses hashtags like "#vantagepoint" and "#veteranoftheday" that almost no other account in this set would use. Words that are specific to Trump include "witch" (as in "witch hunt"), "fake" (as in "fake news") and other phrases that he tends to fixate on while other government officials don't. (See [here](http://varianceexplained.org/r/trump-followup/) for my text analysis of Trump's tweets as of August 2017).
+This gives us a set of words that are quite specific to each account. For instance, @DeptVetAffairs uses hashtags like "#vantagepoint" and "#veteranoftheday" that almost no other account in this set would use. Words that are specific to Trump include "witch" (as in "witch hunt"), "fake" (as in "fake news") and other phrases that he tends to fixate on while other government officials don't. (See [here](http://varianceexplained.org/r/trump-followup/) for my text analysis of Trump's tweets as of August 2017).
 
 This shows how TF-IDF offers us a vector (an association of each word with a number) that describes the unique signature of that document. To compare our documents (the op-ed with each Twitter account), we'll be comparing those vectors.
 
@@ -295,7 +295,7 @@ Having said that, there's one signature I think is notable.
 
 > He complained for weeks about senior staff members letting him get boxed into further confrontation with Russia, and he expressed frustration that the United States continued to impose sanctions on the country for its **malign** behavior.
 
-"Malign" isn't as rare a word as "lodestar", but it's notable for being used in the exact same context (discussing Russia or other countries' behavior) in a number of tweets from both Secretary of State Pompeo and the \@StateDepartment account. (Pompeo has actually used the term "malign" an impressive [seven times since May](https://twitter.com/search?f=tweets&vertical=default&q=from%3Asecpompeo%20malign&src=typd), though all but one were about Iran rather than Russia).
+"Malign" isn't as rare a word as "lodestar", but it's notable for being used in the exact same context (discussing Russia or other countries' behavior) in a number of tweets from both Secretary of State Pompeo and the @StateDepartment account. (Pompeo has actually used the term "malign" an impressive [seven times since May](https://twitter.com/search?f=tweets&vertical=default&q=from%3Asecpompeo%20malign&src=typd), though all but one were about Iran rather than Russia).
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">In <a href="https://twitter.com/hashtag/Finland?src=hash&amp;ref_src=twsrc%5Etfw">#Finland</a> tonight. Monday,  <a href="https://twitter.com/POTUS?ref_src=twsrc%5Etfw">@POTUS</a> &amp; I will meet with our Russian counterparts in <a href="https://twitter.com/hashtag/Helsinki?src=hash&amp;ref_src=twsrc%5Etfw">#Helsinki</a> A better relationship with the Russian government would benefit all, but the ball is in Russia’s court.  We will continue to hold Russia responsible for its malign activities <a href="https://twitter.com/StateDept?ref_src=twsrc%5Etfw">@StateDept</a> <a href="https://t.co/K4C1PSrRMb">pic.twitter.com/K4C1PSrRMb</a></p>&mdash; Secretary Pompeo (@SecPompeo) <a href="https://twitter.com/SecPompeo/status/1018608807612690432?ref_src=twsrc%5Etfw">July 15, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -315,7 +315,7 @@ I was fairly skeptical from the start that we could get strong results with docu
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">That means you need a pretty large sample to not have large error bars. Don’t expect conclusive or even suggestive evidence here.</p>&mdash; David Mimno (@dmimno) <a href="https://twitter.com/dmimno/status/1037490608015925248?ref_src=twsrc%5Etfw">September 6, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-But I'm satisfied with this analysis both as a demonstration of tidytext methods and one on the importance of model interpretability. When we ran a TF-IDF comparison, we knew it was wrong because \@realDonaldTrump appeared at the top. But what if Trump *hadn't* been the one to mention Russia the most, or if another false positive had caused an account to rise to the top? Breaking similarity scores down by word is a useful way to interrogate our model and understand its output. (See [here](http://varianceexplained.org/r/digit-eda/) for a similar article about understanding the components of a model).
+But I'm satisfied with this analysis both as a demonstration of tidytext methods and one on the importance of model interpretability. When we ran a TF-IDF comparison, we knew it was wrong because @realDonaldTrump appeared at the top. But what if Trump *hadn't* been the one to mention Russia the most, or if another false positive had caused an account to rise to the top? Breaking similarity scores down by word is a useful way to interrogate our model and understand its output. (See [here](http://varianceexplained.org/r/digit-eda/) for a similar article about understanding the components of a model).
 
 ```{r cache = FALSE, echo = FALSE}
 knitr::knit_exit()
