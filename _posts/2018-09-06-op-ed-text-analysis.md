@@ -3,7 +3,7 @@ layout: post
 title: "Who wrote the anti-Trump New York Times op-ed? Using tidytext to find document similarity"
 description: "An analysis of an anonymous op-ed in the New York Times, using document similarity metrics to match it to Twitter accounts."
 output: html_document
-date: 2018-07-10 8:00:00 -0400
+date: 2018-09-06 8:00:00 -0400
 category: r
 tags: [r]
 comments: true
