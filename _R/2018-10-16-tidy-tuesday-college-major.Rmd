@@ -1,0 +1,62 @@
+---
+layout: post
+title: "Exploring college major and income: a live data analysis in R"
+description: "A live screencast of an exploratory data analysis from the Tidy Tuesday series. This one explores college major and income data from 538."
+output: html_document
+date: 2018-10-16 11:20:00 -0400
+category: r
+tags: [r, tidytuesday]
+comments: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I recently came up with the idea for a series of screencasts:
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">I&#39;ve thought about recording a screencast of an example data analysis in <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a>. I&#39;d do it on a dataset I&#39;m unfamiliar with so that I can show and narrate my live thought process.<br><br>Any suggestions for interesting datasets to use?</p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/1048577589244284928?ref_src=twsrc%5Etfw">October 6, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Hadley Wickham [had the great suggestion](https://twitter.com/hadleywickham/status/1048581293213212673) of analyzing a [Tidy Tuesday dataset](https://github.com/rfordatascience/tidytuesday). Tidy Tuesday is a fantastic project run by the R for Data Science online learning community (especially [Thomas Mock](https://thomasmock.netlify.com/)) that releases an interesting dataset each week.
+
+I've now released my first such screencast, exploring this week's Tidy Tuesday dataset on (the data behind [The Economic Guide to Picking a College Major](https://fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major/)). You can also find the [R Markdown I produced here](https://github.com/dgrtwo/data-screencasts).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/nx5yhXAQLxw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<br/>
+
+I produced a handful of figures that I found pretty interesting. I took a look at the distribution of income from graduates within each category of major. 
+
+<br/>
+
+![](http://www.varianceexplained.org/images/tidytuesday-major-boxplot.png)
+
+<br/>
+
+I spent some time on looking at the differences in gender distribution across majors, which was also included in the data.
+
+<br/>
+
+![](http://www.varianceexplained.org/images/tidytuesday-major-barplot.png)
+<br/>
+
+And I ended by setting up an interactive scatterplot with the [plotly package](https://plot.ly/r/) that compared the share of women in a field to the median salary.
+
+<br/>
+
+![](http://www.varianceexplained.org/images/tidytuesday-major-scatterplot.png)
+
+
+Some notes and observations:
+
+* **This isn't an R tutorial**: If I were teaching R, I'd have prepared in advance and moved more slowly through the material. This is a case study in how I'd dive into a dataset and learn from it, including steps where I think aloud and decide what route to take. If anything, it's closer to a ["speedrun"](https://en.wikipedia.org/wiki/Speedrun).
+* **I enjoyed showing the order I work in**: I write blog posts somewhat "inside-out": I start with a few figures, then figure out what preprocessing I should have started with, and I'm constantly moving uninteresting figures out of the post or to appendices. It was nice to show how an analysis took shape and ended up looking like a organized final product.
+* **I ran into fewer bugs than I expected to:** Part of the excitement of a live screencast is that "anything can go wrong" (part of the reason I recorded this first one in advance rather than live is to practice with less pressure!) I was pretty well versed in the tools I used in this session (dplyr and ggplot2), so I got stuck on only a handful of bugs (though I did go down a few unproductive routes).
+
+I had enough fun that I think I'll do it again (though probably not every week). With that in mind, I've learned some lessons that might improve my future screencasts:
+
+* **I speak too fast:** this is a recurring issue for me. When I'm speaking in front of an audience I can watch people's faces and pace myself a bit better, but when I'm "by myself" while recording it's difficult. I've learned this is especially difficult for non-native listeners, and I'll try to be more conscious and speak slower!
+* **I need to keep a better eye on time:** The screencast is about 80 minutes long (I'd originally planned on an hour, and I'll probably aim for that in the future). I'd be interested in feedback about the length, and whether people find the whole session interesting.
+
+I look forward to hearing your feedback, and to recording to the next one!
