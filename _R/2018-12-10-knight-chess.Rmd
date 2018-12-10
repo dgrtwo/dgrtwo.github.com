@@ -121,8 +121,10 @@ In this experiment, we'll simulate 100,000 trials (and, as the riddle specifies,
 # Use n() and replace = TRUE to vectorize the sampling above
 crossing(trial = 1:100000,
          turn = 1:20) %>%
-  mutate(move_x = sample(2, n(), replace = TRUE) * sample(c(1, -1), n(), replace = TRUE),
-         move_y = move_y * sample(c(1, -1), n(), replace = TRUE))
+  mutate(move_x = sample(2, n(), replace = TRUE) *
+           sample(c(1, -1), n(), replace = TRUE),
+         move_y = (3 - abs(move_x)) *
+           sample(c(1, -1), n(), replace = TRUE))
 ```
 
 Now, because the knights both start at (0, 0), we can calculate the position based on the **cumulative sum** of moves the X direction and in the Y direction. We do this by adding a `group_by()` (since movement happens separately within each trial) and `mutate()` to the sequence.
@@ -130,8 +132,10 @@ Now, because the knights both start at (0, 0), we can calculate the position bas
 ```{r turns}
 turns <- crossing(trial = 1:100000,
                   turn = 1:20) %>%
-  mutate(move_x = sample(2, n(), replace = TRUE) * sample(c(1, -1), n(), replace = TRUE),
-         move_y = (3 - abs(move_x)) * sample(c(1, -1), n(), replace = TRUE)) %>%
+  mutate(move_x = sample(2, n(), replace = TRUE) *
+           sample(c(1, -1), n(), replace = TRUE),
+         move_y = (3 - abs(move_x)) *
+           sample(c(1, -1), n(), replace = TRUE)) %>%
   group_by(trial) %>%
   mutate(position_x = cumsum(move_x),
          position_y = cumsum(move_y)) %>%

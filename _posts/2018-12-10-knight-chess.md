@@ -148,8 +148,10 @@ In this experiment, we'll simulate 100,000 trials (and, as the riddle specifies,
 # Use n() and replace = TRUE to vectorize the sampling above
 crossing(trial = 1:100000,
          turn = 1:20) %>%
-  mutate(move_x = sample(2, n(), replace = TRUE) * sample(c(1, -1), n(), replace = TRUE),
-         move_y = move_y * sample(c(1, -1), n(), replace = TRUE))
+  mutate(move_x = sample(2, n(), replace = TRUE) *
+           sample(c(1, -1), n(), replace = TRUE),
+         move_y = (3 - abs(move_x)) *
+           sample(c(1, -1), n(), replace = TRUE))
 {% endhighlight %}
 
 
@@ -158,16 +160,16 @@ crossing(trial = 1:100000,
 ## # A tibble: 2,000,000 x 4
 ##    trial  turn move_x move_y
 ##    <int> <int>  <dbl>  <dbl>
-##  1     1     1      1     -1
-##  2     1     2      2      2
-##  3     1     3      1      2
-##  4     1     4     -1      2
+##  1     1     1      1     -2
+##  2     1     2      2     -1
+##  3     1     3      1     -2
+##  4     1     4     -1     -2
 ##  5     1     5     -2     -1
-##  6     1     6     -1     -1
-##  7     1     7      1     -1
-##  8     1     8     -2     -2
-##  9     1     9      1      1
-## 10     1    10      2      1
+##  6     1     6     -1     -2
+##  7     1     7      1     -2
+##  8     1     8     -2      1
+##  9     1     9      1     -2
+## 10     1    10      2     -1
 ## # ... with 1,999,990 more rows
 {% endhighlight %}
 
@@ -177,8 +179,10 @@ Now, because the knights both start at (0, 0), we can calculate the position bas
 {% highlight r %}
 turns <- crossing(trial = 1:100000,
                   turn = 1:20) %>%
-  mutate(move_x = sample(2, n(), replace = TRUE) * sample(c(1, -1), n(), replace = TRUE),
-         move_y = (3 - abs(move_x)) * sample(c(1, -1), n(), replace = TRUE)) %>%
+  mutate(move_x = sample(2, n(), replace = TRUE) *
+           sample(c(1, -1), n(), replace = TRUE),
+         move_y = (3 - abs(move_x)) *
+           sample(c(1, -1), n(), replace = TRUE)) %>%
   group_by(trial) %>%
   mutate(position_x = cumsum(move_x),
          position_y = cumsum(move_y)) %>%
@@ -193,16 +197,16 @@ turns
 ## # A tibble: 2,000,000 x 6
 ##    trial  turn move_x move_y position_x position_y
 ##    <int> <int>  <dbl>  <dbl>      <dbl>      <dbl>
-##  1     1     1     -1     -2         -1         -2
-##  2     1     2      2     -1          1         -3
-##  3     1     3     -1     -2          0         -5
-##  4     1     4     -1      2         -1         -3
-##  5     1     5      2     -1          1         -4
-##  6     1     6     -1     -2          0         -6
-##  7     1     7      2     -1          2         -7
-##  8     1     8     -1     -2          1         -9
-##  9     1     9     -1      2          0         -7
-## 10     1    10      1      2          1         -5
+##  1     1     1      1      2          1          2
+##  2     1     2      2      1          3          3
+##  3     1     3      1      2          4          5
+##  4     1     4     -2     -1          2          4
+##  5     1     5     -1      2          1          6
+##  6     1     6      2     -1          3          5
+##  7     1     7      1     -2          4          3
+##  8     1     8      2      1          6          4
+##  9     1     9      2     -1          8          3
+## 10     1    10      1     -2          9          1
 ## # ... with 1,999,990 more rows
 {% endhighlight %}
 
@@ -225,7 +229,7 @@ turns %>%
 ## # A tibble: 1 x 1
 ##   `mean(position_x == 0 & position_y == 0)`
 ##                                       <dbl>
-## 1                                   0.00593
+## 1                                   0.00627
 {% endhighlight %}
 
 The probability of being back on the home space is about **.6%**.
