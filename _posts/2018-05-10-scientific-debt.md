@@ -95,7 +95,7 @@ Similarly, scientists, especially from an academic background, often have a part
 
 ### How can we manage scientific debt well?
 
-* **Let data scientists "pay interest" on it.** Just as not every engineering project will lead to a new feature, not every analysis will lead to an exciting discovery or novel algorithm. Some time needs to be spent confirming or invalidating existing assumptions. [Jonathan Nolis has a great article about prioritizing data science work](https://towardsdatascience.com/prioritizing-data-science-work-936b3765fd45), where he describes this quadrant as "providing proof".
+* **Let data scientists "pay interest" on it.** Just as not every engineering project will lead to a new feature, not every analysis will lead to an exciting discovery or novel algorithm. Some time needs to be spent confirming or invalidating existing assumptions. [Jacqueline Nolis has a great article about prioritizing data science work](https://towardsdatascience.com/prioritizing-data-science-work-936b3765fd45), where she describes this quadrant as "providing proof".
 
 * **Build data engineering processes:** As described earlier, one reason a company might fall into scientific debt is that analysts may not have easy access to the data they need. It could be locked away in a platform that hasn't been ingested, or in Google sheets that are edited by hand. Ingesting relevant data into a data warehouse or a data lake makes it more likely data scientists can make relevant discoveries.
 
