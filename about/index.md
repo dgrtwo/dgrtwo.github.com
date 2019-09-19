@@ -5,11 +5,11 @@ tags: [about]
 comments: false
 ---
 
-I'm the Chief Data Scientist at [DataCamp](http://datacamp.com/), an education company for teaching data science through interactive online courses. My interests include statistics, data analysis, education, and programming in R.
+I'm a Data Insights Engineering Manager at [Flatiron Health](https://flatiron.com/), where I help make real-world clinical data available for cancer research. My interests include statistics, data analysis, education, and programming in R.
 
-I'm the co-author with Julia Silge of the tidytext package and the O'Reilly book Text Mining with R. I'm also the author of the [broom](http://github.com/dgrtwo/broom), [gganimate](http://github.com/dgrtwo/gganimate), and [fuzzyjoin](http://github.com/dgrtwo/fuzzyjoin) packages, and of the e-book [Introduction to Empirical Bayes](http://varianceexplained.org/r/empirical-bayes-book/).
+I'm the co-author with Julia Silge of the tidytext package and the O'Reilly book Text Mining with R. I'm also the author of the [broom](http://github.com/dgrtwo/broom) and [fuzzyjoin](http://github.com/dgrtwo/fuzzyjoin) packages, and of the e-book [Introduction to Empirical Bayes](http://varianceexplained.org/r/empirical-bayes-book/).
 
-I previously worked as a data scientist at Stack Overflow, and received a PhD in [Quantitative and Computational Biology](http://www.princeton.edu/qcbgrad/) from Princeton University.
+I previously worked as Chief Data Scientist at [DataCamp](http://datacamp.com/) and as a data scientist at Stack Overflow, and received a PhD in [Quantitative and Computational Biology](http://www.princeton.edu/qcbgrad/) from Princeton University.
 
 Books
 ============
@@ -21,7 +21,6 @@ Software
 ============
 
 * [broom](http://github.com/dgrtwo/broom): Convert messy model outputs to a tidy format, for use with tools such as [dplyr](http://github.com/hadley/dplyr) and [tidyr](http://github.com/hadley/tidyr).
-* [gganimate](http://github.com/dgrtwo/gganimate): Create animations within the grammar of graphics
 * [fuzzyjoin](http://github.com/dgrtwo/fuzzyjoin): Join tables based on inexact matching of columns
 * [tidytext](http://github.com/dgrtwo/tidytext): Analyze text using tidy packages such as dplyr, ggplot2, and tidyr
 * [stackr](https://github.com/dgrtwo/stackr): R package for connecting to the Stack Exchange API
@@ -39,7 +38,7 @@ Publications
 Links
 =====
 
-* I've published a course, [Exploratory Data Analysis in R: Case Study](https://campus.datacamp.com/courses/exploratory-data-analysis-in-r-case-study), on [DataCamp](https://www.datacamp.com), an interactive platform to [learn R](https://www.datacamp.com/courses/free-introduction-to-r) and data science.
+* I've published [three R courses on DataCamp](https://www.datacamp.com/instructors/drobinson), an interactive platform to [learn R](https://www.datacamp.com/courses/free-introduction-to-r) and data science.
 
 * [My GitHub](https://github.com/dgrtwo)
 
