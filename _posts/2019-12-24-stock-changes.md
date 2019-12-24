@@ -286,7 +286,7 @@ biggest_changes <- stock_prices %>%
   summarize(highest_gain = max(highest_future - close, na.rm = TRUE),
             biggest_loss = min(lowest_future - close, na.rm = TRUE))
 
-biggest_losses %>%
+biggest_changes %>%
   ggplot(aes(N, biggest_loss, color = symbol)) +
   geom_line() +
   labs(x = "Gap that you have to wait before selling a stock",
