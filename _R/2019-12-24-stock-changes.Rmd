@@ -19,9 +19,9 @@ theme_set(theme_tq())
 
 **Previously in this series**:
 
-* [The "knight on an infinite chessboard" puzzle](http://varianceexplained.org/r/knight-chess/)
 * [The "lost boarding pass" puzzle](http://varianceexplained.org/r/boarding-pass-simulation/)
 * [The "deadly board game" puzzle](http://varianceexplained.org/r/board-game-simulation/)
+* [The "knight on an infinite chessboard" puzzle](http://varianceexplained.org/r/knight-chess/)
 
 I recently came across an interview problem from [A Cool SQL Problem: Avoiding For-Loops
 ](https://ryxcommar.com/2019/08/05/a-cool-sql-problem-avoiding-for-loops/). Avoiding loops is a topic I always enjoy reading about, and the blog post didn't disappoint. I'll quote that post's description of the problem:

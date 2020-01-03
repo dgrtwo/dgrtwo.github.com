@@ -13,9 +13,9 @@ comments: true
 
 **Previously in this series**:
 
-* [The "knight on an infinite chessboard" puzzle](http://varianceexplained.org/r/knight-chess/)
 * [The "lost boarding pass" puzzle](http://varianceexplained.org/r/boarding-pass-simulation/)
 * [The "deadly board game" puzzle](http://varianceexplained.org/r/board-game-simulation/)
+* [The "knight on an infinite chessboard" puzzle](http://varianceexplained.org/r/knight-chess/)
 
 I recently came across an interview problem from [A Cool SQL Problem: Avoiding For-Loops
 ](https://ryxcommar.com/2019/08/05/a-cool-sql-problem-avoiding-for-loops/). Avoiding loops is a topic I always enjoy reading about, and the blog post didn't disappoint. I'll quote that post's description of the problem:
@@ -62,7 +62,7 @@ stock_prices
 ##  8 AAPL   2010-01-13  30.1
 ##  9 AAPL   2010-01-14  29.9
 ## 10 AAPL   2010-01-15  29.4
-## # … with 9,912 more rows
+## # … with 9,932 more rows
 {% endhighlight %}
 
 Notice that the result from `tq_get` is tidy: one row per symbol per day. This isn't part of the interview question, but we can visualize the stocks over time using ggplot2.
@@ -111,7 +111,7 @@ stock_prices %>%
 ##  8 AAPL   2010-01-04  30.6 2010-01-13          30.1
 ##  9 AAPL   2010-01-04  30.6 2010-01-14          29.9
 ## 10 AAPL   2010-01-04  30.6 2010-01-15          29.4
-## # … with 24,622,674 more rows
+## # … with 24,721,994 more rows
 {% endhighlight %}
 
 This creates all combinations of present and future dates, ending up in columns `close` and `close_future`. Now we'll need a few dplyr steps:
@@ -141,10 +141,10 @@ stock_prices %>%
 ## # A tibble: 4 x 3
 ##   symbol largest_gain largest_loss
 ##   <chr>         <dbl>        <dbl>
-## 1 AAPL           257.        -89.9
-## 2 MSFT           134.        -21.5
+## 1 AAPL           266.        -89.9
+## 2 MSFT           136.        -21.5
 ## 3 NFLX           412.       -185. 
-## 4 TSLA           403.       -206.
+## 4 TSLA           415.       -206.
 {% endhighlight %}
 
 I don't know if this metric is at all meaningful from a finance perspective (of course nobody would know in advance when you're supposed to buy and sell a stock to maximize a stock), but it's interesting to see how much Netflix has grown since 2010, and how Tesla has seen a large drop (though based on the graph above it has since recovered).
@@ -205,10 +205,10 @@ stock_prices %>%
 ## # A tibble: 4 x 3
 ##   symbol highest_gain biggest_loss
 ##   <chr>         <dbl>        <dbl>
-## 1 AAPL           257.        -89.9
-## 2 MSFT           134.        -21.5
+## 1 AAPL           266.        -89.9
+## 2 MSFT           136.        -21.5
 ## 3 NFLX           412.       -185. 
-## 4 TSLA           403.       -206.
+## 4 TSLA           415.       -206.
 {% endhighlight %}
 
 In R, this is about 1000X faster than the self-join approach (for me it takes about 5 milliseconds, compared to about 3 seconds for self-join). `cummin` and `cummax` are fast (they're base R functions implemented in C), and the effect on memory is linear in terms of the number of observations.
