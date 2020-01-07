@@ -15,7 +15,7 @@ Technical debt occurs when engineers choose a quick but suboptimal solution to a
 
 ![](https://josephdpurcell.github.io/Lorax/dist/2015-madison-php/assets/What_colour_is_your_backlog.svg)
 
-In my [new job as Chief Data Scientist at DataCamp](http://varianceexplained.org/r/joining-datacamp/), I've been thinking about the role of data science within a business, and discussing this with other professionals in the field. On [a panel earlier this year](https://twitter.com/robinson_es/status/959948446542151680), I realized that data scientists have a rough equivalent to this concept: "scientific debt."
+In my [new job](http://varianceexplained.org/r/joining-datacamp/), I've been thinking about the role of data science within a business, and discussing this with other professionals in the field. On [a panel earlier this year](https://twitter.com/robinson_es/status/959948446542151680), I realized that data scientists have a rough equivalent to this concept: "scientific debt."
 
 **Scientific debt is when a team takes shortcuts in data analysis, experimental practices, and monitoring that could have long-term negative consequences.** When you hear a statement like:
 
