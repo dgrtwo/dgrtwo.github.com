@@ -59,7 +59,7 @@ words <- tibble(word = read_lines("https://norvig.com/ngrams/enable1.txt")) %>%
          letters = map(letters, unique),
          unique_letters = lengths(letters)) %>%
   mutate(points = ifelse(word_length == 4, 1, word_length) +
-           15 * (unique_letters == 7)) %>%
+           7 * (unique_letters == 7)) %>%
   filter(unique_letters <= 7) %>%
   arrange(desc(points))
 
@@ -85,7 +85,7 @@ honeycomb_words
 sum(honeycomb_words$points)
 ```
 
-Looks like the score is 153, and the pangram that uses all seven letters is AMALGAM.
+Looks like the score is 153.
 
 Could we use this `get_words()` function to brute force every possible honeycomb? Only if we had a lot of time on our hands. Since S is eliminated, there are 25 possible choices for the center letter, and $24\choose 6$ ("24 choose 6") possible combinations of outer letters, making `25 * choose(24, 6)` = **3.36 million possible honeycombs**. It would take about 8 days to test every one this way. We can do a lot better.
 
@@ -192,7 +192,7 @@ best_scores <- purrr::map_df(pool, find_best_score, pool)
 best_scores
 ```
 
-It takes about a minute to try all combinations of the top 15 letters. This makes it clear: **the best combination is R in the center, and E, I, R, N, T, G surrounding it, for a total score of 4298**.
+It takes about a minute to try all combinations of the top 15 letters. This makes it clear: **the best combination is R in the center, and E, I, R, N, T, G surrounding it, for a total score of 3769**.
 
 ### How good was our heuristic at judging letters?
 
@@ -268,7 +268,7 @@ puzzle_solutions <- reshape2::melt(as.matrix(scores),
 puzzle_solutions
 ```
 
-With this `scores` matrix, we can confirm our finding of the highest combination, center and score.  It also shows that the top three all have the same combination (but different center letters).
+With this `scores` matrix, we can confirm our finding of the highest combination, center and score.  It also shows that the top three puzzles all have the same combination (but different center letters).
 
 This is pretty fast (about 25 seconds for me), and runs without any heuristics. It also lets us discover the *worst* score!
 
@@ -277,7 +277,7 @@ puzzle_solutions %>%
   arrange(score)
 ```
 
-This reveals that there's only *one* combination, `c,i,n,o,p,r,x` with center letter `x`, that has the minimum possible Spelling Bee score: a single 7-letter pangram where the combination offers no other words. (If you're interested, the word is "princox").
+This reveals that there's only *one* combination, `c,i,n,o,p,r,x` with center letter `x`, that has the minimum possible Spelling Bee score of 14: a single 7-letter pangram where the combination offers no other words. (If you're interested, the word is "princox").
 
 ### Conclusion
 

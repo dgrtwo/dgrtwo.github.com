@@ -55,7 +55,7 @@ words <- tibble(word = read_lines("https://norvig.com/ngrams/enable1.txt")) %>%
          letters = map(letters, unique),
          unique_letters = lengths(letters)) %>%
   mutate(points = ifelse(word_length == 4, 1, word_length) +
-           15 * (unique_letters == 7)) %>%
+           7 * (unique_letters == 7)) %>%
   filter(unique_letters <= 7) %>%
   arrange(desc(points))
 
@@ -68,16 +68,16 @@ words
 ## # A tibble: 44,585 x 5
 ##    word             word_length letters   unique_letters points
 ##    <chr>                  <int> <list>             <int>  <dbl>
-##  1 antitotalitarian          16 <chr [7]>              7     31
-##  2 anticlimactical           15 <chr [7]>              7     30
-##  3 inconveniencing           15 <chr [7]>              7     30
-##  4 interconnection           15 <chr [7]>              7     30
-##  5 micrometeoritic           15 <chr [7]>              7     30
-##  6 nationalization           15 <chr [7]>              7     30
-##  7 nonindependence           15 <chr [7]>              7     30
-##  8 nonintervention           15 <chr [7]>              7     30
-##  9 nontotalitarian           15 <chr [7]>              7     30
-## 10 overengineering           15 <chr [7]>              7     30
+##  1 antitotalitarian          16 <chr [7]>              7     23
+##  2 anticlimactical           15 <chr [7]>              7     22
+##  3 inconveniencing           15 <chr [7]>              7     22
+##  4 interconnection           15 <chr [7]>              7     22
+##  5 micrometeoritic           15 <chr [7]>              7     22
+##  6 nationalization           15 <chr [7]>              7     22
+##  7 nonindependence           15 <chr [7]>              7     22
+##  8 nonintervention           15 <chr [7]>              7     22
+##  9 nontotalitarian           15 <chr [7]>              7     22
+## 10 overengineering           15 <chr [7]>              7     22
 ## # … with 44,575 more rows
 {% endhighlight %}
 
@@ -130,7 +130,7 @@ sum(honeycomb_words$points)
 ## [1] 153
 {% endhighlight %}
 
-Looks like the score is 153, and the pangram that uses all seven letters is AMALGAM.
+Looks like the score is 153.
 
 Could we use this `get_words()` function to brute force every possible honeycomb? Only if we had a lot of time on our hands. Since S is eliminated, there are 25 possible choices for the center letter, and $24\choose 6$ ("24 choose 6") possible combinations of outer letters, making `25 * choose(24, 6)` = **3.36 million possible honeycombs**. It would take about 8 days to test every one this way. We can do a lot better.
 
@@ -165,16 +165,16 @@ letters_summarized
 ## # A tibble: 25 x 3
 ##    letter n_words n_points
 ##    <chr>    <int>    <dbl>
-##  1 e        28203   356775
-##  2 i        21128   292785
-##  3 a        21719   281514
-##  4 r        20977   274395
-##  5 n        18735   262133
-##  6 t        16232   226985
-##  7 l        16503   216576
-##  8 o        16038   212751
-##  9 d        13894   179331
-## 10 c        11644   164720
+##  1 e        28203   275039
+##  2 i        21128   220473
+##  3 a        21719   214490
+##  4 r        20977   209803
+##  5 n        18735   197485
+##  6 t        16232   170953
+##  7 l        16503   164552
+##  8 o        16038   160863
+##  9 d        13894   137491
+## 10 c        11644   123224
 ## # … with 15 more rows
 {% endhighlight %}
 
@@ -234,9 +234,9 @@ head(points_per_word)
 
 {% highlight text %}
 ## antitotalitarian  anticlimactical  inconveniencing  interconnection 
-##               31               30               30               30 
+##               23               22               22               22 
 ##  micrometeoritic  nationalization 
-##               30               30
+##               22               22
 {% endhighlight %}
 
 At this point, we take a matrix multiplication approach to score all the honeycomb combinations. Since I went through it in the [screencast](https://www.youtube.com/watch?v=wFZhuQEfEYA), I won't walk through each of the steps except in the comments.
@@ -290,24 +290,24 @@ best_scores
 ## # A tibble: 15 x 3
 ##    center_letter other_letters score
 ##    <chr>         <chr>         <dbl>
-##  1 e             i,a,r,n,t,g    4169
-##  2 i             e,a,r,n,t,g    3806
-##  3 a             e,i,r,n,t,g    3772
-##  4 r             e,i,a,n,t,g    4298
-##  5 n             e,i,a,r,t,g    4182
-##  6 t             e,i,a,r,n,g    3821
-##  7 l             e,i,a,n,t,g    2261
-##  8 o             e,i,r,n,t,c    2031
-##  9 d             e,i,a,r,n,g    2874
-## 10 c             e,i,a,r,n,t    2214
-## 11 g             e,i,a,r,n,t    3495
-## 12 u             e,a,r,n,t,d    1342
-## 13 m             e,i,a,r,n,t    1874
-## 14 p             e,a,r,t,o,d    1911
-## 15 b             e,i,a,r,l,d    1737
+##  1 e             i,a,r,n,t,g    3769
+##  2 i             e,a,r,n,t,g    3406
+##  3 a             e,i,r,n,t,g    3372
+##  4 r             e,i,a,n,t,g    3898
+##  5 n             e,i,a,r,t,g    3782
+##  6 t             e,i,a,r,n,g    3421
+##  7 l             e,i,a,n,t,g    2061
+##  8 o             e,i,r,n,t,c    1839
+##  9 d             e,i,a,r,n,g    2626
+## 10 c             e,i,a,r,n,t    1982
+## 11 g             e,i,a,r,n,t    3095
+## 12 u             e,a,r,n,t,d    1206
+## 13 m             e,i,a,r,n,t    1754
+## 14 p             e,a,r,t,l,d    1793
+## 15 b             e,i,a,r,l,d    1673
 {% endhighlight %}
 
-It takes about a minute to try all combinations of the top 15 letters. This makes it clear: **the best combination is R in the center, and E, I, R, N, T, G surrounding it, for a total score of 4298**.
+It takes about a minute to try all combinations of the top 15 letters. This makes it clear: **the best combination is R in the center, and E, I, R, N, T, G surrounding it, for a total score of 3769**.
 
 ### How good was our heuristic at judging letters?
 
@@ -406,20 +406,20 @@ puzzle_solutions
 ## # A tibble: 55,902 x 3
 ##    combination   center score
 ##    <fct>         <fct>  <dbl>
-##  1 a,e,g,i,n,r,t r       4298
-##  2 a,e,g,i,n,r,t n       4182
-##  3 a,e,g,i,n,r,t e       4169
-##  4 a,d,e,i,n,r,t e       3832
-##  5 a,e,g,i,n,r,t t       3821
-##  6 a,e,g,i,n,r,t i       3806
-##  7 a,e,g,i,n,r,t a       3772
-##  8 a,d,e,g,i,n,r e       3519
-##  9 a,e,g,i,n,r,t g       3495
-## 10 a,d,e,g,i,n,r r       3484
+##  1 a,e,g,i,n,r,t r       3898
+##  2 a,e,g,i,n,r,t n       3782
+##  3 a,e,g,i,n,r,t e       3769
+##  4 a,d,e,i,n,r,t e       3672
+##  5 a,e,g,i,n,r,t t       3421
+##  6 a,e,g,i,n,r,t i       3406
+##  7 a,e,g,i,n,r,t a       3372
+##  8 a,d,e,g,i,n,r e       3271
+##  9 a,d,e,g,i,n,r r       3236
+## 10 a,d,e,i,l,r,t e       3194
 ## # … with 55,892 more rows
 {% endhighlight %}
 
-With this `scores` matrix, we can confirm our finding of the highest combination, center and score.  It also shows that the top three all have the same combination (but different center letters).
+With this `scores` matrix, we can confirm our finding of the highest combination, center and score.  It also shows that the top three puzzles all have the same combination (but different center letters).
 
 This is pretty fast (about 25 seconds for me), and runs without any heuristics. It also lets us discover the *worst* score!
 
@@ -435,20 +435,20 @@ puzzle_solutions %>%
 ## # A tibble: 55,902 x 3
 ##    combination   center score
 ##    <fct>         <fct>  <dbl>
-##  1 c,i,n,o,p,r,x x         22
-##  2 b,i,m,n,r,u,v v         23
-##  3 b,e,j,k,o,u,x x         23
-##  4 c,f,l,n,o,u,x x         23
-##  5 a,c,e,i,q,u,z z         23
-##  6 d,f,h,n,o,u,x x         24
-##  7 e,i,o,q,t,u,x x         24
-##  8 a,b,d,i,j,r,y j         25
-##  9 a,c,d,j,q,r,u q         25
-## 10 b,h,i,l,p,u,w w         25
+##  1 c,i,n,o,p,r,x x         14
+##  2 b,i,m,n,r,u,v v         15
+##  3 b,e,j,k,o,u,x x         15
+##  4 c,f,l,n,o,u,x x         15
+##  5 a,c,e,i,q,u,z z         15
+##  6 d,f,h,n,o,u,x x         16
+##  7 e,i,o,q,t,u,x x         16
+##  8 a,b,d,i,j,r,y j         17
+##  9 a,c,d,j,q,r,u q         17
+## 10 b,h,i,l,p,u,w w         17
 ## # … with 55,892 more rows
 {% endhighlight %}
 
-This reveals that there's only *one* combination, `c,i,n,o,p,r,x` with center letter `x`, that has the minimum possible Spelling Bee score: a single 7-letter pangram where the combination offers no other words. (If you're interested, the word is "princox").
+This reveals that there's only *one* combination, `c,i,n,o,p,r,x` with center letter `x`, that has the minimum possible Spelling Bee score of 14: a single 7-letter pangram where the combination offers no other words. (If you're interested, the word is "princox").
 
 ### Conclusion
 
