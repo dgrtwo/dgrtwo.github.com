@@ -307,7 +307,7 @@ best_scores
 ## 15 b             e,i,a,r,l,d    1673
 {% endhighlight %}
 
-It takes about a minute to try all combinations of the top 15 letters. This makes it clear: **the best combination is R in the center, and E, I, R, N, T, G surrounding it, for a total score of 3769**.
+It takes about a minute to try all combinations of the top 15 letters. This makes it clear: **the best combination is R in the center, and E, I, A, N, T, G surrounding it, for a total score of 3769**.
 
 ### How good was our heuristic at judging letters?
 

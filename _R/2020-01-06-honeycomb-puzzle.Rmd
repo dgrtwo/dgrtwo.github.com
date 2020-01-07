@@ -192,7 +192,7 @@ best_scores <- purrr::map_df(pool, find_best_score, pool)
 best_scores
 ```
 
-It takes about a minute to try all combinations of the top 15 letters. This makes it clear: **the best combination is R in the center, and E, I, R, N, T, G surrounding it, for a total score of 3769**.
+It takes about a minute to try all combinations of the top 15 letters. This makes it clear: **the best combination is R in the center, and E, I, A, N, T, G surrounding it, for a total score of 3769**.
 
 ### How good was our heuristic at judging letters?
 
