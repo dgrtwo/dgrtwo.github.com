@@ -35,7 +35,7 @@ I love 538's Riddler column, and the [January 3 puzzle](https://fivethirtyeight.
 
 > Which seven-letter honeycomb results in the highest possible game score? To be a valid choice of seven letters, no letter can be repeated, it must not contain the letter S (that would be too easy) and there must be at least one pangram.
 
-Solving this puzzle in R is interesting enough, but it's particularly challenging to do so in a computationally efficient way. As much as I love the tidyverse, this, like the ["lost boarding pass" puzzle](http://varianceexplained.org/r/boarding-pass-simulation/) and Emily Robinson's [evaluation of the best Pokémon team](https://hookedondata.org/pokemon-type-combinations/), this serves as a great example of using R's **matrix operations** to work efficiently with data.
+Solving this puzzle in R is interesting enough, but it's particularly challenging to do so in a computationally efficient way. As much as I love the tidyverse, this, like the ["lost boarding pass" puzzle](http://varianceexplained.org/r/boarding-pass-simulation/) and Emily Robinson's [evaluation of the best Pokémon team](https://hookedondata.org/pokemon-type-combinations/), serves as a great example of using R's **matrix operations** to work efficiently with data.
 
 I've done a lot of puzzles recently, and I realized that showing the end result isn't a representation of my thought process. I don't show all the dead ends and bugs, or explain why I ended up choosing a particular path. So in the same spirit as my [Tidy Tuesday screencasts](https://www.youtube.com/channel/UCeiiqmVK07qhY-wvg3IZiZQ), I [recorded myself solving this puzzle](https://www.youtube.com/watch?v=wFZhuQEfEYA&feature=youtu.be) (though not the process of turning it into a blog post).
 
@@ -276,7 +276,7 @@ If we use all 25 available letters, this ends up impractically slow and memory-i
 pool <- head(letters_summarized$letter, 15)
 
 # Try each as a center letter, along with the pool
-best_scores <- purrr::map_df(pool, find_best_combination, pool)
+best_scores <- purrr::map_df(pool, find_best_score, pool)
 {% endhighlight %}
 
 
@@ -332,9 +332,127 @@ We can see that the heuristic isn't perfect. For instance, G is a surprisingly g
 
 Offline, I tried running this code with the top 21 letters (that is, all but Z, X, J, and Q) and while it takes a long time to run it confirms that you can't beat R/EIRNTG, and that none of the letters after G are particularly strong.
 
+### Shortcut: Pangrams
+
+It wasn't until later in the day (2020-01-06) that I posted this that [Hector Pefo](https://twitter.com/HectorPefo) pointed out an excellent shortcut.
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">You can find all possible 7-letter sets that yield pangrams (only about 8K), generate word-lists for these sets, and then score all 56K possible bees. 23sec. Same answer, but nowhere near as interesting a process! <a href="https://t.co/ue6AXqqk9s">https://t.co/ue6AXqqk9s</a></p>&mdash; Hector Pefo (@HectorPefo) <a href="https://twitter.com/HectorPefo/status/1214270736065368064?ref_src=twsrc%5Etfw">January 6, 2020</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+I'd ignored the "each puzzle must have a pangram" rule (since I confirmed that whatever won haed at least one), but I hadn't thought of using it as a shortcut. Thanks to this approach, we can do this a good deal faster, and without relying on heuristics!
+
+We'd start by making a binary matrix of the legal pangrams.
+
+
+{% highlight r %}
+possible_pangrams <- words %>%
+  filter(unique_letters == 7) %>%
+  mutate(letters = map_chr(letters, ~ paste(sort(.), collapse = ","))) %>%
+  distinct(letters) %>%
+  mutate(combination = letters) %>%
+  separate_rows(letters) %>%
+  reshape2::acast(combination ~ letters, fun.aggregate = length)
+
+head(possible_pangrams)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+##               a b c d e f g h i j k l m n o p q r t u v w x y z
+## a,b,c,d,e,f,k 1 1 1 1 1 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## a,b,c,d,e,f,r 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0
+## a,b,c,d,e,h,l 1 1 1 1 1 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+## a,b,c,d,e,h,n 1 1 1 1 1 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0
+## a,b,c,d,e,h,o 1 1 1 1 1 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0
+## a,b,c,d,e,h,r 1 1 1 1 1 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0
+{% endhighlight %}
+
+There are only 7986 combinations of seven letters that offer a pangram, meaning there are 7 x 7986 = 5.5902 &times; 10<sup>4</sup> possible.
+
+We can modify the matrix multiplication to score each of these combinations. As part of this process, I've also figured out how to test all the central letters in one additional matrix multiplication (which I could have done in the original solution if we'd used the `word_by_center` matrix).
+
+
+{% highlight r %}
+library(Matrix)
+
+# This is efficient only with sparse matrices
+word_matrix_sparse <- as(word_matrix, "sparseMatrix")
+
+# Find the words that are possible with each pangram
+pangram_words <- word_matrix_sparse %*% t(1 - possible_pangrams) == 0
+
+# Find the matrix of word scores based on what the center letter is
+# A word is included only if it has that central letter
+word_by_center <- points_per_word[rownames(word_matrix)] * word_matrix_sparse
+
+# Create a 8K by 25 matrix: best combination + best center letter
+scores <- t(pangram_words) %*% word_by_center
+
+# Tidy the matrix
+puzzle_solutions <- reshape2::melt(as.matrix(scores),
+                          varnames = c("combination", "center"),
+                          value.name = "score") %>%
+  as_tibble() %>%
+  filter(score > 0) %>%
+  arrange(desc(score))
+
+puzzle_solutions
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## # A tibble: 55,902 x 3
+##    combination   center score
+##    <fct>         <fct>  <dbl>
+##  1 a,e,g,i,n,r,t r       4298
+##  2 a,e,g,i,n,r,t n       4182
+##  3 a,e,g,i,n,r,t e       4169
+##  4 a,d,e,i,n,r,t e       3832
+##  5 a,e,g,i,n,r,t t       3821
+##  6 a,e,g,i,n,r,t i       3806
+##  7 a,e,g,i,n,r,t a       3772
+##  8 a,d,e,g,i,n,r e       3519
+##  9 a,e,g,i,n,r,t g       3495
+## 10 a,d,e,g,i,n,r r       3484
+## # … with 55,892 more rows
+{% endhighlight %}
+
+With this `scores` matrix, we can confirm our finding of the highest combination, center and score.  It also shows that the top three all have the same combination (but different center letters).
+
+This is pretty fast (about 25 seconds for me), and runs without any heuristics. It also lets us discover the *worst* score!
+
+
+{% highlight r %}
+puzzle_solutions %>%
+  arrange(score)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## # A tibble: 55,902 x 3
+##    combination   center score
+##    <fct>         <fct>  <dbl>
+##  1 c,i,n,o,p,r,x x         22
+##  2 b,i,m,n,r,u,v v         23
+##  3 b,e,j,k,o,u,x x         23
+##  4 c,f,l,n,o,u,x x         23
+##  5 a,c,e,i,q,u,z z         23
+##  6 d,f,h,n,o,u,x x         24
+##  7 e,i,o,q,t,u,x x         24
+##  8 a,b,d,i,j,r,y j         25
+##  9 a,c,d,j,q,r,u q         25
+## 10 b,h,i,l,p,u,w w         25
+## # … with 55,892 more rows
+{% endhighlight %}
+
+This reveals that there's only *one* combination, `c,i,n,o,p,r,x` with center letter `x`, that has the minimum possible Spelling Bee score: a single 7-letter pangram where the combination offers no other words. (If you're interested, the word is "princox").
+
 ### Conclusion
 
-After a decade programming in R, I still love the process of journeying through multiple approaches to a problem, and iterating before I find an efficient and elegant solution. (There's probably still a lot of optimization I can do! I'm still using a brute force approach, and I don't know if there's another algorithmic way to solve it). Just because we end up with a handful of matrix multiplications doesn't mean it's easy to get there, especially when you're out of practice with linear algebra like I am.
+After a decade programming in R, I still love the process of journeying through multiple approaches to a problem, and iterating before I find an efficient and elegant solution. An important part of the process was also sharing the work publicly and getting feedback, so that Hector could contribute a deeper optimization. Just because we end up with a handful of matrix multiplications doesn't mean it's easy to get there, especially when you're out of practice with linear algebra like I am.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Every time I practice linear algebra <a href="https://t.co/xDgXkFB8xD">pic.twitter.com/xDgXkFB8xD</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/714486901676216320?ref_src=twsrc%5Etfw">March 28, 2016</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
