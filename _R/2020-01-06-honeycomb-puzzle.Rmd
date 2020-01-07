@@ -87,7 +87,7 @@ sum(honeycomb_words$points)
 
 Looks like the score is 153.
 
-Could we use this `get_words()` function to brute force every possible honeycomb? Only if we had a lot of time on our hands. Since S is eliminated, there are 25 possible choices for the center letter, and $24\choose 6$ ("24 choose 6") possible combinations of outer letters, making `25 * choose(24, 6)` = **3.36 million possible honeycombs**. It would take about 8 days to test every one this way. We can do a lot better.
+Could we use this `get_words()` function to brute force every possible honeycomb? Only if we had a lot of time on our hands. Since S is eliminated, there are 25 possible choices for the center letter, and $$24\choose 6$$ ("24 choose 6") possible combinations of outer letters, making `25 * choose(24, 6)` = **3.36 million possible honeycombs**. It would take about 8 days to test every one this way. We can do a lot better.
 
 ### Heuristics: What letters appear in the highest-scoring words?
 
