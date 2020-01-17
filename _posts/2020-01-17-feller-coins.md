@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Feller's coin tossing puzzle: tidy simulation in R"
+title: "Feller's coin-tossing puzzle: tidy simulation in R"
 description: "If you toss n coins, what's the probability there are no streaks of k heads?"
 output: html_document
 date: 2020-01-17 10:00:00 -0400
@@ -19,7 +19,7 @@ comments: true
 * [The "largest stock profit or loss" puzzle](http://varianceexplained.org/r/stock-changes/)
 * [The "birthday paradox" puzzle](http://varianceexplained.org/r/birthday-problem/)
 
-I have an interest in probability puzzles and riddles, and especially in simulating them in R. I recently learned about [Feller's coin tossing puzzle](https://en.wikipedia.org/wiki/Feller%27s_coin-tossing_constants), from the book [Mathematical Constants](https://www.amazon.com/Mathematical-Constants-Encyclopedia-Mathematics-Applications-ebook/dp/B01DM25JGC) by Steven Finch. (I recommend the book if you like the topic too!)
+I have an interest in probability puzzles and riddles, and especially in simulating them in R. I recently learned about [Feller's coin-tossing puzzle](https://en.wikipedia.org/wiki/Feller%27s_coin-tossing_constants), from the book [Mathematical Constants](https://www.amazon.com/Mathematical-Constants-Encyclopedia-Mathematics-Applications-ebook/dp/B01DM25JGC) by Steven Finch. (I recommend the book if you like the topic too!)
 
 Mathematician William Feller posed the following problem:
 
@@ -30,7 +30,7 @@ Note that while the number of heads in a sequence is governed by the binomial di
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">A <a href="https://twitter.com/hashtag/tidyverse?src=hash&amp;ref_src=twsrc%5Etfw">#tidyverse</a> simulation to demonstrate that if you wait for two heads in a row, it takes 6 flips on average, while you wait for a heads then a tails, it takes 4 flips on average<br><br>h/t <a href="https://twitter.com/CutTheKnotMath?ref_src=twsrc%5Etfw">@CutTheKnotMath</a> <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://t.co/V0zgOmCy7t">pic.twitter.com/V0zgOmCy7t</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/1008409373423611904?ref_src=twsrc%5Etfw">June 17, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-To continue my recent trend of simulating probability puzzles in the tidyverse, I'd like to show how we'd approach calculating Feller's coin tossing problem.
+To continue my series of simulating probability puzzles in the tidyverse, I'd like to show how we'd approach simulating Feller's coin-tossing problem, and comparing it to the exact values. (In the process, we also see how we'd calculate a Fibonacci sequence in one line!)
 
 ### Simulating a single sequence
 
@@ -249,7 +249,7 @@ But an approach I like even more than Feller's constants is to calculate the exa
 
 $$p(n,k)=\frac{F^{(k)}_{n + 2}}{2^n}$$
 
-where $$F^{(k)}_{n + 2}$$ is the $$n+2$$ term of the $k$th order Fibonacci sequence. [The first few paragraphs of this paper](https://www.fq.math.ca/Scanned/16-6/finkelstein.pdf) points out why. (In short for $$k=2$$: the number of sequences of length $$n$$ that have no streaks of 2 is all the sequences of length $$n-1$$ that are followed by a $$T$$, plus all the sequences of length $$n-2$$ that are followed by a $$TH$$.)
+where $$F^{(k)}_{n + 2}$$ is the $$n+2$$ term of the $$k$$th order Fibonacci sequence. [The first few paragraphs of this paper](https://www.fq.math.ca/Scanned/16-6/finkelstein.pdf) points out why. (In short for $$k=2$$: the number of sequences of length $$n$$ that have no streaks of 2 is all the sequences of length $$n-1$$ that are followed by a $$T$$, plus all the sequences of length $$n-2$$ that are followed by a $$TH$$. This is divided by the $$2^n$$ possible sequences.)
 
 Let's talk about Fibonacci sequences! Each step in a [Fibonacci sequence](https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers) is the sum of the previous 2, after starting with (1, 1). To get that in R, you'd keep applying the step `c(., sum(tail(., 2)))` again and again (`tail()` gets the last items of a vector).
 

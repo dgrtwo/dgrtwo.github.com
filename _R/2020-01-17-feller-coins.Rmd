@@ -175,7 +175,7 @@ But an approach I like even more than Feller's constants is to calculate the exa
 
 $$p(n,k)=\frac{F^{(k)}_{n + 2}}{2^n}$$
 
-where $$F^{(k)}_{n + 2}$$ is the $$n+2$$ term of the $k$th order Fibonacci sequence. [The first few paragraphs of this paper](https://www.fq.math.ca/Scanned/16-6/finkelstein.pdf) points out why. (In short for $$k=2$$: the number of sequences of length $$n$$ that have no streaks of 2 is all the sequences of length $$n-1$$ that are followed by a $$T$$, plus all the sequences of length $$n-2$$ that are followed by a $$TH$$.)
+where $$F^{(k)}_{n + 2}$$ is the $$n+2$$ term of the $$k$$th order Fibonacci sequence. [The first few paragraphs of this paper](https://www.fq.math.ca/Scanned/16-6/finkelstein.pdf) points out why. (In short for $$k=2$$: the number of sequences of length $$n$$ that have no streaks of 2 is all the sequences of length $$n-1$$ that are followed by a $$T$$, plus all the sequences of length $$n-2$$ that are followed by a $$TH$$. This is divided by the $$2^n$$ possible sequences.)
 
 Let's talk about Fibonacci sequences! Each step in a [Fibonacci sequence](https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers) is the sum of the previous 2, after starting with (1, 1). To get that in R, you'd keep applying the step `c(., sum(tail(., 2)))` again and again (`tail()` gets the last items of a vector).
 
