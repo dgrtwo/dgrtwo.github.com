@@ -5,7 +5,7 @@ tags: [about]
 comments: false
 ---
 
-I'm a Data Insights Engineering Manager at [Flatiron Health](https://flatiron.com/), where I help make real-world clinical data available for cancer research. My interests include statistics, data analysis, education, and programming in R.
+I'm a data scientist at [Heap](https://heap.io/). My interests include statistics, data analysis, education, and programming in R.
 
 I'm the co-author with Julia Silge of the tidytext package and the O'Reilly book Text Mining with R. I'm also the author of the [broom](http://github.com/dgrtwo/broom) and [fuzzyjoin](http://github.com/dgrtwo/fuzzyjoin) packages, and of the e-book [Introduction to Empirical Bayes](http://varianceexplained.org/r/empirical-bayes-book/).
 
