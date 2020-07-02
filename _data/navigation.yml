@@ -6,9 +6,6 @@
 - title: Posts
   url: /posts/
 
-- title: Learn R
-  url: https://www.datacamp.com/courses/introduction-to-the-tidyverse
-
 - title: Text Mining in R
   url: https://www.tidytextmining.com/
 

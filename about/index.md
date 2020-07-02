@@ -38,8 +38,6 @@ Publications
 Links
 =====
 
-* I've published [three R courses on DataCamp](https://www.datacamp.com/instructors/drobinson), an interactive platform to [learn R](https://www.datacamp.com/courses/free-introduction-to-r) and data science.
-
 * [My GitHub](https://github.com/dgrtwo)
 
 <a href="http://stackoverflow.com/users/712603/david-robinson">
