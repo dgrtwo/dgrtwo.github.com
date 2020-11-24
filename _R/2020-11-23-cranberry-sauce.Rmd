@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The 'circular random walk' puzzle: tidy simulation in R"
+title: "The 'circular random walk' puzzle: tidy simulation of stochastic processes in R"
 description: "Solving a puzzle from 538's The Riddler column: if you pass cranberry sauce randomly around a table of 20, who is most likely to be the last person to get it?"
 output: html_document
 date: 2020-11-23 19:40:00 -0400
