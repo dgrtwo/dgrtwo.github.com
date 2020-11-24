@@ -3,7 +3,7 @@ layout: post
 title: "The 'circular random walk' puzzle: tidy simulation in R"
 description: "Solving a puzzle from 538's The Riddler column: if you pass cranberry sauce randomly around a table of 20, who is most likely to be the last person to get it?"
 output: html_document
-date: 2020-11-23 19:00:00 -0400
+date: 2020-11-23 19:40:00 -0400
 category: r
 tags: [r, statistics]
 comments: true
@@ -206,11 +206,11 @@ by_seat %>%
 
 That's a very different story! Other than a little random noise, the 19 people at the table all have the same probability of being the last to receive the cranberry sauce. (The probability is therefore 1/19, shown by the dashed red line).
 
-This wasn't what I originally expected, but upon consideration it makes sense. Consider the person at seat 10 (directly across the table from you). We know it will take longer for them to get the sauce, but consider what it would take to be last. Imagine the moment that the sauce first reaches either person 9 or person 11 (one of which has to happen first). At that moment, the situation is analogous. to the person seated immediately to the original left or right: the sauce would have to make a full circle of the table before going just one step. The same would apply to any seat $s$, by breaking it down into the situation where the sauce reaches either $s-1$ or $s+1$.
+This wasn't what I originally expected, but upon consideration it makes sense. Consider the person at seat 10 (directly across the table from you). We know it will take longer for them to get the sauce, but consider what it would take to be last. Imagine the moment that the sauce first reaches either person 9 or person 11 (one of which has to happen first). At that moment, the situation is analogous. to the person seated immediately to the original left or right: the sauce would have to make a full circle of the table before going just one step. The same would apply to any seat $$s$$, by breaking it down into the situation where the sauce reaches either $$s-1$$ or $$s+1$$.
 
 ### Larger table sizes
 
-Something I love about `crossing()` for simulation is that you can keep adding complexity to the question you're asking. What if there weren't 20 people at the table, but some arbitrary $n$? We'll try 20, 30, and 40, doing 20K simulations each.
+Something I love about `crossing()` for simulation is that you can keep adding complexity to the question you're asking. What if there weren't 20 people at the table, but some arbitrary $$n$$? We'll try 20, 30, and 40, doing 20K simulations each.
 
 
 {% highlight r %}
@@ -247,7 +247,7 @@ But we can also take a closer look at that parabola for the average # of steps t
 A few patterns we notice, where $$n$$ is the table size.
 
 * The peak for each is at seat $$n / 2$$, which takes on average $$(n / 2) ^ 2 steps$$.
-* The average for seats 1 and $$n-1$ (the people seated immediately to your left/right) is $$n-1$$.
+* The average for seats 1 and $$n-1$$ (the people seated immediately to your left/right) is $$n-1$$.
 
 We can get a bit more precise by fitting a parabola to each of the seat size results, using the `broom` package to combine the linear models.
 
@@ -268,6 +268,6 @@ by_seat_size %>%
 
 ![center](/figs/2020-11-23-cranberry-sauce/unnamed-chunk-10-1.png)
 
-The intercept is indistinguishable from 0, the linear term is equal to the table size, and the quadratic term stays at -1. This suggests that the average number of steps to reach a seat $s$ is $-s^2+n*s$. (This matches our results for the maximum and the $s=1$ point above).
+The intercept is indistinguishable from 0, the linear term is equal to the table size, and the quadratic term stays at -1. This suggests that the average number of steps to reach a seat $$s$$ is $$-s^2+n*s$$. (This matches our results for the maximum and the $$s=1$$ point above).
 
 As I often note in these posts, I love how doing some simulation can lead us to an exact solution (even if we can't yet prove it).
