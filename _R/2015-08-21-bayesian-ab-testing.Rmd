@@ -82,7 +82,7 @@ sim_no_difference <- data_frame(replicate = seq_len(nreps)) %>%
 
 # add chi-squared p-values
 sim_no_difference <- sim_no_difference %>%
-  mutate(p.value = vectorized_prop_test(sA, nA - sA, sB, nB - sB))
+  mutate(p.value = vectorized_prop_test(sA, nA, sB, nB))
 ```
 
 ```{r process_pvalues, dependson = "pvalue_simulation"}
