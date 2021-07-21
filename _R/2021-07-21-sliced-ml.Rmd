@@ -1,0 +1,171 @@
+---
+layout: post
+title: "Machine learning in a hurry: what I've learned from the SLICED ML competition"
+description: "Over this summer I've competed in the SLICED ML competition, where contestants have two hours to create a Kaggle submission. I share what I learned about competitive machine learning and R."
+output: html_document
+date: 2021-07-21 16:00:00 -0400
+category: r
+tags: [r]
+comments: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This summer I've been competing in the [SLICED](https://www.notion.so/SLICED-Show-c7bd26356e3a42279e2dfbafb0480073) machine learning competition, where contestants have two hours to open a new dataset, build a predictive model, and be scored as a Kaggle submission. Before this competition I had almost no experience with competitive ML, so I learned a lot!
+
+As of today I'm 5th in the standings, short of the cutoff for the playoffs, so if you want to see me continue [*you can vote for me as an "Audience Choice" here!*](https://forms.gle/1JNC31EAbxTAafYb7) (Though one of my favorite things about the competition is that audience members can compete along with Kaggle submissions, so I expect I'll join in in any case!)
+
+For four of the SLICED episodes (including the two weeks I was competing) I shared a screencast of my process. Episodes 4 and 7 were the ones I was competing live (you can also find the code [here](https://github.com/dgrtwo/data-screencasts/tree/master/ml-practice)):
+
+* [Episode 1: Board Game Ratings](https://www.youtube.com/watch?v=HBZyqkVjUgY)
+* [Episode 4: Rain in Australia](https://www.youtube.com/watch?v=42GyyDM3Uzg)
+* [Episode 5: AirBnb Prices](https://www.youtube.com/watch?v=17BUk_mslKQ)
+* [Episode 7: Credit churn risk](https://www.youtube.com/watch?v=oCGmh3NIJ7I&t=5899s)
+
+If you watch just one, I recommend AirBnb, which was a blast! (It was easily my favorite dataset of the competition, with a mix of text, geographic, and categorical data- though episode 1 and episode 8 were also delightful).
+
+In this post, I'll share some of what I've learned about using R for competitive modeling. (Like I said I'm new to this, so I'm sure most of the post is old news for Kaggle experts!)
+
+### R's tidymodels packages are a new "pit of success"
+
+For years Python has had a solid advantage in tooling for machine learning ([scikit-learn](https://scikit-learn.org/) is just dynamite), but R has been catching up fast. The tidyverse team at RStudio has been developing the tidymodels suite of packages, which plays well with the tidyverse tools that I like. This was the first time I'd really gotten in-depth experience with them, and I was mostly- though not entirely- thrilled.
+
+The ["pit of success"](https://blog.codinghorror.com/falling-into-the-pit-of-success/), in contrast to a "summit of success" or a "pit of doom", is the philosophy that users shouldn't have to strive and struggle to do the right thing. They should be able to fall into good habits almost by accident, because it's easier than using them incorrectly.
+
+There's a lot of traps you can fall into when doing machine learning, and the tidymodels packages are designed to avoid those "without thinking". I think the single most impressive one is *avoiding data leakage during your data cleaning*.
+
+#### Recipes and data leakage
+
+Think of a few of the many feature engineering steps we might apply to a dataset before fitting a model:
+
+* Imputing missing values (e.g. with mean)
+* Dimensionality reduction (e.g. with PCA)
+* Bucketing rare categories (e.g. replacing rare levels of a categorical variable with "Other")
+
+The recipes package offers functions for performing these operations (like `step_impute_mean`, `step_pca`, and `step_other`), but that's only part of its value. The brilliant insight of the recipes packages is that *each of those feature engineering steps is itself a model that needs to be trained!* If you include the test set when you're imputing values with their mean, or when you're applying PCA, you're accidentally letting in information from the test set (which makes you more likely to overfit and not realize it).
+
+![http://varianceexplained.org/images/sliced/cross-validating-feature-meme.png](Meme of a mother ignoring one of her children who's struggling swimming. Text: "Cross validating model fitting" versus "Cross validating feature engineering.")
+
+The recipes package makes this explicit: a recipe has to be trained on data (with `prep()`) before it is applied to a dataset (with `bake()`). By combining the step with a model specification into a `workflow` object, you encapsulate the entire start-to-end process of data cleaning.
+
+Each of the other packages in tidymodels also play a role in the tidymodels "pit of success":
+
+* **Cross validation (rsamples)**: Cross validation is one of the key ways to avoid overfitting, especially when choosing models and choosing hyperparameters.
+* **Tuning hyperparameters (tune)**: `tune_grid` makes it trivial to specify a combination of hyperparameters see how the performance varies. `autoplot()` in particular has a real "does exactly what I want out of the box" feel.
+* **Trying different models (parsnip)**: I really like not having to deal with each modeling package's idiosyncrasies of inputs and outputs; less time reading docs means more time working with my model and data.
+* **Text classification (textrecipes)**: This has a special place in my heart. I helped develop the tidytext package, but I've never been completely thrilled with how it fit into a machine learning workflow. By providing tools for tokenization and filtering, the textrecipes package turns text into just another type of predictor.
+
+These conveniences aren't just a matter of saving effort or time; together they add up to a more robust and effective process. Prior to tidymodels, I might have just skipped tuning a parameter, or stopped with the first model type I tried, because iterating would be too difficult (a phenomenon known as [shlep blindness](http://www.paulgraham.com/schlep.html)).
+
+Some of the resistance I've seen to tidymodels comes from a place of "This makes it too *easy*- you're not thinking carefully about what the code is doing!" But I think this is getting it backwards. By taking the burden of writing procedural logic, I mostly got to focus on scientific and statistical questions about my data and model. 
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Silly complaint: &quot;this tool keeps you from thinking.&quot; No one stops thinking when they use good tools. They think about more important things</p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/769161059743756289?ref_src=twsrc%5Etfw">August 26, 2016</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+#### Where tidymodels can improve
+
+I wasn't happy with everything about the tidymodels packages, especially when I first started the competition. In some cases I felt the API forced excessive piping when they could have used function arguments, making the model specifications much more verbose than they had to be. And as I'll discuss later, the [stacks](https://github.com/tidymodels/stacks) package still feels like a terrific idea with a rough draft implementation.
+
+But the great news is that the team is continuing to improve it! I opened two GitHub issues ([parsnip](https://github.com/tidymodels/parsnip/issues/513) and [workflows](https://github.com/tidymodels/workflows/issues/108)) in the course of my SLICED competition (and talked through them with my old colleague [Julia](https://juliasilge.com/), who works on the tidymodels packages full time), and by the time I reached my second lap they were already fixed!
+
+### Gradient boosted trees are incredible, and easy to tune
+
+Now that I've talked about the tools, I'll get to the machine learning itself.
+
+I know I'm just about the last person to appreciate this, but it was remarkable how powerful xgboost was. When I was practicing for the competition, I honed in on a process early on. Something like:
+
+* Pick out the numeric variables, or the low-cardinality categorical ones
+* Mean-impute missing values, if any
+* Fit an xgboost boosted trees model, with learn_rate = .02, mtry varying from 2-4, and trees varying from 300 to 800
+* Plot a learning curve (showing the performance as the number of trees varies), and use it to adjust mtry and trees if needed.
+
+In most of the episodes, this rote process usually me most of the way to my final model! It almost always outperformed anything I could get from linear or random forest models even with heavy feature engineering and tuning. The process is especially convenient because you can get an entire learning curve (varying the number of trees) from a single model fit, so it's a very fast use of the tune package.
+
+![http://varianceexplained.org/images/sliced/learning_curve.png]()
+
+This is very different from my experience with keras (a deep learning framework), which I found I'd usually have to spend a solid amount of time fiddling with hyperparameters before I could even beat a random forest. It's certainly possible that keras could have been beaten some of my boosted trees, but I doubt I would have gotten to it nearly as quickly.
+
+In my own professional work I usually like to build interpretable models, make visualizations, and understand the role of each feature. But boosted trees are farther in the direction of "black boxes". But competitive ML has an amusing way of "focusing the mind" on a performance metric.
+
+![http://varianceexplained.org/images/sliced/iq_meme.png]()
+
+Besides which, I was impressed how much I could learn from an importance measure like Gini coefficient. Unlike the features in a linear model, these could represent interesting nonlinear terms, and it helped highlight unimportant terms I could drop from the model. Speaking of which...
+
+### Even with xgboost, feature engineering can still help!
+
+Something I quickly discovered with xgboost is that providing *too many* features could easily hurt it. Low-value features in an xgboost dilute the importance of the remaining ones, since they show up in fewer randomly selected trees. This is in contrast to regularized linear regression (e.g. LASSO), where it's usually pretty easy for the penalty term to set extra coefficients to zero.
+
+This pops up when we have categorical predictors. If a category has 20 levels, then when turned into one-hot encoding that's 20 additional binary variables. Those end up in a lot more trees than (say) one or two highly predictive models. I tended to find that my models performed better when I just removed high-cardinality variables up front (my understanding is that catboost might handle these more gracefully!)
+
+### Stacking models is even better!
+
+Once you've hit a point of diminishing returns when tuning a model, it's often better to start fresh with another model that makes a different *kind* of error, and average their predictions together. This is the principle behind model stacking, a type of ensemble learning.
+
+I've been using the [stacks](https://github.com/tidymodels/stacks) package for creating these blended models:
+
+![Screenshot from the stacks package, showing how a model stack is made up of multiple fitted models, such as KNN, LM, and SV, that each get a "stacking coefficient".](https://github.com/tidymodels/stacks/raw/main/man/figures/class_model_stack.png)
+
+A perfect example was in the AirBnb pricing video. I was able to get to a strong model with xgboost based on numeric variables like latitude/longitude (very effective with trees!) and a few categorical variables.
+
+![http://varianceexplained.org/images/sliced/feature_importance.png]()
+
+But the data also included sparse categorical variables like neighborhood, and a text field (the apartment name) where tokens like "townhouse" or "studio" had a lot of predictive power
+
+![http://varianceexplained.org/images/sliced/linear_predictors.png]()
+
+The [stacks](https://github.com/tidymodels/stacks) package puts this process within the tidymodels framework. Of all the tidymodels packages I've used, the stacks package is the one that's most clearly in an early state. For starters, it's overly opinionated about the way it combines models, always using a regularized linear model with bootstrapped cross validation. Partly because of that, it's slow even when combining just two or three models. And I've found that it sometimes gives unhelpful errors when the inputs aren't set up correctly, which suggests it needs some heavier "playtesting".
+
+### Conclusion: I need to learn to meme
+
+I learned a lot about tidymodels and machine learning in the process of competing. But my favorite part of the experience was that because it was hosted publicly on Kaggle, people watching the competition live could compete themselves (often outperforming the contestants!)
+
+This meant we got to learn as a community (and joke around as well).
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">This thread is for <a href="https://twitter.com/kierisi?ref_src=twsrc%5Etfw">@kierisi</a> and <a href="https://twitter.com/kierisi?ref_src=twsrc%5Etfw">@kierisi</a> only. If you&#39;re not <a href="https://twitter.com/kierisi?ref_src=twsrc%5Etfw">@kierisi</a> you can scroll past.<br><br>ARTISINAL SLICED MEMES FOR JESSE, a 🧵: <a href="https://t.co/mYHR3bobGE">pic.twitter.com/mYHR3bobGE</a></p>&mdash; Chelsea Parlett-Pelleriti (@ChelseaParlett) <a href="https://twitter.com/ChelseaParlett/status/1407497657044459523?ref_src=twsrc%5Etfw">June 23, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+My competitor [Jesse Mostipak](https://twitter.com/kierisi) came up with a brilliant schtick of showing memes on screen while models were training:
+
+![http://varianceexplained.org/images/sliced/jesse_meme.png]()
+
+This was at least one of the reasons she crushed me in the chat voting portion of our competition (and one of the reasons I'm trying out some memes in this post- better late than never!)
+
+![http://varianceexplained.org/images/sliced/ml-meme.png]()
+
+Whether you like the memes or not, if you'd like to see me go to the playoffs you can [vote for me here](https://forms.gle/1JNC31EAbxTAafYb7). And whether or not I do make it to the playoffs, I'll be joining in with some submissions, and I'm honored to have had the chance to learn with everyone.
+
+```{r}
+knitr::knit_exit()
+```
+
+For instance, here's a (lightly adapted) bit of model-fitting code from [episode 7](https://github.com/dgrtwo/data-screencasts/blob/master/ml-practice/ep7.Rmd).
+
+```{r eval = FALSE}
+train_10fold <- train %>%
+  vfold_cv(10)
+
+xg_rec <- recipe(churned ~ ., data = train) %>%
+  step_mutate(avg_transaction_amt = total_trans_amt / total_trans_ct) %>%
+  step_impute_mean(all_numeric_predictors()) %>%
+  step_rm(id, income_category, education_level) %>%
+  step_dummy(all_nominal_predictors())
+
+xg_wf <- workflow(xg_rec,
+                  boost_tree("classification",
+                             trees = tune(),
+                             mtry = tune(),
+                             tree_depth = tune(),
+                             learn_rate = tune()))
+
+xg_tune <- xg_wf %>%
+  tune_grid(train_10fold,
+            metrics = metric_set(rmse),
+            control = control,
+            grid = crossing(trees = seq(400, 1300, 20),
+                            mtry = c(2, 3),
+                            tree_depth = c(5),
+                            learn_rate = c(.018, .02)))
+
+autoplot(xg_tune)
+```
+
