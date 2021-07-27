@@ -15,8 +15,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This summer I've been competing in the [SLICED](https://www.notion.so/SLICED-Show-c7bd26356e3a42279e2dfbafb0480073) machine learning competition, where contestants have two hours to open a new dataset, build a predictive model, and be scored as a Kaggle submission. Contestants are graded primarily on model performance, but also get points for visualization and storytelling, and from audience votes. Before SLICED I had almost no experience with competitive ML, so I learned a lot!
 
-As of today I'm 5th in the standings, short of the cutoff for the playoffs, so if you want to see me continue [**you can vote for me as an "Audience Choice" here!**](https://forms.gle/1JNC31EAbxTAafYb7) (Though one of my favorite things about the competition is that audience members can compete along with Kaggle submissions, so I expect I'll join in in any case!)
-
 For four of the SLICED episodes (including the two weeks I was competing) I shared a screencast of my process. Episodes 4 and 7 were the ones I was competing live (you can also find the code [here](https://github.com/dgrtwo/data-screencasts/tree/master/ml-practice)):
 
 * [Episode 1: Board Game Ratings](https://www.youtube.com/watch?v=HBZyqkVjUgY)
@@ -52,7 +50,7 @@ The recipes package offers functions for performing these operations (like `step
 
 The recipes package makes this explicit: a recipe has to be trained on data (with `prep()`) before it is applied to a dataset (with `bake()`). By combining this recipe with a model specification into a `workflow` object, you encapsulate the entire start-to-end process of feature engineering and modeling. Other tidymodels tools then take advantage of this encapsulated workflow.
 
-#### Recipes and data leakage
+#### Other packages
 
 I've found each of the other packages also plays a role in the tidymodels "pit of success". For instance:
 
@@ -140,7 +138,7 @@ This was at least one of the reasons she crushed me in the chat voting portion o
 
 ![](http://varianceexplained.org/images/sliced/ml-meme.png)
 
-Whether you like the memes or not, if you'd like to see me go to the playoffs you can [vote for me here](https://forms.gle/1JNC31EAbxTAafYb7). And whether or not I do make it to the playoffs, I'll be joining in with some submissions, and I'm honored to have had the chance to learn with everyone.
+No matter how far I make it in the playoffs, I'll be joining in with some submissions every chance I get, and I'm honored to have had the chance to learn with everyone.
 
 [^julia]: Thanks especially to my friend and colleague [Julia Silge](https://juliasilge.com/), who works on the tidymodels packages full time and helped talk through some of my thoughts and feedback on the packages. 
 
