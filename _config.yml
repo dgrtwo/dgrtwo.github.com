@@ -6,7 +6,7 @@ url:              http://varianceexplained.org
 # url:              http://localhost:4000
 
 name: Variance Explained
-description: Thoughts on statistics, data science, computational biology, education, and R
+description: Thoughts on statistics, data science, education, and R
 
 # Jekyll configuration
 
@@ -31,7 +31,7 @@ kramdown:
 owner:
   name: David Robinson
   avatar: david_robinson_picture2.jpg
-  bio: "Principal Data Scientist at Heap, works in R and Python."
+  bio: "Director of Data Scientist at Heap, works in R."
   email: admiral.david@gmail.com
   disqus-shortname: varianceexplained
   twitter: drob
