@@ -18,7 +18,7 @@ Not everyone agrees. Among the anti-ggplot2 crowd is JHU Professor Jeff Leek, [w
 
 > But I don't use ggplot2 and I get nervous when other people do.
 
-Jeff is a great statistician, an excellent and experienced educator, and among my favorite scientific communicators. He and I agree strongly on a wide variety number of topics, ranging from [peer review](http://simplystatistics.org/posts/2013/10/23/the-leek-group-guide-to-reviewing-scientific-papers/) to [p-values](http://simplystatistics.org/posts/2014/02/14/on-the-scalability-of-statistical-procedures-why-the-p-value-bashers-just-dont-get-it/).
+Jeff is a great statistician, an excellent and experienced educator, and among my favorite scientific communicators. He and I agree strongly on a wide variety number of topics, ranging from [peer review](https://simplystatistics.org/posts/2013-10-23-the-leek-group-guide-to-reviewing-scientific-papers/) to [p-values](https://simplystatistics.org/posts/2014-02-14-on-the-scalability-of-statistical-procedures-why-the-p-value-bashers-just-dont-get-it/).
 
 In short, I've learned a lot from him. So I appreciate the chance to return the favor. I'm going to try crossing this one last disagreement off the list.
 
@@ -151,7 +151,7 @@ I really didn't set out to make fun of Jeff, but in this case it was a bit hard 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Short version of why <a href="https://twitter.com/jtleek">@jtleek</a> uses base plotting instead of ggplot2:<a href="https://t.co/gUQvhEsjWv">https://t.co/gUQvhEsjWv</a> <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> <a href="https://t.co/cDVbIpe1sS">pic.twitter.com/cDVbIpe1sS</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/697858212779806721">February 11, 2016</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-But here I'll address the substance. For one thing, I don't think the example he presents is a particularly convincing one: as [Ben Moore](http://simplystatistics.org/posts/2016/02/11/why-i-dont-use-ggplot2/#comment-2508952644) notes, issues (1) and (2) are entirely the consequence of Jeff plotting the figure at a large size then scaling it down, and issues (3) and (4) are solvable with `+ labs(x = "Latitude", y = "Longitude", color = "# of stations")`. But I understand it as a theoretical possibility. If your defaults are too good, you might not be inspired to improve them.
+But here I'll address the substance. For one thing, I don't think the example he presents is a particularly convincing one: as [Ben Moore](https://simplystatistics.org/posts/2016-02-11-why-i-dont-use-ggplot2/#comment-2508952644) notes, issues (1) and (2) are entirely the consequence of Jeff plotting the figure at a large size then scaling it down, and issues (3) and (4) are solvable with `+ labs(x = "Latitude", y = "Longitude", color = "# of stations")`. But I understand it as a theoretical possibility. If your defaults are too good, you might not be inspired to improve them.
 
 But Jeff is presenting a false dichotomy between **"Get a pretty good plot in ggplot2, submit it immediately,"** and **"Get an ugly plot in base R, spend time to make it into a great plot"**. Here are other possibilities I'd argue are far more relevant:
 
