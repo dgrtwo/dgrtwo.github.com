@@ -12,13 +12,13 @@ comments: true
 
 If you've read my blog, taken one of my classes, or sat next to me on an airplane, you probably know [I'm a big fan of Hadley Wickham's ggplot2 package](http://varianceexplained.org/r/teach_ggplot2_to_beginners/), especially compared to base R plotting.
 
-Not everyone agrees. Among the anti-ggplot2 crowd is JHU Professor Jeff Leek, [who yesterday wrote up his thoughts on the Simply Statistics blog](http://simplystatistics.org/2016/02/11/why-i-dont-use-ggplot2/):
+Not everyone agrees. Among the anti-ggplot2 crowd is JHU Professor Jeff Leek, [who yesterday wrote up his thoughts on the Simply Statistics blog](https://simplystatistics.org/posts/2016-02-11-why-i-dont-use-ggplot2/):
 
 > ...one place I lose tons of street cred in the data science community is when I talk about ggplot2... ggplot2 is an R package/phenomenon for data visualization. It was created by Hadley Wickham, who is (in my opinion) perhaps the most important statistician/data scientist on the planet. It is one of the best maintained, most important, and really well done R packages. Hadley also supports R software like few other people on the planet.
 
 > But I don't use ggplot2 and I get nervous when other people do.
 
-Jeff is a great statistician, an excellent and experienced educator, and among my favorite scientific communicators. He and I agree strongly on a wide variety number of topics, ranging from [peer review](http://simplystatistics.org/2013/10/23/the-leek-group-guide-to-reviewing-scientific-papers/) to [p-values](http://simplystatistics.org/2014/02/14/on-the-scalability-of-statistical-procedures-why-the-p-value-bashers-just-dont-get-it/).
+Jeff is a great statistician, an excellent and experienced educator, and among my favorite scientific communicators. He and I agree strongly on a wide variety number of topics, ranging from [peer review](https://simplystatistics.org/posts/2013-10-23-the-leek-group-guide-to-reviewing-scientific-papers/) to [p-values](https://simplystatistics.org/posts/2014-02-14-on-the-scalability-of-statistical-procedures-why-the-p-value-bashers-just-dont-get-it/).
 
 In short, I've learned a lot from him. So I appreciate the chance to return the favor. I'm going to try crossing this one last disagreement off the list.
 
@@ -28,7 +28,7 @@ I'll start by giving credit: there are plenty of cases that base plotting tools 
 
 As one example (which Jeff brings up in his post), take *clustered heatmaps*. Heatmaps are in fact easy to make in ggplot2 with `geom_tile` or `geom_raster`, but not with row- and column-clustering built-in, which is essential in applications such as genomics. You'll see that I use a base-plotting heatmap [in my "Love Actually" post](http://varianceexplained.org/r/love-actually-network/), as well as a base-plotted dendrogram.[^heatmap2]
 
-But it's worth noting that in many cases, ggplot2 extensions have sprung up even to replace those areas where base plotting had an advantage. For example, plotting networks used to be base R's territory, led by plotting methods in the [igraph package](http://igraph.org/redirect.html). But I recently started using the [ggraph](https://github.com/thomasp85/ggraph) package and been blown away by how much easier it is to control visual aesthetics of a network.
+But it's worth noting that in many cases, ggplot2 extensions have sprung up even to replace those areas where base plotting had an advantage. For example, plotting networks used to be base R's territory, led by plotting methods in the [igraph package](https://r.igraph.org/). But I recently started using the [ggraph](https://github.com/thomasp85/ggraph) package and been blown away by how much easier it is to control visual aesthetics of a network.
 
 ### Is base R better for quick, exploratory plots?
 
@@ -151,7 +151,7 @@ I really didn't set out to make fun of Jeff, but in this case it was a bit hard 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Short version of why <a href="https://twitter.com/jtleek">@jtleek</a> uses base plotting instead of ggplot2:<a href="https://t.co/gUQvhEsjWv">https://t.co/gUQvhEsjWv</a> <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> <a href="https://t.co/cDVbIpe1sS">pic.twitter.com/cDVbIpe1sS</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/697858212779806721">February 11, 2016</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-But here I'll address the substance. For one thing, I don't think the example he presents is a particularly convincing one: as [Ben Moore](http://simplystatistics.org/2016/02/11/why-i-dont-use-ggplot2/#comment-2508952644) notes, issues (1) and (2) are entirely the consequence of Jeff plotting the figure at a large size then scaling it down, and issues (3) and (4) are solvable with `+ labs(x = "Latitude", y = "Longitude", color = "# of stations")`. But I understand it as a theoretical possibility. If your defaults are too good, you might not be inspired to improve them.
+But here I'll address the substance. For one thing, I don't think the example he presents is a particularly convincing one: as [Ben Moore](https://simplystatistics.org/posts/2016-02-11-why-i-dont-use-ggplot2/#comment-2508952644) notes, issues (1) and (2) are entirely the consequence of Jeff plotting the figure at a large size then scaling it down, and issues (3) and (4) are solvable with `+ labs(x = "Latitude", y = "Longitude", color = "# of stations")`. But I understand it as a theoretical possibility. If your defaults are too good, you might not be inspired to improve them.
 
 But Jeff is presenting a false dichotomy between **"Get a pretty good plot in ggplot2, submit it immediately,"** and **"Get an ugly plot in base R, spend time to make it into a great plot"**. Here are other possibilities I'd argue are far more relevant:
 
