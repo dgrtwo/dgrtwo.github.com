@@ -7,10 +7,461 @@ date: "2024-05-15"
 ```{r}
 library(tidyverse)
 library(unvotes)
+library(scales)
+library(lubridate)
+
+theme_set(theme_light())
+```
+
+# Chapter 1: Data summarization
+
+```{r}
+?un_votes
+
+un_votes
+
+un_votes %>%
+  filter(country == "United States")
+
+un_votes %>%
+  count(country, sort = TRUE)
+
+un_votes %>%
+  count(vote)
+
+by_country <- un_votes %>%
+  group_by(country) %>%
+  summarize(n_votes = n(),
+            n_yes = sum(vote == "yes")) %>%
+  mutate(pct_yes = n_yes / n_votes) %>%
+  filter(n_votes >= 100) %>%
+  arrange(pct_yes)
+
+by_country
+```
+
+# Chapter 2: Visualization
+
+```{r}
+by_country %>%
+  arrange(desc(pct_yes)) %>%
+  head(20) %>%
+  mutate(country = fct_reorder(country, pct_yes)) %>%
+  ggplot(aes(x = pct_yes, y = country)) +
+  geom_point() +
+  # geom_text(aes(label = percent(pct_yes, .1)),
+  #           hjust = 1, vjust = 1, size = 3) +
+  scale_x_continuous(labels = percent_format(1),
+                     breaks = seq(.92, .97, .01)) +
+  labs(x = "% of votes that were 'Yes'",
+       y = "",
+       title = "What are the most positive countries in the UN?",
+       subtitle = "Based on UN General Assembly votes 1946-2017")
+```
+
+# Chapter 3: Joining
+
+```{r}
+un_votes
+?un_roll_calls
+
+View(un_roll_calls)
+
+un_votes_joined <- un_votes %>%
+  inner_join(un_roll_calls, by = "rcid") %>%
+  mutate(year = year(date))
+
+summarize_votes <- function(tbl) {
+  tbl %>%
+    summarize(n_votes = n(),
+              n_yes = sum(vote == "yes"),
+              .groups = "drop") %>%
+    mutate(pct_yes = n_yes / n_votes)
+}
+
+un_votes_joined %>%
+  group_by(year) %>%
+  summarize_votes() %>%
+  ggplot(aes(x = year, y = pct_yes)) +
+  geom_line() +
+  expand_limits(y = 0)
+
+by_country_year <- un_votes_joined %>%
+  group_by(year, country) %>%
+  summarize_votes()
+
+by_country_year %>%
+  filter(country %in% c("United States")) %>%
+  ggplot(aes(x = year, y = pct_yes, color = country)) +
+  geom_line() +
+  stat_smooth(method = "lm") +
+  expand_limits(y = 0)
+```
+
+# Chapter 4: Statistical modelling
+
+```{r}
+by_country_year <- un_votes_joined %>%
+  group_by(year, country) %>%
+  summarize_votes()
+
+us <- by_country_year %>%
+  filter(country == "United States")
+
+lm(pct_yes ~ year, data = us) %>%
+  summary()
+
+glm(cbind(n_yes, n_votes - n_yes) ~ year,
+    data = us,
+    family = "binomial") %>%
+  summary()
+
+11.6218203 - 0.0056824 * 1946
+
+# 1 / (1 + exp(-x))
+plogis(40.06562 - 0.02062 * 2100)
+
+library(broom)
+
+us <- by_country_year %>%
+  filter(country == "United States")
+
+us_glm <- glm(cbind(n_yes, n_votes - n_yes) ~ year,
+              data = us,
+              family = "binomial")
+
+augment(us_glm, us, type.predict = "response") %>%
+  ggplot(aes(year, pct_yes)) +
+  geom_line() +
+  geom_line(aes(y = .fitted), color = "blue")
 ```
 
 ```{r}
+barbados <- by_country_year %>%
+  filter(country == "Barbados")
 
+barbados_glm <- glm(cbind(n_yes, n_votes - n_yes) ~ year,
+                    data = barbados,
+                    family = "binomial")
+
+augment(barbados_glm, barbados, type.predict = "response") %>%
+  ggplot(aes(year, pct_yes)) +
+  geom_line() +
+  geom_line(aes(y = .fitted), color = "blue")
 ```
+
+```{r}
+library(broom)
+
+models <- by_country_year %>%
+  group_by(country) %>%
+  summarize(total_votes = sum(n_votes),
+            mod = list(glm(cbind(n_yes, n_votes - n_yes) ~ year,
+                           family = "binomial"))) %>%
+  filter(total_votes >= 100)
+
+models %>%
+  mutate(augmented = map(mod, augment, type.predict = "response")) %>%
+  unnest(augmented) %>%
+  inner_join(by_country_year, by = c("country", "year")) %>%
+  select(country, year, pct_yes, .fitted) %>%
+  filter(country %in% c("Nepal", "China", "United States",
+                        "Madagascar", "Russia", "Australia",
+                        "United Kingdom", "Canada", "Brazil")) %>%
+  ggplot(aes(x = year, y = pct_yes)) +
+  geom_line() +
+  geom_line(aes(y = .fitted), color = "blue") +
+  facet_wrap(~ country)
+
+us_glm
+summary(us_glm)
+tidy(us_glm)
+
+models %>%
+  mutate(tidied = map(mod, tidy)) %>%
+  unnest(tidied) %>%
+  filter(term == "year", p.value < .05) %>%
+  arrange((estimate))
+```
+
+### Chapter 4: Maps
+
+```{r}
+world <- map_data("world") %>%
+  as_tibble() %>%
+  filter(region != "Antarctica") %>%
+  mutate(region = fct_recode(region, "United States" = "USA"))
+
+world %>%
+  left_join(by_country, by = c(region = "country")) %>%
+  ggplot(aes(long, lat, group = group, fill = pct_yes)) +
+  geom_polygon() +
+  scale_fill_viridis_c(labels = percent_format()) +
+  ggthemes::theme_map() +
+  labs(fill = "% yes votes")
+```
+
+
+# Choices:
+
+* Clustering / country similarity (4)
+* Issues
+* Text Mining (2)
+* Join to WDI country characteristics (GDP, population, education)
+
+### Chapter 5: Similarities + clustering
+
+```{r}
+# How similar are US and Canada?
+un_votes %>%
+  filter(country %in% c("United States", "Russia")) %>%
+  mutate(vote = as.integer(vote)) %>%
+  select(rcid, country_code, vote) %>%
+  pivot_wider(names_from = country_code, values_from = vote,
+              values_fill = 2) %>%
+  mutate(distance = abs(RU - US)) %>%
+  summarize(mean(distance),
+            cor(RU, US))
+
+# install.packages("widyr")
+library(widyr)
+
+country_correlations <- un_votes %>%
+  mutate(vote_coded = 2 - as.integer(vote)) %>%
+  pairwise_cor(country, rcid, vote_coded)
+
+country_correlations %>%
+  arrange((correlation))
+
+average_correlation_by_country <- country_correlations %>%
+  filter(!is.na(correlation)) %>%
+  group_by(item1) %>%
+  summarize(average_correlation = mean(correlation),
+            median_correlation = median(correlation)) %>%
+  arrange((average_correlation))
+
+# This map shows mostly what we saw earlier
+world %>%
+  left_join(average_correlation_by_country, by = c(region = "item1")) %>%
+  ggplot(aes(long, lat, group = group, fill = average_correlation)) +
+  geom_polygon() +
+  scale_fill_viridis_c(labels = percent_format()) +
+  ggthemes::theme_map() +
+  labs(fill = "Average correlation")
+
+country_correlations %>%
+  filter(item1 == "South Africa") %>%
+  arrange((correlation))
+
+centroids <- world %>%
+  group_by(region) %>%
+  summarize(long = mean(long),
+            lat = mean(lat))
+
+centroids %>%
+  ggplot(aes(long, lat)) +
+  geom_point() +
+  geom_text(aes(label = region))
+
+library(fuzzyjoin)
+
+country_distances <- centroids %>%
+  geo_inner_join(centroids, by = c("long", "lat"),
+                 max_dist = 1e6,
+                 distance_col = "distance") %>%
+  filter(region.x != region.y) %>%
+  select(item1 = region.x,
+         item2 = region.y,
+         distance)
+
+country_correlations %>%
+  filter(item1 > item2) %>%
+  inner_join(country_distances) %>%
+  ggplot(aes(x = distance, y = correlation)) +
+  geom_point(alpha = .2) +
+  geom_smooth(method = "lm") +
+  scale_x_log10()
+```
+
+```{r}
+# install.packages("ggraph")
+library(ggraph)
+library(tidygraph)
+
+country_correlations <- un_votes %>%
+  mutate(vote_coded = 2 - as.integer(vote)) %>%
+  pairwise_cor(country, rcid, vote_coded)
+```
+
+```{r}
+set.seed(2024)
+country_correlations %>%
+  arrange(desc(correlation)) %>%
+  filter(item1 > item2) %>%
+  head(200) %>%
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(alpha = correlation)) +
+  geom_node_point(color = "lightblue", size = 3) +
+  geom_node_text(aes(label = name),
+                 repel = TRUE) +
+  theme_void()
+```
+
+```{r}
+set.seed(2024)
+country_correlations <- un_votes %>%
+  mutate(vote_coded = 2 - as.integer(vote)) %>%
+  pairwise_cor(country, rcid, vote_coded)
+
+graph <- country_correlations %>%
+  arrange(desc(correlation)) %>%
+  filter(item1 > item2) %>%
+  head(250) %>%
+  as_tbl_graph() %>%
+  inner_join(by_country, by = c(name = "country")) %>%
+  inner_join(centroids, by = c(name = "region"))
+
+layout <- graph %>%
+  create_layout(layout = "fr")
+layout$x <- layout$long
+layout$y <- layout$lat
+
+world_joined <- world %>%
+  left_join(by_country, by = c(region = "country"))
+
+ggraph(layout) +
+  geom_polygon(aes(x = long, y = lat, group = group, fill = pct_yes),
+               data = world_joined) +
+  geom_edge_link(aes(alpha = correlation)) +
+  scale_color_viridis_c(labels = percent_format()) +
+  scale_fill_viridis_c(labels = percent_format()) +
+  scale_edge_alpha(guide = "none") +
+  ggthemes::theme_map() +
+  labs(fill = "% Yes")
+```
+
+## Chapter 6: Text mining
+
+```{r}
+library(tidytext)
+
+roll_calls <- un_roll_calls %>%
+  select(rcid, date, short) %>%
+  filter(!is.na(short))
+
+roll_call_words <- roll_calls %>%
+  unnest_tokens(word, short) %>%
+  anti_join(stop_words, by = "word")
+
+roll_call_words %>%
+  count(word, sort = TRUE)
+
+by_word_decade <- roll_call_words %>%
+  mutate(decade = 10 * (year(date) %/% 10)) %>%
+  group_by(decade) %>%
+  mutate(total_votes_decade = n_distinct(rcid)) %>%
+  ungroup() %>%
+  count(word, decade, total_votes_decade, sort = TRUE) %>%
+  mutate(pct_votes = n / total_votes_decade)
+
+by_word_decade %>%
+  complete(word, decade, fill = list(pct_votes = 0)) %>%
+  filter(word %in% c("nuclear", "apartheid", "admission", "food")) %>%
+  ggplot(aes(decade, pct_votes)) +
+  geom_line() +
+  expand_limits(y = 0) +
+  facet_wrap(~ word)
+
+by_word_decade %>%
+  complete(word, decade, fill = list(pct_votes = 0))
+```
+
+Could apply the same nested tidy modeling approach earlier to "What words are growing/shrinking in frequency?"
+
+```{r}
+by_word <- roll_call_words %>%
+  inner_join(un_votes, by = "rcid", multiple = "all") %>%
+  group_by(word) %>%
+  summarize_votes() %>%
+  arrange(desc(n_votes))
+
+by_word %>%
+  head(100) %>%
+  ggplot(aes(n_votes, pct_yes)) +
+  geom_point() +
+  geom_text(aes(label = word), check_overlap = TRUE,
+            vjust = 1, hjust = 1) +
+  expand_limits(x = 0) +
+  scale_x_log10()
+```
+
+```{r}
+library(widyr)
+
+roll_call_words %>%
+  add_count(word) %>%
+  filter(n >= 100) %>%
+  pairwise_cor(word, rcid, sort = TRUE) %>%
+  filter(item1 > item2) %>%
+  head(50) %>%
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(alpha = correlation)) +
+  geom_node_point(color = "lightblue", size = 3) +
+  geom_node_text(aes(label = name),
+                 repel = TRUE) +
+  theme_void()
+```
+
+```{r}
+roll_calls %>%
+  unnest_tokens(bigram, short, token = "ngrams", n = 2) %>%
+  count(bigram, sort = TRUE)
+```
+
+## Chapter 7: Animation
+
+```{r}
+# Restart R
+install.packages("gganimate")
+install.packages("gifski")
+
+library(gganimate)
+
+un_votes %>%
+  inner_join(un_roll_calls, by = "rcid") %>%
+  filter(country %in% c("United States", "Russia",
+                        "France", "United Kingdom", "China")) %>%
+  group_by(year = year(date), country) %>%
+  summarize_votes() %>%
+  ggplot(aes(year, pct_yes)) +
+  geom_line() +
+  facet_wrap(~ country) +
+  transition_manual(year, cumulative = TRUE)
+```
+
+```{r}
+library(gganimate)
+
+world <- map_data("world") %>%
+  as_tibble() %>%
+  filter(region != "Antarctica") %>%
+  mutate(region = fct_recode(region, "United States" = "USA"))
+
+g <- world %>%
+  crossing(year = unique(by_country_year$year)) %>%
+  left_join(by_country_year, by = c(region = "country", "year")) %>%
+  arrange(region, order) %>%
+  ggplot(aes(long, lat, group = group, fill = pct_yes)) +
+  geom_polygon() +
+  scale_fill_viridis_c(labels = percent_format()) +
+  transition_manual(year) +
+  ggthemes::theme_map() +
+  labs(fill = "% yes votes",
+       title = "Year: {current_frame}")
+
+animate(g, nframes = 100, fps = 4)
+```
+
+
 
 
