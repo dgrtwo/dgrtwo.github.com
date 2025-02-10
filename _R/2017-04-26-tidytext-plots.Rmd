@@ -193,7 +193,7 @@ peak_decile %>%
 
 We see that the words in the start and the end are the most specific to their particular deciles: for example, almost half of the occurrences of the word "fictional" occurred in the first 10% of the story. The middle sections have words that are more spread out (having, say, 14% of their occurrences in that section rather than the expected 10%), but they still are words that make sense in the story structure.
 
-Let's visualize the full trend for the words overrepreseted at each point.
+Let's visualize the full trend for the words overrepresented at each point.
 
 ```{r sparklines, fig.width = 8, fig.height = 8, echo = FALSE}
 peak_decile %>%
@@ -203,7 +203,7 @@ peak_decile %>%
   ungroup() %>%
   inner_join(decile_counts, by = "word") %>%
   mutate(word = reorder(word, peak_decile + .001 * fraction_peak)) %>%
-  ggplot(aes(decile, n / number, color = word)) +
+  ggplot(aes(decile.y, n / number, color = word)) +
   geom_line(show.legend = FALSE, size = 1) +
   geom_hline(lty = 2, yintercept = .1, alpha = .5) +
   facet_wrap(~ word, ncol = 6) +
